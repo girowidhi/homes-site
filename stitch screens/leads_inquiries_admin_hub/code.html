@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leads &amp; Inquiries | Luxury Kenyan Estates Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#1b1d0e",
+                    "inverse-surface": "#2e3132",
+                    "on-tertiary-container": "#878873",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c4c6cf",
+                    "surface-variant": "#e1e3e4",
+                    "on-tertiary-fixed-variant": "#474836",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#050700",
+                    "on-secondary-container": "#007353",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#476083",
+                    "secondary-fixed-dim": "#7bd8b1",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-container-high": "#e7e8e9",
+                    "tertiary-fixed": "#e4e4cc",
+                    "surface-bright": "#f8f9fa",
+                    "primary": "#000613",
+                    "on-primary-fixed": "#001c3a",
+                    "surface-dim": "#d9dadb",
+                    "surface-container-low": "#f3f4f5",
+                    "on-background": "#191c1d",
+                    "secondary": "#006c4e",
+                    "primary-container": "#001f3f",
+                    "tertiary-container": "#1e2011",
+                    "tertiary-fixed-dim": "#c8c8b0",
+                    "on-surface-variant": "#43474e",
+                    "on-secondary-fixed": "#002115",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "surface-container": "#edeeef",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "background": "#f8f9fa",
+                    "inverse-on-surface": "#f0f1f2",
+                    "outline": "#74777f",
+                    "on-surface": "#191c1d",
+                    "inverse-primary": "#afc8f0",
+                    "secondary-fixed": "#97f5cc",
+                    "on-error-container": "#93000a",
+                    "surface": "#f8f9fa",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-container": "#6f88ad",
+                    "secondary-container": "#97f5cc",
+                    "primary-fixed-dim": "#afc8f0",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#00513a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "16px",
+                    "md": "24px",
+                    "container-max": "1280px",
+                    "xl": "64px",
+                    "base": "4px",
+                    "xs": "8px",
+                    "lg": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Montserrat"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Montserrat"],
+                    "display-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        line-height: 1;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #c4c6cf;
+        border-radius: 10px;
+      }
+      .drawer-shadow {
+        box-shadow: -10px 0 30px rgba(0, 31, 63, 0.08);
+      }
+      .row-hover:hover {
+        background-color: rgba(243, 244, 245, 0.8);
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-fixed-dim selection:text-on-secondary-fixed">
+<!-- SideNavBar Shell -->
+<aside class="w-64 h-screen fixed left-0 top-0 z-50 bg-surface-container-low border-r border-outline-variant shadow-sm flex flex-col py-md px-xs">
+<div class="px-sm mb-lg">
+<div class="flex items-center gap-xs mb-base">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">domain</span>
+</div>
+<div>
+<h2 class="text-label-md font-black text-primary uppercase tracking-tighter">Admin Panel</h2>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Prestige Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">domain</span>
+<span class="text-label-md font-label-md">Properties</span>
+</a>
+<!-- Active Tab: Leads -->
+<a class="flex items-center gap-xs bg-secondary-container text-on-secondary-container rounded-lg px-sm py-xs translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="text-label-md font-label-md">Leads</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">image</span>
+<span class="text-label-md font-label-md">Media Library</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="text-label-md font-label-md">Site Content</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">search_insights</span>
+<span class="text-label-md font-label-md">SEO Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-md space-y-1">
+<div class="px-sm py-xs mb-xs">
+<div class="bg-secondary-fixed/20 rounded-xl p-xs border border-secondary-fixed/30">
+<p class="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1">System Status</p>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-on-secondary-fixed-variant">Healthy</span>
+</div>
+</div>
+</div>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">support_agent</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar Shell -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant px-md flex justify-between items-center">
+<div class="flex items-center gap-md">
+<h1 class="text-headline-md font-bold text-primary tracking-tight">Leads &amp; Inquiries</h1>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-label-md focus:outline-none focus:ring-2 focus:ring-primary/10 w-64 transition-all" placeholder="Search inquiries..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
+<button class="bg-primary text-white px-md py-2 rounded-lg text-label-md font-bold hover:bg-primary-container active:scale-95 duration-150 transition-all">
+                    Add Listing
+                </button>
+<img class="w-10 h-10 rounded-full border-2 border-surface-container-high object-cover ml-2" data-alt="A professional portrait of a senior real estate administrator in a modern office, soft bokeh background of Nairobi skyline, high resolution, corporate modern aesthetic with warm lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPDkf9SyyQ0xxJLizoVhcCPjsOjhI4BR2wNGHqsjqIBQ1JU5iIX-OmCG59hGxSAIs1nRle1iRU_rkh3-V9NoedfawHYXWn1ZsMhckBPplK1TEly0sG7kzf_NVrU5CuQoxYq5whGyfL6rESkZ_i1HXQt0mWNCvFkSJDA3DuCX1RoNpt3hKSPhMKvWv6jIVirSdFxwZlwbtfGW2edG7t-qDjkJ1vqp2Ic22onqP1ThdNSHRQq2tcW5onx_b4-yXiUDAfADlgO9cYE_8"/>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-md lg:p-lg flex-1">
+<!-- Filters & Tabs -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-lg">
+<div class="flex p-1 bg-surface-container-low rounded-xl w-fit">
+<button class="px-md py-2 rounded-lg text-label-md font-bold bg-white shadow-sm text-primary transition-all">All</button>
+<button class="px-md py-2 rounded-lg text-label-md font-medium text-on-surface-variant hover:text-primary transition-all">New</button>
+<button class="px-md py-2 rounded-lg text-label-md font-medium text-on-surface-variant hover:text-primary transition-all">Follow-up Needed</button>
+</div>
+<div class="flex items-center gap-xs">
+<button class="flex items-center gap-xs px-md py-2 border border-outline-variant rounded-lg text-label-md font-medium text-on-surface-variant hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filter
+                    </button>
+<button class="flex items-center gap-xs px-md py-2 border border-outline-variant rounded-lg text-label-md font-medium text-on-surface-variant hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export
+                    </button>
+</div>
+</div>
+<!-- Leads Table -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">Client Name</th>
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">Property Interested In</th>
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">Date Received</th>
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">Status</th>
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">Assigned Agent</th>
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Lead Row 1 -->
+<tr class="row-hover cursor-pointer transition-colors" onclick="openDrawer('Zainab Otieno', 'Muthaiga Heights Penthouse', 'Oct 24, 2023', 'Viewing Scheduled', 'John Kamau')">
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-xs">ZO</div>
+<div>
+<p class="text-label-md font-bold text-primary">Zainab Otieno</p>
+<p class="text-label-sm text-outline">zainab.o@example.com</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<p class="text-label-md font-medium text-primary">Muthaiga Heights Penthouse</p>
+<p class="text-label-sm text-outline">Ref: KH-90210</p>
+</td>
+<td class="px-md py-4 text-label-md text-on-surface-variant">Oct 24, 2023</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary-fixed text-on-primary-fixed">
+                                        Viewing Scheduled
+                                    </span>
+</td>
+<td class="px-md py-4 text-label-md text-on-surface-variant">John Kamau</td>
+<td class="px-md py-4 text-right">
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</td>
+</tr>
+<!-- Lead Row 2 -->
+<tr class="row-hover cursor-pointer transition-colors" onclick="openDrawer('Mark Spencer', 'Karen Serene Villa', 'Oct 25, 2023', 'New', 'Sarah Njeri')">
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed-dim text-on-primary-fixed-variant flex items-center justify-center font-bold text-xs">MS</div>
+<div>
+<p class="text-label-md font-bold text-primary">Mark Spencer</p>
+<p class="text-label-sm text-outline">m.spencer@luxuryintl.com</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<p class="text-label-md font-medium text-primary">Karen Serene Villa</p>
+<p class="text-label-sm text-outline">Ref: KH-44512</p>
+</td>
+<td class="px-md py-4 text-label-md text-on-surface-variant">Oct 25, 2023</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container">
+                                        New
+                                    </span>
+</td>
+<td class="px-md py-4 text-label-md text-on-surface-variant">Sarah Njeri</td>
+<td class="px-md py-4 text-right">
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</td>
+</tr>
+<!-- Lead Row 3 -->
+<tr class="row-hover cursor-pointer transition-colors" onclick="openDrawer('Amina Abdi', 'Gigiri Diplomatic Estate', 'Oct 22, 2023', 'Contacted', 'John Kamau')">
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold text-xs">AA</div>
+<div>
+<p class="text-label-md font-bold text-primary">Amina Abdi</p>
+<p class="text-label-sm text-outline">amina@un.org</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<p class="text-label-md font-medium text-primary">Gigiri Diplomatic Estate</p>
+<p class="text-label-sm text-outline">Ref: KH-11234</p>
+</td>
+<td class="px-md py-4 text-label-md text-on-surface-variant">Oct 22, 2023</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-surface-container-highest text-on-surface-variant">
+                                        Contacted
+                                    </span>
+</td>
+<td class="px-md py-4 text-label-md text-on-surface-variant">John Kamau</td>
+<td class="px-md py-4 text-right">
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</td>
+</tr>
+<!-- Lead Row 4 -->
+<tr class="row-hover cursor-pointer transition-colors">
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">CK</div>
+<div>
+<p class="text-label-md font-bold text-primary">Charles Karanja</p>
+<p class="text-label-sm text-outline">charles@karanja.co.ke</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<p class="text-label-md font-medium text-primary">Runda Luxury Mansion</p>
+<p class="text-label-sm text-outline">Ref: KH-88721</p>
+</td>
+<td class="px-md py-4 text-label-md text-on-surface-variant">Oct 21, 2023</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-inverse-surface text-inverse-on-surface">
+                                        Closed
+                                    </span>
+</td>
+<td class="px-md py-4 text-label-md text-on-surface-variant">Sarah Njeri</td>
+<td class="px-md py-4 text-right">
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-md py-4 border-t border-outline-variant flex items-center justify-between bg-surface-container-low">
+<p class="text-label-sm text-on-surface-variant">Showing 1 to 4 of 24 results</p>
+<div class="flex items-center gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-variant disabled:opacity-50 transition-all" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-variant transition-all">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="w-full py-sm mt-auto bg-surface border-t border-outline-variant flex justify-between items-center px-xl">
+<p class="text-label-sm font-label-sm text-outline">© 2024 Kenyan Luxury Estates Management. All Rights Reserved.</p>
+<div class="flex gap-md">
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="#">API Documentation</a>
+</div>
+</footer>
+</main>
+<!-- Details Drawer -->
+<div class="fixed inset-0 bg-black/40 z-[60] hidden transition-opacity duration-300 opacity-0" id="backdrop" onclick="closeDrawer()"></div>
+<div class="fixed top-0 right-0 h-full w-full max-w-md bg-surface z-[70] translate-x-full transition-transform duration-300 ease-in-out drawer-shadow flex flex-col" id="drawer">
+<div class="p-md border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+<h3 class="text-headline-md font-bold text-primary tracking-tight">Lead Details</h3>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors" onclick="closeDrawer()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-md space-y-lg">
+<!-- Header Info -->
+<div class="flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-2xl mb-md shadow-sm border-2 border-white" id="d-avatar">ZO</div>
+<h4 class="text-headline-md font-bold text-primary" id="d-name">Zainab Otieno</h4>
+<p class="text-body-md text-on-surface-variant" id="d-email">zainab.o@example.com</p>
+<div class="mt-sm flex gap-xs">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-primary-fixed text-on-primary-fixed" id="d-status">Viewing Scheduled</span>
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-surface-container-high text-on-surface-variant">Investor</span>
+</div>
+</div>
+<!-- Property Interest -->
+<div class="bg-surface-container-low rounded-xl p-md border border-outline-variant">
+<p class="text-label-sm font-bold text-outline uppercase tracking-wider mb-xs">Property Interest</p>
+<p class="text-label-md font-bold text-primary mb-1" id="d-property">Muthaiga Heights Penthouse</p>
+<div class="flex items-center gap-xs text-secondary font-medium text-label-sm">
+<span class="material-symbols-outlined text-[16px]">payments</span>
+<span>Budget: KES 120M</span>
+</div>
+</div>
+<!-- Inquiry Message -->
+<div class="space-y-sm">
+<p class="text-label-sm font-bold text-outline uppercase tracking-wider">Inquiry Message</p>
+<div class="bg-white p-md rounded-xl border border-outline-variant italic text-on-surface-variant relative">
+                    "I am highly interested in the penthouse viewing. My schedule is free this coming Thursday or Friday. Please confirm if the agent can provide a physical walkthrough at 10:00 AM."
+                    <div class="absolute -top-2 left-4 w-4 h-4 bg-white border-l border-t border-outline-variant rotate-45"></div>
+</div>
+</div>
+<!-- History Timeline -->
+<div class="space-y-md">
+<p class="text-label-sm font-bold text-outline uppercase tracking-wider">Communication History</p>
+<div class="space-y-md relative before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant">
+<div class="flex gap-md relative">
+<div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[14px] text-white">mail</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-primary">Email Sent: Viewing Confirmed</p>
+<p class="text-label-sm text-outline">Oct 24, 2023 · By John Kamau</p>
+</div>
+</div>
+<div class="flex gap-md relative">
+<div class="w-6 h-6 rounded-full bg-outline flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[14px] text-white">call</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-primary">Phone Call: Initial Screening</p>
+<p class="text-label-sm text-outline">Oct 23, 2023 · By John Kamau</p>
+</div>
+</div>
+<div class="flex gap-md relative">
+<div class="w-6 h-6 rounded-full bg-secondary-fixed flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[14px] text-on-secondary-fixed">assignment</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-primary">Lead Assigned to Agent</p>
+<p class="text-label-sm text-outline">Oct 22, 2023 · System Automated</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-md border-t border-outline-variant bg-surface-container-low flex gap-sm">
+<button class="flex-1 bg-primary text-white py-2 rounded-lg text-label-md font-bold hover:bg-primary-container transition-all">Send Email</button>
+<button class="flex-1 border border-outline-variant bg-white text-primary py-2 rounded-lg text-label-md font-bold hover:bg-surface-variant transition-all">Log Activity</button>
+</div>
+</div>
+<script>
+        function openDrawer(name, property, date, status, agent) {
+            const drawer = document.getElementById('drawer');
+            const backdrop = document.getElementById('backdrop');
+            
+            // Populate data
+            document.getElementById('d-name').innerText = name;
+            document.getElementById('d-property').innerText = property;
+            document.getElementById('d-status').innerText = status;
+            document.getElementById('d-avatar').innerText = name.split(' ').map(n => n[0]).join('');
+            
+            // Dynamic status styling
+            const statusEl = document.getElementById('d-status');
+            statusEl.className = 'px-3 py-1 rounded-full text-xs font-bold ';
+            if (status === 'New') statusEl.classList.add('bg-secondary-container', 'text-on-secondary-container');
+            else if (status === 'Viewing Scheduled') statusEl.classList.add('bg-primary-fixed', 'text-on-primary-fixed');
+            else if (status === 'Contacted') statusEl.classList.add('bg-surface-container-highest', 'text-on-surface-variant');
+            else statusEl.classList.add('bg-inverse-surface', 'text-inverse-on-surface');
+
+            // Show drawer
+            backdrop.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.add('opacity-100');
+                drawer.classList.remove('translate-x-full');
+            }, 10);
+        }
+
+        function closeDrawer() {
+            const drawer = document.getElementById('drawer');
+            const backdrop = document.getElementById('backdrop');
+
+            drawer.classList.add('translate-x-full');
+            backdrop.classList.remove('opacity-100');
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+</body></html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Cache-Control" content="public, max-age=3600">
+<meta name="theme-color" content="#1a365d" />
+<meta name="description" content="Media library for TobillionHomes admin. Upload and manage property photos, videos, and virtual tours." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
+<title>Media Library | TobillionHomes Admin Hub</title>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Montserrat:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .media-card:hover .media-overlay { opacity: 1; }
+        .media-overlay { opacity: 0; transition: opacity 0.2s ease-in-out; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #e1e3e4 25%, #edeeef 50%, #e1e3e4 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s ease-in-out infinite;
+            border-radius: 0.5rem;
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        
+        .upload-progress-bar {
+            height: 3px;
+            background: linear-gradient(90deg, #006c4e, #97f5cc);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .skeleton-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        @media (max-width: 1024px) { .skeleton-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 640px) { .skeleton-grid { grid-template-columns: repeat(2, 1fr); } }
+        .skeleton-card {
+            aspect-ratio: 1;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: #e1e3e4;
+        }
+        .skeleton-card .skeleton-block {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+
+        .media-grid-loading {
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e1e3e4",
+                        "tertiary": "#050700",
+                        "surface-container-low": "#f3f4f5",
+                        "outline": "#74777f",
+                        "tertiary-container": "#1e2011",
+                        "inverse-primary": "#afc8f0",
+                        "surface-dim": "#d9dadb",
+                        "secondary": "#006c4e",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00513a",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "on-primary-fixed": "#001c3a",
+                        "surface-tint": "#476083",
+                        "primary-fixed": "#d4e3ff",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "primary": "#000613",
+                        "on-secondary-fixed": "#002115",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#afc8f0",
+                        "on-tertiary-container": "#878873",
+                        "on-tertiary-fixed": "#1b1d0e",
+                        "on-secondary-container": "#007353",
+                        "tertiary-fixed-dim": "#c8c8b0",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-primary-container": "#6f88ad",
+                        "on-tertiary-fixed-variant": "#474836",
+                        "primary-container": "#001f3f",
+                        "background": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e4e4cc",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9fa",
+                        "secondary-container": "#97f5cc",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#edeeef",
+                        "surface-container-highest": "#e1e3e4",
+                        "secondary-fixed": "#97f5cc",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-bright": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c4c6cf",
+                        "inverse-surface": "#2e3132",
+                        "secondary-fixed-dim": "#7bd8b1",
+                        "on-surface": "#191c1d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "xs": "8px",
+                        "gutter": "24px",
+                        "lg": "40px",
+                        "base": "4px",
+                        "sm": "16px",
+                        "md": "24px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="config.js"></script>
+<script defer src="db.js"></script>
+</head>
+<body class="bg-background text-on-surface flex overflow-x-hidden">
+<!-- Sidebar Overlay (mobile only) -->
+<div class="admin-sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- SideNavBar Component -->
+<aside class="admin-sidebar" id="admin-sidebar">
+  <div class="sidebar-header flex items-center justify-between px-sm mb-lg flex-shrink-0">
+    <div class="sidebar-brand flex items-center gap-xs">
+      <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary flex-shrink-0">
+        <span class="material-symbols-outlined text-body-md" style="font-variation-settings: 'FILL' 1;">domain</span>
+      </div>
+      <span class="text-label-md font-black text-primary sidebar-label whitespace-nowrap">Admin Panel</span>
+    </div>
+    <button class="sidebar-toggle-btn" id="sidebar-toggle" aria-label="Toggle sidebar">
+      <span class="material-symbols-outlined">menu_open</span>
+    </button>
+  </div>
+  <p class="px-sm mb-lg text-label-sm font-label-sm text-outline sidebar-subtitle">Prestige Management</p>
+  <nav class="sidebar-nav flex-grow space-y-base overflow-y-auto overflow-x-hidden px-xs">
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-dashboard.html">
+      <span class="material-symbols-outlined flex-shrink-0">dashboard</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Dashboard</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-manage-properties.html">
+      <span class="material-symbols-outlined flex-shrink-0">domain</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Properties</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-leads.html">
+      <span class="material-symbols-outlined flex-shrink-0">group</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Leads</span>
+    </a>
+    <a class="flex items-center gap-xs bg-secondary-container text-on-secondary-container rounded-lg px-sm py-xs" href="admin-media.html">
+      <span class="material-symbols-outlined flex-shrink-0" style="font-variation-settings: 'FILL' 1;">image</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Media Library</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-content.html">
+      <span class="material-symbols-outlined flex-shrink-0">edit_note</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Site Content</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-content.html">
+      <span class="material-symbols-outlined flex-shrink-0">search_insights</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">SEO Settings</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer mt-auto px-xs space-y-base flex-shrink-0">
+    <div class="sidebar-status px-sm py-xs text-label-sm font-label-sm text-secondary bg-secondary-container/20 rounded-lg mb-sm whitespace-nowrap">
+      System Status: Healthy
+    </div>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors" href="contact.html">
+      <span class="material-symbols-outlined flex-shrink-0">support_agent</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Support</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors" href="admin-login.html" id="logout-link">
+      <span class="material-symbols-outlined flex-shrink-0 text-error">logout</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Logout</span>
+    </a>
+  </div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="admin-main flex-grow flex flex-col min-h-screen">
+<!-- Top Control Bar -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant flex items-center px-md">
+<div class="flex items-center gap-sm flex-grow min-w-0">
+<button class="mobile-hamburger-admin p-1 rounded-lg hover:bg-surface-container-low transition-colors flex-shrink-0" id="mobile-menu-btn" aria-label="Open menu">
+<span class="material-symbols-outlined text-on-surface-variant">menu</span>
+</button>
+<h2 class="text-headline-md font-bold text-primary whitespace-nowrap">Media Library</h2>
+<div class="admin-header-search max-w-md w-full relative flex-shrink min-w-0">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-md focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all" placeholder="Search filename or property..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm flex-shrink-0">
+<button class="flex items-center gap-xs bg-secondary text-on-secondary px-md py-sm rounded-lg font-label-md hover:shadow-lg transition-shadow" id="headerUploadBtn">
+<span class="material-symbols-outlined">cloud_upload</span>
+                    Upload New Media
+                </button>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors relative group">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+</div>
+</header>
+<!-- Media Context Area -->
+<div class="flex flex-col lg:flex-row flex-grow overflow-hidden">
+<!-- Library Grid -->
+<div class="flex-grow overflow-y-auto p-md hide-scrollbar">
+<!-- Upload Zone -->
+<div class="mb-md border-2 border-dashed border-outline-variant rounded-xl p-md lg:p-xl flex flex-col items-center justify-center gap-md hover:border-secondary transition-colors cursor-pointer group bg-surface-container-low/30" id="uploadZone">
+<span class="material-symbols-outlined text-4xl text-outline group-hover:text-secondary transition-colors">cloud_upload</span>
+<p class="text-label-md text-on-surface-variant group-hover:text-secondary transition-colors">Drop files here or click to upload</p>
+<p class="text-label-sm text-outline">Supports JPG, PNG, WebP, MP4, PDF — Max 50MB</p>
+<input type="file" id="fileInput" accept="image/*,video/*,application/pdf" multiple class="hidden"/>
+</div>
+<div id="uploadProgress" class="hidden mb-md space-y-sm"></div>
+<!-- Filters & Bulk Actions -->
+<div class="flex flex-wrap items-center justify-between gap-sm mb-md bg-surface-container-low p-sm rounded-xl border border-outline-variant/20">
+<div class="flex flex-wrap items-center gap-sm">
+<select id="filterType" class="bg-transparent border border-outline-variant rounded-lg px-sm py-xs text-label-sm font-label-sm text-primary focus:ring-0 cursor-pointer">
+<option value="">All Types</option>
+<option value="image">Images</option>
+<option value="video">Videos</option>
+<option value="application">Documents</option>
+</select>
+<p class="text-label-sm text-outline" id="mediaCount">0 assets</p>
+</div>
+<div class="flex gap-xs items-center" id="bulkActions">
+<button class="flex items-center gap-xs text-error font-label-md px-md py-xs hover:bg-error/5 rounded-lg transition-colors disabled:opacity-40 disabled:pointer-events-none" id="bulkDeleteBtn" disabled>
+<span class="material-symbols-outlined text-[18px]">delete</span>
+<span class="hidden sm:inline">Bulk Delete</span>
+</button>
+</div>
+</div>
+<!-- Media Grid -->
+<div id="mediaGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-md pb-xl">
+<div class="col-span-full text-center py-xl text-on-surface-variant">
+<span class="material-symbols-outlined animate-spin inline-block">sync</span> Loading media...
+</div>
+</div>
+</div>
+<!-- Metadata Sidebar (hidden on mobile) -->
+<aside class="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-outline-variant/30 bg-surface-container-lowest flex flex-col overflow-y-auto" id="metadataSidebar">
+<div class="p-md border-b border-outline-variant/20">
+<h3 class="text-label-md text-primary mb-sm font-bold">Asset Preview</h3>
+<div class="aspect-video w-full rounded-lg overflow-hidden bg-surface-container-high relative flex items-center justify-center" id="previewContainer">
+<span class="material-symbols-outlined text-4xl text-outline">image</span>
+</div>
+<div class="mt-md flex flex-col gap-xs">
+<h4 class="font-bold text-primary truncate" id="previewName">Select an asset</h4>
+<p class="text-label-sm text-on-surface-variant" id="previewDate"></p>
+</div>
+</div>
+<div class="p-md space-y-md flex-1 overflow-y-auto">
+<div>
+<p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-tighter font-bold">Details</p>
+<div class="space-y-sm text-sm">
+<div class="flex justify-between"><span class="text-on-surface-variant">File Size</span><span class="font-semibold" id="metaSize">—</span></div>
+<div class="flex justify-between"><span class="text-on-surface-variant">Type</span><span class="font-semibold" id="metaType">—</span></div>
+<div class="flex justify-between"><span class="text-on-surface-variant">Uploaded</span><span class="font-semibold" id="metaDate">—</span></div>
+</div>
+</div>
+</div>
+<div class="mt-auto p-md bg-surface-container-low/50 border-t border-outline-variant/20 grid grid-cols-2 gap-sm" id="sidebarActions">
+<button class="flex items-center justify-center gap-xs py-sm border border-outline-variant rounded-lg text-label-md hover:bg-white transition-colors disabled:opacity-40" id="downloadBtn" disabled><span class="material-symbols-outlined text-[18px]">download</span> Download</button>
+<button class="flex items-center justify-center gap-xs py-sm border border-outline-variant rounded-lg text-label-md hover:bg-white transition-colors disabled:opacity-40" id="copyUrlBtn" disabled><span class="material-symbols-outlined text-[18px]">link</span> Copy URL</button>
+<button class="flex items-center justify-center gap-xs py-sm bg-error/10 text-error rounded-lg text-label-md hover:bg-error/20 transition-colors col-span-2 disabled:opacity-40" id="deleteBtn" disabled><span class="material-symbols-outlined text-[18px]">delete</span> Delete Asset</button>
+</div>
+</aside>
+</div>
+<!-- Lightbox Overlay -->
+<div class="fixed inset-0 z-[100] bg-black/90 hidden items-center justify-center" id="lightbox">
+<button class="absolute top-4 right-4 text-white p-2 hover:bg-white/10 rounded-full transition-colors z-10" id="lightboxClose"><span class="material-symbols-outlined text-3xl">close</span></button>
+<img class="max-w-[90vw] max-h-[90vh] object-contain rounded-xl" id="lightboxImage" src="" alt="Preview"/>
+</div>
+<footer class="w-full py-sm mt-auto bg-surface border-t border-outline-variant flex justify-between items-center px-xl">
+<p class="font-label-sm text-on-surface-variant">© 2024 TobillionHomes. Modern Luxury Real Estate Kenya.</p>
+<div class="flex gap-md">
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="privacy.html">Terms of Service</a>
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="admin-dashboard.html">Staff Portal</a>
+</div>
+</footer>
+<script>
+let mediaItems = [];
+let selectedMedia = null;
+let selectedPaths = new Set();
+
+function formatSize(bytes) {
+  if (!bytes) return '—';
+  const units = ['B','KB','MB','GB'];
+  let i = 0;
+  let size = bytes;
+  while (size >= 1024 && i < units.length-1) { size /= 1024; i++; }
+  return size.toFixed(i === 0 ? 0 : 1) + ' ' + units[i];
+}
+
+function formatDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function getMediaType(mime) {
+  if (!mime) return 'application';
+  return mime.split('/')[0];
+}
+
+function getTypeLabel(mime) {
+  const t = getMediaType(mime);
+  if (t === 'image') return 'Photo';
+  if (t === 'video') return 'Video';
+  return 'Document';
+}
+
+function getTypeColor(mime) {
+  const t = getMediaType(mime);
+  if (t === 'image') return 'bg-primary/80';
+  if (t === 'video') return 'bg-error/80';
+  return 'bg-secondary/80';
+}
+
+function renderMediaCard(item) {
+  const mime = item.type || 'application/octet-stream';
+  const typeLabel = getTypeLabel(mime);
+  const typeColor = getTypeColor(mime);
+  const isImage = mime.startsWith('image/');
+  const isVideo = mime.startsWith('video/');
+  const checked = selectedPaths.has(item.id) ? 'checked' : '';
+  return `
+    <div class="group media-card relative aspect-square rounded-xl overflow-hidden border border-outline-variant/30 shadow-sm bg-surface-container cursor-pointer ${selectedMedia?.id === item.id ? 'ring-2 ring-secondary' : ''}" data-id="${item.id}" onclick="selectMedia('${item.id}')">
+      <div class="absolute top-3 left-3 z-20" onclick="event.stopPropagation()">
+        <input class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary cursor-pointer media-checkbox" type="checkbox" data-id="${item.id}" ${checked} onchange="toggleBulk('${item.id}')"/>
+      </div>
+      <div class="absolute top-3 right-3 z-20 ${typeColor} backdrop-blur px-xs py-[2px] rounded text-[10px] text-white font-bold uppercase tracking-wider">${typeLabel}</div>
+      ${isImage ? `<div class="w-full h-full bg-cover bg-center" style="background-image:url('${item.url}')"></div>`
+      : isVideo ? `<div class="w-full h-full bg-cover bg-center flex items-center justify-center" style="background-image:url('${item.url}')"><div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-lg flex items-center justify-center border border-white/40"><span class="material-symbols-outlined text-white text-3xl">play_arrow</span></div></div>`
+      : `<div class="w-full h-full bg-white flex items-center justify-center p-xl"><div class="flex flex-col items-center gap-sm"><span class="material-symbols-outlined text-4xl text-outline">description</span><p class="text-label-sm text-outline text-center truncate max-w-full px-sm">${item.name}</p></div></div>`}
+      <div class="media-overlay absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent p-md flex flex-col justify-end text-white">
+        <p class="font-label-md truncate">${item.name}</p>
+        <p class="text-[10px] opacity-80">${formatSize(item.size)}</p>
+      </div>
+    </div>
+  `;
+}
+
+function selectMedia(id) {
+  const item = mediaItems.find(m => m.id === id);
+  if (!item) return;
+  selectedMedia = item;
+
+  // update sidebar
+  const mime = item.type || '';
+  const isImage = mime.startsWith('image/');
+  document.getElementById('previewName').textContent = item.name;
+  document.getElementById('previewDate').textContent = formatDate(item.created_at);
+  document.getElementById('metaSize').textContent = formatSize(item.size);
+  document.getElementById('metaType').textContent = mime || '—';
+  document.getElementById('metaDate').textContent = formatDate(item.created_at);
+
+  const container = document.getElementById('previewContainer');
+  if (isImage) {
+    container.innerHTML = `<img class="w-full h-full object-cover" src="${item.url}" alt="${item.name}" loading="lazy"/>`;
+  } else {
+    container.innerHTML = `<span class="material-symbols-outlined text-4xl text-outline">${mime.startsWith('video/') ? 'play_circle' : 'description'}</span>`;
+  }
+
+  document.getElementById('downloadBtn').disabled = false;
+  document.getElementById('copyUrlBtn').disabled = false;
+  document.getElementById('deleteBtn').disabled = false;
+
+  // highlight card
+  document.querySelectorAll('.media-card').forEach(c => c.classList.remove('ring-2','ring-secondary'));
+  document.querySelector(`.media-card[data-id="${id}"]`)?.classList.add('ring-2','ring-secondary');
+}
+
+function skeletonHTML() {
+  const n = window.innerWidth < 640 ? 4 : window.innerWidth < 1024 ? 6 : 8;
+  return '<div class="col-span-full"><div class="skeleton-grid">' +
+    Array.from({ length: n }, () =>
+      '<div class="skeleton-card"><div class="skeleton skeleton-block"></div></div>'
+    ).join('') +
+    '</div><p class="text-center text-label-sm text-outline mt-md animate-pulse">Fetching your assets...</p></div>';
+}
+
+async function loadMedia() {
+  const grid = document.getElementById('mediaGrid');
+  grid.classList.add('media-grid-loading');
+  grid.innerHTML = skeletonHTML();
+  try {
+    const result = await Promise.race([
+      fetchMediaItems(),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 15000))
+    ]);
+    mediaItems = result || [];
+  } catch (e) {
+    console.error("loadMedia error:", e);
+    mediaItems = [];
+  }
+  renderMedia();
+  grid.classList.remove('media-grid-loading');
+}
+
+function renderMedia() {
+  const filterType = document.getElementById('filterType').value;
+  let filtered = mediaItems;
+  if (filterType) filtered = mediaItems.filter(m => getMediaType(m.type) === filterType);
+
+  const grid = document.getElementById('mediaGrid');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="col-span-full text-center py-xl text-on-surface-variant">No media found. Upload your first asset above.</div>';
+  } else {
+    grid.innerHTML = filtered.map(renderMediaCard).join('');
+  }
+  document.getElementById('mediaCount').textContent = `${filtered.length} asset${filtered.length !== 1 ? 's' : ''}`;
+  updateBulkDeleteBtn();
+}
+
+function toggleBulk(id) {
+  if (selectedPaths.has(id)) selectedPaths.delete(id);
+  else selectedPaths.add(id);
+  updateBulkDeleteBtn();
+}
+
+function updateBulkDeleteBtn() {
+  const btn = document.getElementById('bulkDeleteBtn');
+  btn.disabled = selectedPaths.size === 0;
+  btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">delete</span><span class="hidden sm:inline">Bulk Delete${selectedPaths.size ? ` (${selectedPaths.size})` : ''}</span>`;
+}
+
+const ALLOWED_TYPES = ['image/jpeg','image/png','image/webp','image/gif','video/mp4','video/webm','application/pdf'];
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+
+function validateFile(file) {
+  if (!ALLOWED_TYPES.includes(file.type)) return `${file.name}: unsupported type (${file.type || 'unknown'}). Allowed: JPG, PNG, WebP, GIF, MP4, WebM, PDF.`;
+  if (file.size > MAX_FILE_SIZE) return `${file.name}: exceeds 50MB limit.`;
+  return null;
+}
+
+async function uploadFiles(files) {
+  const progress = document.getElementById('uploadProgress');
+  progress.classList.remove('hidden');
+
+  const valid = [], errors = [];
+  for (const f of files) {
+    const err = validateFile(f);
+    if (err) errors.push(err);
+    else valid.push(f);
+  }
+
+  if (valid.length === 0) {
+    progress.innerHTML = `<div class="bg-error/10 rounded-xl border border-error/30 p-md text-center"><p class="text-label-md font-semibold text-error">No valid files to upload</p><p class="text-label-sm text-on-surface-variant mt-xs">${errors.join('<br>')}</p></div>`;
+    setTimeout(() => { progress.classList.add('hidden'); progress.innerHTML = ''; }, 5000);
+    return;
+  }
+
+  progress.innerHTML = `<div class="bg-surface-container-low rounded-xl border border-outline-variant/30 p-md space-y-sm"><div class="flex items-center justify-between"><span class="text-label-md font-semibold text-primary">Uploading ${valid.length} file(s)...</span><span class="text-label-sm text-outline" id="uploadPercent">0%</span></div><div class="w-full bg-outline-variant/40 rounded-full h-1"><div class="upload-progress-bar" id="uploadBar" style="width:0%"></div></div><p class="text-label-sm text-on-surface-variant" id="uploadStatus">Starting...</p></div>`;
+  if (errors.length) showToast(errors[0], 'error');
+
+  let success = 0, fail = 0;
+  for (let i = 0; i < valid.length; i++) {
+    const file = valid[i];
+    const pct = Math.round(((i) / valid.length) * 100);
+    document.getElementById('uploadBar').style.width = pct + '%';
+    document.getElementById('uploadPercent').textContent = pct + '%';
+    document.getElementById('uploadStatus').textContent = `Uploading ${file.name}...`;
+    const result = await uploadMediaItem(file);
+    if (result.data) {
+      success++;
+    } else {
+      fail++;
+    }
+    const donePct = Math.round(((i + 1) / valid.length) * 100);
+    document.getElementById('uploadBar').style.width = donePct + '%';
+    document.getElementById('uploadPercent').textContent = donePct + '%';
+  }
+  document.getElementById('uploadStatus').textContent = fail ? `${success} uploaded, ${fail} failed` : `${success} file(s) uploaded successfully!`;
+  document.getElementById('uploadBar').style.background = fail && !success ? 'linear-gradient(90deg, #ba1a1a, #ffdad6)' : 'linear-gradient(90deg, #006c4e, #97f5cc)';
+  setTimeout(() => { progress.classList.add('hidden'); progress.innerHTML = ''; }, 3000);
+  showToast(`${success} file(s) uploaded${fail ? `, ${fail} failed` : ''}`, fail ? 'error' : 'success');
+  mediaItems = await fetchMediaItems();
+  renderMedia();
+}
+
+function requireDB() {
+  if (typeof fetchMediaItems !== 'function') {
+    const missing = typeof window.supabase === 'undefined' ? 'Supabase JS library failed to load (CDN issue).' : typeof supabaseClient === 'undefined' || supabaseClient === null ? 'Supabase client not initialized.' : 'db.js did not load correctly.';
+    document.getElementById('mediaGrid').innerHTML = `<div class="col-span-full text-center py-xl text-error"><span class="material-symbols-outlined text-3xl inline-block mb-sm">cloud_off</span><p class="text-label-md font-semibold">${missing}</p><p class="text-label-sm text-on-surface-variant mt-xs">Check your internet connection or try refreshing. If using a local server, ensure you have internet access for CDN scripts.</p></div>`;
+    return false;
+  }
+  return true;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (!requireDB()) return;
+  loadMedia();
+
+  // Upload zone + header upload button
+  const zone = document.getElementById('uploadZone');
+  const input = document.getElementById('fileInput');
+  zone.addEventListener('click', () => input.click());
+  document.getElementById('headerUploadBtn')?.addEventListener('click', () => input.click());
+  zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('border-secondary', 'bg-secondary/5'); });
+  zone.addEventListener('dragleave', () => { zone.classList.remove('border-secondary', 'bg-secondary/5'); });
+  zone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    zone.classList.remove('border-secondary', 'bg-secondary/5');
+    if (e.dataTransfer.files.length) uploadFiles(e.dataTransfer.files);
+  });
+  input.addEventListener('change', () => { if (input.files.length) uploadFiles(input.files); input.value = ''; });
+
+  // Filter
+  document.getElementById('filterType').addEventListener('change', renderMedia);
+
+  // Bulk delete
+  document.getElementById('bulkDeleteBtn').addEventListener('click', async () => {
+    const confirmed = await showConfirm('Delete Assets', `Delete ${selectedPaths.size} asset(s)? This cannot be undone.`);
+    if (!selectedPaths.size || !confirmed) return;
+    const deleted = await deleteMediaItems([...selectedPaths]);
+    if (deleted) {
+      showToast(`${selectedPaths.size} asset(s) deleted`, 'success');
+      selectedPaths.clear();
+      selectedMedia = null;
+      mediaItems = await fetchMediaItems();
+      renderMedia();
+      // reset sidebar
+      document.getElementById('previewName').textContent = 'Select an asset';
+      document.getElementById('previewDate').textContent = '';
+      document.getElementById('metaSize').textContent = '—';
+      document.getElementById('metaType').textContent = '—';
+      document.getElementById('metaDate').textContent = '—';
+      document.getElementById('previewContainer').innerHTML = '<span class="material-symbols-outlined text-4xl text-outline">image</span>';
+      document.getElementById('downloadBtn').disabled = true;
+      document.getElementById('copyUrlBtn').disabled = true;
+      document.getElementById('deleteBtn').disabled = true;
+    } else showToast('Failed to delete assets', 'error');
+  });
+
+  // Sidebar actions
+  document.getElementById('downloadBtn').addEventListener('click', () => {
+    if (!selectedMedia) return;
+    window.open(selectedMedia.url, '_blank');
+  });
+  document.getElementById('copyUrlBtn').addEventListener('click', () => {
+    if (!selectedMedia) return;
+    navigator.clipboard.writeText(selectedMedia.url).then(() => showToast('URL copied!', 'success')).catch(() => showToast('Failed to copy URL', 'error'));
+  });
+  document.getElementById('deleteBtn').addEventListener('click', async () => {
+    if (!selectedMedia) return;
+    const confirmed = await showConfirm('Delete Asset', `Delete "${selectedMedia.name}"?`);
+    if (!confirmed) return;
+    const deleted = await deleteMediaItem(selectedMedia.id);
+    if (deleted) {
+      showToast('Asset deleted', 'success');
+      selectedMedia = null;
+      mediaItems = await fetchMediaItems();
+      renderMedia();
+      document.getElementById('previewName').textContent = 'Select an asset';
+      document.getElementById('previewDate').textContent = '';
+      document.getElementById('metaSize').textContent = '—';
+      document.getElementById('metaType').textContent = '—';
+      document.getElementById('metaDate').textContent = '—';
+      document.getElementById('previewContainer').innerHTML = '<span class="material-symbols-outlined text-4xl text-outline">image</span>';
+      document.getElementById('downloadBtn').disabled = true;
+      document.getElementById('copyUrlBtn').disabled = true;
+      document.getElementById('deleteBtn').disabled = true;
+    } else showToast('Failed to delete asset', 'error');
+  });
+
+  // Lightbox
+  document.getElementById('previewContainer').addEventListener('dblclick', () => {
+    if (!selectedMedia || !selectedMedia.type?.startsWith('image/')) return;
+    document.getElementById('lightboxImage').src = selectedMedia.url;
+    document.getElementById('lightbox').classList.remove('hidden');
+    document.getElementById('lightbox').classList.add('flex');
+  });
+  document.getElementById('lightboxClose').addEventListener('click', () => {
+    document.getElementById('lightbox').classList.add('hidden');
+    document.getElementById('lightbox').classList.remove('flex');
+  });
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      document.getElementById('lightbox').classList.add('hidden');
+      document.getElementById('lightbox').classList.remove('flex');
+    }
+  });
+
+  // Search
+  const searchInput = document.querySelector('.admin-header-search input');
+  if (searchInput) searchInput.addEventListener('input', () => { /* could filter client-side */ });
+});
+</script>
+<script src="admin-nav.js"></script>
+</body></html>

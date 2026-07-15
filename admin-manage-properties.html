@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Cache-Control" content="public, max-age=3600">
+<meta name="theme-color" content="#1a365d" />
+<meta name="description" content="Manage all property listings on TobillionHomes. Edit, update status, and organize your real estate inventory." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
+<title>Property Management | Luxury Kenyan Estates Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#1b1d0e",
+                    "inverse-surface": "#2e3132",
+                    "on-tertiary-container": "#878873",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c4c6cf",
+                    "surface-variant": "#e1e3e4",
+                    "on-tertiary-fixed-variant": "#474836",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#050700",
+                    "on-secondary-container": "#007353",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#476083",
+                    "secondary-fixed-dim": "#7bd8b1",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-container-high": "#e7e8e9",
+                    "tertiary-fixed": "#e4e4cc",
+                    "surface-bright": "#f8f9fa",
+                    "primary": "#000613",
+                    "on-primary-fixed": "#001c3a",
+                    "surface-dim": "#d9dadb",
+                    "surface-container-low": "#f3f4f5",
+                    "on-background": "#191c1d",
+                    "secondary": "#006c4e",
+                    "primary-container": "#001f3f",
+                    "tertiary-container": "#1e2011",
+                    "tertiary-fixed-dim": "#c8c8b0",
+                    "on-surface-variant": "#43474e",
+                    "on-secondary-fixed": "#002115",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "surface-container": "#edeeef",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "background": "#f8f9fa",
+                    "inverse-on-surface": "#f0f1f2",
+                    "outline": "#74777f",
+                    "on-surface": "#191c1d",
+                    "inverse-primary": "#afc8f0",
+                    "secondary-fixed": "#97f5cc",
+                    "on-error-container": "#93000a",
+                    "surface": "#f8f9fa",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-container": "#6f88ad",
+                    "secondary-container": "#97f5cc",
+                    "primary-fixed-dim": "#afc8f0",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#00513a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "16px",
+                    "md": "24px",
+                    "container-max": "1280px",
+                    "xl": "64px",
+                    "base": "4px",
+                    "xs": "8px",
+                    "lg": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Montserrat"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Montserrat"],
+                    "display-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .property-table-row:hover {
+            box-shadow: 0px 4px 20px rgba(0, 31, 63, 0.05);
+            transform: translateY(-1px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c4c6cf;
+            border-radius: 10px;
+        }
+    </style>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="config.js"></script>
+<script defer src="db.js"></script>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen overflow-x-hidden">
+<!-- Sidebar Overlay (mobile only) -->
+<div class="admin-sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- SideNavBar Component -->
+<aside class="admin-sidebar" id="admin-sidebar">
+  <div class="sidebar-header flex items-center justify-between px-sm mb-lg flex-shrink-0">
+    <div class="sidebar-brand flex items-center gap-xs">
+      <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary flex-shrink-0">
+        <span class="material-symbols-outlined text-body-md" style="font-variation-settings: 'FILL' 1;">domain</span>
+      </div>
+      <span class="text-label-md font-black text-primary sidebar-label whitespace-nowrap">Admin Panel</span>
+    </div>
+    <button class="sidebar-toggle-btn" id="sidebar-toggle" aria-label="Toggle sidebar">
+      <span class="material-symbols-outlined">menu_open</span>
+    </button>
+  </div>
+  <p class="px-sm mb-lg text-label-sm font-label-sm text-outline sidebar-subtitle">Prestige Management</p>
+  <nav class="sidebar-nav flex-grow space-y-base overflow-y-auto overflow-x-hidden px-xs">
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-dashboard.html">
+      <span class="material-symbols-outlined flex-shrink-0">dashboard</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Dashboard</span>
+    </a>
+    <a class="flex items-center gap-xs bg-secondary-container text-on-secondary-container rounded-lg px-sm py-xs" href="admin-manage-properties.html">
+      <span class="material-symbols-outlined flex-shrink-0" style="font-variation-settings: 'FILL' 1;">domain</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Properties</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-leads.html">
+      <span class="material-symbols-outlined flex-shrink-0">group</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Leads</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-media.html">
+      <span class="material-symbols-outlined flex-shrink-0">image</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Media Library</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-content.html">
+      <span class="material-symbols-outlined flex-shrink-0">edit_note</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Site Content</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-content.html">
+      <span class="material-symbols-outlined flex-shrink-0">search_insights</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">SEO Settings</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer mt-auto px-xs space-y-base flex-shrink-0">
+    <div class="sidebar-status px-sm py-xs text-label-sm font-label-sm text-secondary bg-secondary-container/20 rounded-lg mb-sm whitespace-nowrap">
+      System Status: Healthy
+    </div>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors" href="contact.html">
+      <span class="material-symbols-outlined flex-shrink-0">support_agent</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Support</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors" href="admin-login.html" id="logout-link">
+      <span class="material-symbols-outlined flex-shrink-0 text-error">logout</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Logout</span>
+    </a>
+  </div>
+</aside>
+<!-- Main Content Area -->
+<main class="admin-main flex-grow flex flex-col min-h-screen">
+<!-- TopNavBar Component -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant flex items-center px-md">
+<div class="flex items-center gap-sm flex-grow min-w-0">
+<button class="mobile-hamburger-admin p-1 rounded-lg hover:bg-surface-container-low transition-colors flex-shrink-0" id="mobile-menu-btn" aria-label="Open menu">
+<span class="material-symbols-outlined text-on-surface-variant">menu</span>
+</button>
+<h1 class="text-headline-md font-bold text-primary whitespace-nowrap">Property Inventory</h1>
+<div class="admin-header-search max-w-md w-full relative flex-shrink min-w-0">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-md focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all" placeholder="Search properties, owners, or IDs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm flex-shrink-0">
+<button class="h-10 px-md bg-primary text-on-primary rounded-lg text-label-md font-label-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-xs" id="addListingBtn">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    Add Listing
+                </button>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors relative group" id="notifBtn">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<div class="flex items-center gap-xs border-l border-outline-variant ml-xs pl-sm">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors" id="settingsBtn">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors" id="helpBtn">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden ml-xs border border-outline-variant cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="..." src="..."/>
+</div>
+</div>
+</div>
+</header>
+<!-- View Content -->
+<div class="p-md lg:p-lg max-w-container-max mx-auto w-full flex-1">
+<!-- Page Title & Quick Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<div class="flex items-center gap-xs text-on-surface-variant mb-base">
+<span class="text-label-sm font-label-sm">Home</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-label-sm font-label-sm">Portfolio Management</span>
+</div>
+<h2 class="text-headline-lg font-headline-lg text-primary">Property Inventory</h2>
+<p class="text-body-md text-on-surface-variant">Manage and monitor <span id="propCount">0</span> premium listings across Kenya.</p>
+</div>
+<div class="flex items-center gap-xs bg-surface-container rounded-xl p-xs" id="viewToggles">
+<button class="px-sm py-xs bg-surface shadow-sm rounded-lg text-label-md font-label-md text-primary view-toggle active" data-view="table">Table View</button>
+<button class="px-sm py-xs text-on-surface-variant hover:bg-surface-container-high rounded-lg text-label-md font-label-md transition-colors view-toggle" data-view="grid">Grid View</button>
+<button class="px-sm py-xs text-on-surface-variant hover:bg-surface-container-high rounded-lg text-label-md font-label-md transition-colors view-toggle" data-view="map">Map</button>
+</div>
+</div>
+<!-- Filter Bar -->
+<div class="bg-surface border border-outline-variant rounded-xl p-sm mb-md flex flex-wrap items-center gap-sm shadow-sm">
+<div class="flex items-center gap-xs px-sm py-xs border border-outline-variant rounded-lg text-label-md font-label-md text-on-surface-variant bg-surface-bright cursor-pointer hover:bg-surface-container-low transition-colors" id="clearFiltersBtn" title="Clear all filters">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span>All Filters</span>
+</div>
+<div class="h-6 w-[1px] bg-outline-variant mx-xs"></div>
+<div class="flex items-center gap-sm">
+<select id="filterStatus" class="bg-transparent border-none text-label-md font-label-md text-primary focus:ring-0 cursor-pointer">
+<option value="">All Statuses</option>
+<option>Active</option>
+<option>For Sale</option>
+<option>For Rent</option>
+<option>Sold</option>
+<option>Draft</option>
+</select>
+<select id="filterType" class="bg-transparent border-none text-label-md font-label-md text-primary focus:ring-0 cursor-pointer">
+<option value="">All Types</option>
+<option>Villa</option>
+<option>Apartment</option>
+<option>Penthouse</option>
+<option>Land</option>
+<option>Mansion</option>
+<option>Townhouse</option>
+</select>
+<select id="filterCounty" class="bg-transparent border-none text-label-md font-label-md text-primary focus:ring-0 cursor-pointer">
+<option value="">All Counties</option>
+<option>Nairobi</option>
+<option>Mombasa</option>
+<option>Kiambu</option>
+<option>Nakuru</option>
+<option>Kajiado</option>
+<option>Machakos</option>
+</select>
+</div>
+<div class="ml-auto flex items-center gap-sm">
+<span class="text-label-sm font-label-sm text-outline">Sorted by: Newest First</span>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors text-on-surface-variant" id="exportCsvBtn">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<!-- Main Data Table -->
+<div id="propertiesTable" class="bg-surface border border-outline-variant rounded-xl overflow-x-auto shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-md py-sm text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Property Name</th>
+<th class="px-md py-sm text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Location</th>
+<th class="px-md py-sm text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Category</th>
+<th class="px-md py-sm text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Price (KES)</th>
+<th class="px-md py-sm text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-md py-sm text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody id="propertiesTableBody" class="divide-y divide-outline-variant">
+<tr><td colspan="6" class="text-center py-xl text-on-surface-variant">Loading properties...</td></tr>
+</tbody>
+</table>
+<!-- Pagination Footer -->
+<div class="bg-surface-container-lowest px-md py-sm border-t border-outline-variant flex items-center justify-between">
+<p class="text-label-sm font-label-sm text-on-surface-variant" id="paginationInfo">Showing 0 properties</p>
+<div class="flex items-center gap-xs">
+<button class="p-1 rounded hover:bg-surface-container-low disabled:opacity-50 text-on-surface-variant" id="prevPage" disabled>
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex items-center gap-base" id="pageNumbers">
+</div>
+<button class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant" id="nextPage">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full py-sm mt-auto bg-surface border-t border-outline-variant flex justify-between items-center px-xl">
+<p class="text-label-sm font-label-sm text-outline">© 2024 Kenyan Luxury Estates Management. All Rights Reserved.</p>
+<div class="flex items-center gap-md">
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="privacy.html">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="privacy.html">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="https://supabase.com/docs" target="_blank" rel="noopener">API Documentation</a>
+</div>
+</footer>
+    <!-- Grid View Container -->
+    <div id="gridView" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md"></div>
+    <!-- Map View Container -->
+    <div id="mapView" class="hidden bg-surface-container-low rounded-xl p-xl text-center text-on-surface-variant">
+      <span class="material-symbols-outlined text-4xl mb-sm">map</span>
+      <p>Map view coming soon. Select Table or Grid view to browse properties.</p>
+    </div>
+</div>
+</main>
+    <script>
+        let allProperties = [];
+        let currentView = 'table';
+        let currentPage = 1;
+        const perPage = 10;
+
+        function formatPrice(price) {
+            return Number(price || 0).toLocaleString();
+        }
+
+        function getStatusColor(status) {
+            const map = {
+                'Active': 'bg-secondary text-on-secondary',
+                'For Sale': 'bg-secondary text-on-secondary',
+                'For Rent': 'bg-primary-fixed text-on-primary-fixed',
+                'Sold': 'bg-inverse-surface text-inverse-on-surface',
+                'Draft': 'bg-surface-container-highest text-on-surface-variant'
+            };
+            return map[status] || 'bg-surface-container-high text-on-surface-variant';
+        }
+
+        function formatStatus(status) {
+            return `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-sm font-label-sm ${getStatusColor(status)}">${status || 'N/A'}</span>`;
+        }
+
+        function renderPropertyRow(p) {
+            const loc = [p.location_estate, p.location_county].filter(Boolean).join(', ');
+            return `
+                <tr class="property-table-row transition-all">
+                    <td class="px-md py-md">
+                        <div class="flex items-center gap-md">
+                            <div class="w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container-highest">
+                                <img class="w-full h-full object-cover" src="${p.image_url || 'https://placehold.co/80x60/e1e3e4/74777f?text=No+Image'}" alt="${p.title || ''}" loading="lazy"/>
+                            </div>
+                            <div>
+                                <p class="text-label-md font-label-md text-primary">${p.title || 'Untitled'}</p>
+                                <p class="text-label-sm font-label-sm text-outline">ID: ${p.id ? p.id.substring(0, 8) : 'N/A'}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-md py-md text-body-md text-on-surface">${loc || 'N/A'}</td>
+                    <td class="px-md py-md"><span class="px-2 py-0.5 bg-surface-container-high rounded text-label-sm font-label-sm">${p.type || 'N/A'}</span></td>
+                    <td class="px-md py-md text-label-md font-label-md text-primary">KES ${formatPrice(p.price)}</td>
+                    <td class="px-md py-md">${formatStatus(p.status)}</td>
+                    <td class="px-md py-md text-right">
+                        <div class="flex items-center justify-end gap-1">
+                            <button class="p-1.5 hover:bg-surface-container-low rounded-full text-on-surface-variant view-btn" data-id="${p.id}" title="View">
+                                <span class="material-symbols-outlined text-[18px]">visibility</span>
+                            </button>
+                            <button class="p-1.5 hover:bg-surface-container-low rounded-full text-on-surface-variant edit-btn" data-id="${p.id}" title="Edit">
+                                <span class="material-symbols-outlined text-[18px]">edit</span>
+                            </button>
+                            <button class="p-1.5 hover:bg-error-container rounded-full text-error delete-btn" data-id="${p.id}" title="Delete">
+                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+
+        function renderPropertyCard(p) {
+            const loc = [p.location_estate, p.location_county].filter(Boolean).join(', ');
+            return `
+                <div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+                    <div class="relative h-48 overflow-hidden cursor-pointer" onclick="window.open('detail.html?id=${p.id}','_blank')">
+                        <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" src="${p.image_url || 'https://placehold.co/400x300/e1e3e4/74777f?text=No+Image'}" alt="${p.title || ''}" loading="lazy"/>
+                        <div class="absolute top-2 left-2">${formatStatus(p.status)}</div>
+                    </div>
+                    <div class="p-md">
+                        <h3 class="font-label-md font-bold text-primary mb-1 cursor-pointer hover:text-secondary" onclick="window.open('detail.html?id=${p.id}','_blank')">${p.title || 'Untitled'}</h3>
+                        <p class="text-label-sm text-on-surface-variant flex items-center gap-1 mb-sm"><span class="material-symbols-outlined text-[14px]">location_on</span> ${loc || 'N/A'}</p>
+                        <div class="flex gap-md text-label-sm text-on-surface-variant border-t border-outline-variant/30 pt-sm mb-sm">
+                            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">bed</span> ${p.bedrooms || '—'}</span>
+                            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">bathtub</span> ${p.bathrooms || '—'}</span>
+                            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">square_foot</span> ${p.area_sqft ? Number(p.area_sqft).toLocaleString() : '—'}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-secondary font-bold font-label-md">KES ${formatPrice(p.price)}</span>
+                            <span class="text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">${p.type || 'Property'}</span>
+                        </div>
+                        <div class="flex gap-1 mt-sm pt-sm border-t border-outline-variant/30">
+                            <button class="flex-1 flex items-center justify-center gap-1 py-1.5 text-label-sm bg-primary text-on-primary rounded-lg hover:opacity-90 edit-btn" data-id="${p.id}"><span class="material-symbols-outlined text-[14px]">edit</span> Edit</button>
+                            <button class="flex-1 flex items-center justify-center gap-1 py-1.5 text-label-sm border border-outline-variant rounded-lg hover:bg-surface-container-low view-btn" data-id="${p.id}"><span class="material-symbols-outlined text-[14px]">visibility</span> View</button>
+                            <button class="flex-1 flex items-center justify-center gap-1 py-1.5 text-label-sm text-error hover:bg-error-container/30 rounded-lg delete-btn" data-id="${p.id}"><span class="material-symbols-outlined text-[14px]">delete</span></button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFilteredProperties(properties) {
+            document.getElementById('propCount').textContent = properties.length;
+
+            // Table
+            const tbody = document.getElementById('propertiesTableBody');
+            tbody.innerHTML = properties.length === 0
+                ? '<tr><td colspan="6" class="text-center py-xl text-on-surface-variant">No properties match your filters.</td></tr>'
+                : properties.map(renderPropertyRow).join('');
+
+            // Grid
+            const grid = document.getElementById('gridView');
+            grid.innerHTML = properties.length === 0
+                ? '<div class="col-span-full text-center py-xl text-on-surface-variant">No properties match your filters.</div>'
+                : properties.map(renderPropertyCard).join('');
+
+            // View mode
+            const tableView = document.getElementById('propertiesTable');
+            if (tableView) {
+                tableView.classList.toggle('hidden', currentView !== 'table');
+            }
+            grid.classList.toggle('hidden', currentView !== 'grid');
+            document.getElementById('mapView')?.classList.toggle('hidden', currentView !== 'map');
+
+            // Pagination
+            const totalPages = Math.ceil(properties.length / perPage) || 1;
+            const start = (currentPage - 1) * perPage + 1;
+            const end = Math.min(currentPage * perPage, properties.length);
+            document.getElementById('paginationInfo').textContent = properties.length === 0
+                ? 'Showing 0 properties'
+                : `Showing ${start}-${end} of ${properties.length} properties`;
+
+            // Show/hide rows based on page
+            tbody.querySelectorAll('tr').forEach((tr, i) => {
+                tr.style.display = (i >= (currentPage - 1) * perPage && i < currentPage * perPage) ? '' : 'none';
+            });
+
+            // Page numbers
+            const pageContainer = document.getElementById('pageNumbers');
+            pageContainer.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.className = `w-8 h-8 rounded-lg text-label-sm font-label-sm ${i === currentPage ? 'bg-primary text-on-primary' : 'hover:bg-surface-container-low text-on-surface-variant'}`;
+                btn.textContent = i;
+                btn.addEventListener('click', () => { currentPage = i; renderCurrentView(); });
+                pageContainer.appendChild(btn);
+            }
+            document.getElementById('prevPage').disabled = currentPage <= 1;
+            document.getElementById('nextPage').disabled = currentPage >= totalPages;
+        }
+
+        function renderCurrentView() {
+            const status = document.getElementById('filterStatus').value;
+            const type = document.getElementById('filterType').value;
+            const county = document.getElementById('filterCounty').value;
+            const query = document.querySelector('.admin-header-search input')?.value?.toLowerCase() || '';
+
+            let filtered = allProperties.filter(p => {
+                if (status && p.status !== status) return false;
+                if (type && p.type !== type) return false;
+                if (county && p.location_county !== county) return false;
+                if (query) {
+                    const txt = (p.title + ' ' + (p.location_estate||'') + ' ' + (p.location_county||'') + ' ' + (p.type||'') + ' ' + (p.status||'')).toLowerCase();
+                    if (!txt.includes(query)) return false;
+                }
+                return true;
+            });
+
+            renderFilteredProperties(filtered);
+        }
+
+        async function loadProperties() {
+            const tbody = document.getElementById('propertiesTableBody');
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center py-xl text-on-surface-variant"><span class="material-symbols-outlined animate-spin inline-block">sync</span> Loading properties...</td></tr>';
+
+            allProperties = await fetchProperties();
+            if (!allProperties || allProperties.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-xl text-on-surface-variant">No properties found. Add your first property!</td></tr>';
+                document.getElementById('propCount').textContent = '0';
+                document.getElementById('paginationInfo').textContent = 'Showing 0 properties';
+                return;
+            }
+
+            renderCurrentView();
+            bindActionButtons();
+        }
+
+        function bindActionButtons() {
+            // Table + Grid action buttons
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', () => window.open(`detail.html?id=${btn.dataset.id}`, '_blank'));
+            });
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', () => window.location.href = `admin-add-property.html?id=${btn.dataset.id}`);
+            });
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const ok = await showConfirm('Delete Property', 'Delete this property? This cannot be undone.');
+                    if (!ok) return;
+                    btn.disabled = true;
+                    btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">sync</span>';
+                    const id = btn.dataset.id;
+                    const ok = await deleteProperty(id);
+                    if (ok) {
+                        showToast('Property deleted!', 'success');
+                        allProperties = allProperties.filter(p => p.id !== id);
+                        renderCurrentView();
+                        bindActionButtons();
+                    } else {
+                        showToast('Failed to delete property.', 'error');
+                        btn.disabled = false;
+                        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">delete</span>';
+                    }
+                });
+            });
+        }
+
+        function exportCSV() {
+            if (!allProperties.length) { showToast('No properties to export.', 'info'); return; }
+            const headers = ['Title','Type','Price','Bedrooms','Bathrooms','Area (sqft)','County','Estate','Status'];
+            const rows = allProperties.map(p => [
+                `"${(p.title||'').replace(/"/g,'""')}"`,
+                p.type||'',
+                p.price||'',
+                p.bedrooms||'',
+                p.bathrooms||'',
+                p.area_sqft||'',
+                p.location_county||'',
+                p.location_estate||'',
+                p.status||''
+            ].join(','));
+            const csv = '\uFEFF' + headers.join(',') + '\n' + rows.join('\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `properties_export_${new Date().toISOString().slice(0,10)}.csv`;
+            a.click();
+            URL.revokeObjectURL(a.href);
+            showToast('Properties exported!', 'success');
+        }
+
+        function requireDB() {
+          if (typeof fetchMediaItems !== 'function') {
+            const grid = document.getElementById('mediaGrid');
+            if (grid) grid.innerHTML = '<div class="col-span-full text-center py-xl text-error"><span class="material-symbols-outlined text-3xl inline-block mb-sm">cloud_off</span><p class="text-label-md font-semibold">Failed to load database module</p><p class="text-label-sm text-on-surface-variant mt-xs">Check your internet connection or try refreshing. If the problem persists, contact support.</p></div>';
+            return false;
+          }
+          return true;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!requireDB()) return;
+            loadProperties();
+
+            // View toggles
+            document.querySelectorAll('.view-toggle').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.view-toggle').forEach(b => {
+                        b.classList.remove('bg-surface', 'shadow-sm', 'text-primary');
+                        b.classList.add('text-on-surface-variant');
+                    });
+                    btn.classList.add('bg-surface', 'shadow-sm', 'text-primary');
+                    btn.classList.remove('text-on-surface-variant');
+                    currentView = btn.dataset.view;
+                    renderCurrentView();
+                    bindActionButtons();
+                });
+            });
+
+            // Filter changes
+            document.getElementById('filterStatus').addEventListener('change', () => { currentPage = 1; renderCurrentView(); bindActionButtons(); });
+            document.getElementById('filterType').addEventListener('change', () => { currentPage = 1; renderCurrentView(); bindActionButtons(); });
+            document.getElementById('filterCounty').addEventListener('change', () => { currentPage = 1; renderCurrentView(); bindActionButtons(); });
+            document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+                document.getElementById('filterStatus').value = '';
+                document.getElementById('filterType').value = '';
+                document.getElementById('filterCounty').value = '';
+                document.querySelector('.admin-header-search input').value = '';
+                currentPage = 1;
+                renderCurrentView();
+                bindActionButtons();
+                showToast('Filters cleared', 'info');
+            });
+
+            // Search input
+            const searchInput = document.querySelector('.admin-header-search input');
+            if (searchInput) searchInput.addEventListener('input', () => { currentPage = 1; renderCurrentView(); bindActionButtons(); });
+
+            // Export CSV
+            document.getElementById('exportCsvBtn').addEventListener('click', exportCSV);
+
+            // Add Listing button
+            document.getElementById('addListingBtn')?.addEventListener('click', () => window.location.href = 'admin-add-property.html');
+
+            // Pagination
+            document.getElementById('prevPage').addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderCurrentView(); bindActionButtons(); } });
+            document.getElementById('nextPage').addEventListener('click', () => { currentPage++; renderCurrentView(); bindActionButtons(); });
+
+            // Header buttons
+            document.getElementById('notifBtn')?.addEventListener('click', () => showToast('No new notifications', 'info'));
+            document.getElementById('settingsBtn')?.addEventListener('click', () => showToast('Settings page coming soon', 'info'));
+            document.getElementById('helpBtn')?.addEventListener('click', () => window.open('contact.html', '_blank'));
+        });
+    </script>
+<script src="admin-nav.js"></script>
+</body></html>

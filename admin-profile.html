@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="Cache-Control" content="public, max-age=3600">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#1a365d" />
+<meta name="description" content="Edit your TobillionHomes admin profile. Update personal information, contact details, and account settings." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
+<title>Admin Profile | TobillionHomes</title>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="config.js"></script>
+<script defer src="db.js"></script>
+<style>
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.admin-body { display:flex; min-height:100vh; background:var(--md-sys-color-surface-container-low, #f8f9fc); }
+.admin-main { flex:1; display:flex; flex-direction:column; min-width:0; transition:margin-left 0.25s ease; }
+@media(max-width:768px){ .admin-main { margin-left:0!important; } }
+input,textarea,select { border:1px solid var(--md-sys-color-outline-variant, #c4c6cf); border-radius:0.5rem; padding:0.625rem 0.75rem; font-size:0.875rem; width:100%; background:var(--md-sys-color-surface, #fff); color:var(--md-sys-color-on-surface, #1b1b1f); outline:none; transition:border-color 0.2s; box-sizing:border-box; }
+input:focus,textarea:focus,select:focus { border-color:var(--md-sys-color-primary, #006c4e); box-shadow:0 0 0 3px rgba(0,108,78,0.1); }
+label { font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--md-sys-color-outline, #74777f); margin-bottom:0.375rem; display:block; }
+.field-card { background:var(--md-sys-color-surface, #fff); border:1px solid var(--md-sys-color-outline-variant, #e0e2e8); border-radius:1rem; padding:1rem 1.25rem; }
+.toast-fixed { position:fixed; bottom:24px; right:24px; padding:12px 24px; border-radius:999px; font-size:14px; font-weight:500; z-index:999999; box-shadow:0 8px 16px rgba(0,0,0,0.15); animation:fadeInUp 0.3s ease; max-width:400px; }
+.toast-fixed.success { background:var(--md-sys-color-primary, #006c4e); color:#fff; }
+.toast-fixed.error { background:var(--md-sys-color-error, #ba1a1a); color:#fff; }
+.toast-fixed.info { background:var(--md-sys-color-surface-container-high, #eceef4); color:var(--md-sys-color-on-surface, #1b1b1f); }
+@keyframes fadeInUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+</style>
+</head>
+<body class="admin-body">
+<!-- Sidebar -->
+<aside class="admin-sidebar" id="admin-sidebar">
+  <div class="sidebar-header">
+    <span class="material-symbols-outlined text-primary">real_estate_agent</span>
+    <span class="sidebar-title">Admin Panel</span>
+  </div>
+  <button class="sidebar-toggle" id="sidebar-toggle"><span class="material-symbols-outlined">chevron_left</span></button>
+  <nav class="sidebar-nav">
+    <a href="admin-dashboard.html"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
+    <a href="admin-manage-properties.html"><span class="material-symbols-outlined">real_estate_agent</span><span>Properties</span></a>
+    <a href="admin-leads.html"><span class="material-symbols-outlined">group</span><span>Leads</span></a>
+    <a href="admin-media.html"><span class="material-symbols-outlined">perm_media</span><span>Media Library</span></a>
+    <a href="admin-content.html"><span class="material-symbols-outlined">edit_note</span><span>Site Content</span></a>
+    <a href="admin-analytics.html"><span class="material-symbols-outlined">analytics</span><span>Analytics</span></a>
+    <a href="admin-profile.html" class="active"><span class="material-symbols-outlined">account_circle</span><span>Profile</span></a>
+    <a href="#" id="logoutLink"><span class="material-symbols-outlined">logout</span><span>Logout</span></a>
+  </nav>
+</aside>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- Main Content -->
+<div class="admin-main">
+  <header class="w-full h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant flex items-center px-md">
+    <div class="flex items-center gap-sm flex-grow min-w-0">
+      <button class="mobile-hamburger-admin p-1 rounded-lg hover:bg-surface-container-low transition-colors flex-shrink-0" id="mobile-menu-btn"><span class="material-symbols-outlined text-on-surface-variant">menu</span></button>
+      <h1 class="text-headline-md font-bold text-primary whitespace-nowrap">Admin Profile</h1>
+    </div>
+    <div class="flex items-center gap-sm flex-shrink-0">
+      <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors relative group" id="notifBtn">
+        <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+        <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+      </button>
+      <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors group" id="settingsBtn">
+        <span class="material-symbols-outlined text-on-surface-variant">settings</span>
+      </button>
+      <div class="ml-sm flex items-center gap-xs">
+        <img class="w-8 h-8 rounded-full border border-outline-variant object-cover flex-shrink-0" id="profileAvatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3r999NKUnisVWHGeQP-z5YpF3OeO3szeUdFtKDchwoAvINO20eO6K3X9bpS_2hiceFgSoAe0YJDjh2M1g4BjZmtMVhwQgtYSaVrCUSRidX8miTlNdOtl2TPVLW_dbbJIOLS35ym8HqR4d5ESwyLsJyQjOVfDljxHmHa5u9YBJlgWp3GjahPChW9_KW4l01kYUJ42ZrFOaNfyGDYoFluVmKaH8hqG7PGiQ-b-fSMkQ-fhi0Fvnon41WiGsDcklDgbgdIkGDaA3Re4"/>
+        <span class="text-label-md font-label-md text-primary hidden lg:inline" id="profileName">Admin User</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="p-md lg:p-xl flex-grow overflow-y-auto">
+    <div class="max-w-3xl mx-auto space-y-lg">
+
+      <!-- Profile Header -->
+      <div class="field-card flex items-center gap-lg flex-wrap">
+        <div class="relative flex-shrink-0">
+          <img class="w-24 h-24 rounded-full border-2 border-outline-variant object-cover" id="profileAvatarLarge" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3r999NKUnisVWHGeQP-z5YpF3OeO3szeUdFtKDchwoAvINO20eO6K3X9bpS_2hiceFgSoAe0YJDjh2M1g4BjZmtMVhwQgtYSaVrCUSRidX8miTlNdOtl2TPVLW_dbbJIOLS35ym8HqR4d5ESwyLsJyQjOVfDljxHmHa5u9YBJlgWp3GjahPChW9_KW4l01kYUJ42ZrFOaNfyGDYoFluVmKaH8hqG7PGiQ-b-fSMkQ-fhi0Fvnon41WiGsDcklDgbgdIkGDaA3Re4"/>
+          <button class="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md hover:opacity-90 transition-opacity" id="changeAvatarBtn" title="Change avatar">
+            <span class="material-symbols-outlined text-sm">camera_alt</span>
+          </button>
+          <input type="file" id="avatarFileInput" accept="image/*" class="hidden"/>
+        </div>
+        <div>
+          <h2 class="text-headline-lg font-headline-lg text-primary" id="profileDisplayName">Admin User</h2>
+          <p class="text-body-md text-outline" id="profileDisplayRole">Administrator</p>
+          <p class="text-body-sm text-outline mt-xs" id="profileDisplayEmail">admin@tobillionhomes.com</p>
+        </div>
+      </div>
+
+      <!-- Profile Details Form -->
+      <div class="field-card">
+        <h3 class="text-headline-sm font-headline-sm text-primary mb-md">Account Details</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+          <div><label>Full Name</label><input type="text" id="f-fullName" placeholder="Your full name"/></div>
+          <div><label>Email</label><input type="email" id="f-email" placeholder="Email address" readonly class="opacity-60"/></div>
+          <div><label>Phone</label><input type="tel" id="f-phone" placeholder="+254 7XX XXX XXX"/></div>
+          <div><label>Location</label><input type="text" id="f-location" placeholder="Nairobi, Kenya"/></div>
+          <div><label>Role</label><input type="text" id="f-role" readonly class="opacity-60"/></div>
+          <div><label>Member Since</label><input type="text" id="f-memberSince" readonly class="opacity-60"/></div>
+        </div>
+        <div class="flex justify-end gap-sm mt-lg">
+          <button class="px-md py-xs rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors text-label-md" id="cancelBtn">Cancel</button>
+          <button class="px-md py-xs rounded-lg bg-primary text-on-primary hover:opacity-90 transition-opacity text-label-md font-label-md" id="saveProfileBtn">Save Changes</button>
+        </div>
+      </div>
+
+      <!-- Change Password -->
+      <div class="field-card">
+        <h3 class="text-headline-sm font-headline-sm text-primary mb-md">Change Password</h3>
+        <div class="space-y-md max-w-md">
+          <div><label>Current Password</label><input type="password" id="f-currentPassword" placeholder="Enter current password"/></div>
+          <div><label>New Password</label><input type="password" id="f-newPassword" placeholder="Enter new password (min 8 chars)"/></div>
+          <div><label>Confirm New Password</label><input type="password" id="f-confirmPassword" placeholder="Confirm new password"/></div>
+          <div id="passwordError" class="text-label-sm text-error hidden">Passwords do not match or are invalid.</div>
+        </div>
+        <div class="flex justify-end mt-lg">
+          <button class="px-md py-xs rounded-lg bg-primary text-on-primary hover:opacity-90 transition-opacity text-label-md font-label-md" id="changePasswordBtn">Update Password</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  // Load profile data
+  async function loadProfile() {
+    try {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      if (!user) return;
+      document.getElementById('f-email').value = user.email || '';
+      document.getElementById('f-memberSince').value = user.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+      const profile = await getUserProfile();
+      if (profile) {
+        document.getElementById('f-fullName').value = profile.full_name || '';
+        document.getElementById('f-phone').value = profile.phone || '';
+        document.getElementById('f-location').value = profile.location || '';
+        document.getElementById('f-role').value = profile.role || 'user';
+        document.getElementById('profileDisplayName').textContent = profile.full_name || 'Admin User';
+        document.getElementById('profileName').textContent = profile.full_name || 'Admin User';
+        if (profile.avatar_url) {
+          document.getElementById('profileAvatar').src = profile.avatar_url;
+          document.getElementById('profileAvatarLarge').src = profile.avatar_url;
+        }
+      }
+    } catch(e) { console.warn('Failed to load profile:', e); }
+  }
+  await loadProfile();
+
+  // Save profile
+  document.getElementById('saveProfileBtn').addEventListener('click', async function() {
+    const fullName = document.getElementById('f-fullName').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    const location = document.getElementById('f-location').value.trim();
+    if (!fullName) { showToast('Full name is required', 'error'); return; }
+    try {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      if (!user) { showToast('Not authenticated', 'error'); return; }
+      const { error } = await supabaseClient.from('profiles').upsert({
+        id: user.id, full_name: fullName, phone, location, updated_at: new Date()
+      });
+      if (error) { showToast('Failed to save: ' + error.message, 'error'); return; }
+      document.getElementById('profileDisplayName').textContent = fullName;
+      document.getElementById('profileName').textContent = fullName;
+      showToast('Profile updated successfully!', 'success');
+    } catch(e) { showToast('Error saving profile', 'error'); }
+  });
+
+  // Change password
+  document.getElementById('changePasswordBtn').addEventListener('click', async function() {
+    const current = document.getElementById('f-currentPassword').value;
+    const newPw = document.getElementById('f-newPassword').value;
+    const confirmPw = document.getElementById('f-confirmPassword').value;
+    const errEl = document.getElementById('passwordError');
+    errEl.classList.add('hidden');
+    if (!current || !newPw || !confirmPw) { errEl.textContent = 'All password fields are required.'; errEl.classList.remove('hidden'); return; }
+    if (newPw.length < 8) { errEl.textContent = 'New password must be at least 8 characters.'; errEl.classList.remove('hidden'); return; }
+    if (newPw !== confirmPw) { errEl.textContent = 'New passwords do not match.'; errEl.classList.remove('hidden'); return; }
+    try {
+      const { error } = await supabaseClient.auth.updateUser({ password: newPw });
+      if (error) { errEl.textContent = error.message; errEl.classList.remove('hidden'); return; }
+      document.getElementById('f-currentPassword').value = '';
+      document.getElementById('f-newPassword').value = '';
+      document.getElementById('f-confirmPassword').value = '';
+      showToast('Password updated successfully!', 'success');
+    } catch(e) { errEl.textContent = 'Error updating password'; errEl.classList.remove('hidden'); }
+  });
+
+  // Avatar upload
+  document.getElementById('changeAvatarBtn').addEventListener('click', function() {
+    document.getElementById('avatarFileInput').click();
+  });
+  document.getElementById('avatarFileInput').addEventListener('change', async function() {
+    const file = this.files[0];
+    if (!file) return;
+    const result = await uploadMediaItem(file);
+    if (result.data) {
+      document.getElementById('profileAvatar').src = result.data.url;
+      document.getElementById('profileAvatarLarge').src = result.data.url;
+      try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (user) {
+          await supabaseClient.from('profiles').upsert({ id: user.id, avatar_url: result.data.url, updated_at: new Date() });
+        }
+      } catch(e) {}
+      showToast('Avatar updated!', 'success');
+    } else {
+      showToast('Upload failed: ' + (result.error?.message || 'unknown'), 'error');
+    }
+  });
+
+  // Cancel
+  document.getElementById('cancelBtn').addEventListener('click', function() { loadProfile(); showToast('Changes discarded', 'info'); });
+
+  // Toast
+  function showToast(msg, type) {
+    var t = document.createElement('div');
+    t.className = 'toast-fixed ' + (type || 'success');
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); }, 3000);
+  }
+});
+</script>
+<script src="admin-nav.js"></script>
+</body>
+</html>

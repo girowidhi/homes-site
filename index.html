@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta http-equiv="Cache-Control" content="public, max-age=3600">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#1a365d" />
+<meta name="description" content="TobillionHomes - Kenya's premier luxury real estate platform. Browse exclusive villas, apartments, and estates for sale and rent in Nairobi, Mombasa, and beyond." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
+<title>TobillionHomes | Premium Kenyan Real Estate</title>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(0, 6, 19, 0.4), rgba(0, 6, 19, 0.7));
+        }
+        .listing-card:hover .property-image {
+            transform: scale(1.05);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#43474e",
+                      "surface-bright": "#f8f9fa",
+                      "primary-fixed": "#d4e3ff",
+                      "on-secondary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#1e2011",
+                      "outline-variant": "#c4c6cf",
+                      "primary-container": "#001f3f",
+                      "error": "#ba1a1a",
+                      "on-surface": "#191c1d",
+                      "surface-tint": "#476083",
+                      "inverse-surface": "#2e3132",
+                      "surface-container-high": "#e7e8e9",
+                      "on-primary-container": "#6f88ad",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-container-low": "#f3f4f5",
+                      "tertiary-fixed": "#e4e4cc",
+                      "secondary-fixed": "#97f5cc",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "secondary-container": "#97f5cc",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#000613",
+                      "tertiary": "#050700",
+                      "on-secondary-fixed-variant": "#00513a",
+                      "secondary": "#006c4e",
+                      "surface-dim": "#d9dadb",
+                      "secondary-fixed-dim": "#7bd8b1",
+                      "tertiary-fixed-dim": "#c8c8b0",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#afc8f0",
+                      "on-secondary-container": "#007353",
+                      "on-tertiary-fixed-variant": "#474836",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#afc8f0",
+                      "surface": "#f8f9fa",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "on-tertiary-container": "#878873",
+                      "on-primary-fixed": "#001c3a",
+                      "on-secondary-fixed": "#002115",
+                      "outline": "#74777f",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-tertiary-fixed": "#1b1d0e",
+                      "surface-variant": "#e1e3e4",
+                      "on-background": "#191c1d",
+                      "surface-container": "#edeeef",
+                      "background": "#f8f9fa"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "40px",
+                      "gutter": "24px",
+                      "base": "4px",
+                      "xl": "64px",
+                      "xs": "8px",
+                      "sm": "16px",
+                      "md": "24px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "headline-md": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="config.js"></script>
+<script defer src="db.js"></script>
+</head>
+<body class="bg-surface text-on-surface font-body-md">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest sticky top-0 z-50 shadow-sm border-b border-outline-variant">
+<nav class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">TobillionHomes</span>
+<div class="hidden md:flex gap-sm ml-xl">
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-body-md text-body-md" href="properties.html">Listings</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="developments.html">Projects</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="about.html">About</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="news.html">News</a>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<a href="list-property.html" class="hidden md:block bg-primary text-on-primary px-md py-xs rounded-lg font-label-md text-label-md hover:bg-opacity-90 transition-all text-center">List Property</a>
+<div class="flex gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary duration-200">favorite</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary duration-200">account_circle</span>
+</div>
+</div>
+</nav>
+</header>
+<!-- Hero Section -->
+<section class="relative h-[85vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden anim-hero-mesh transition-all duration-700 opacity-100 translate-y-0">
+<!-- Floating orbs for hero -->
+<div class="hero-orb hero-orb-1"></div>
+<div class="hero-orb hero-orb-2"></div>
+<div class="hero-orb hero-orb-3"></div>
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full hero-gradient absolute z-10"></div>
+<div class="w-full h-full bg-cover bg-center" data-alt="Luxury property" style="background-image: url(''); background-color: #1a1a2e;"></div>
+</div>
+<div class="relative z-20 w-full max-w-container-max px-gutter text-center text-on-primary">
+<h1 class="font-display-lg text-display-lg mb-md max-w-4xl mx-auto hero-title-glow">Your Gateway to Premium Kenyan Real Estate</h1>
+<p class="font-body-lg text-body-lg mb-xl opacity-90">Discover architectural masterpieces and exclusive developments across Kenya.</p>
+<!-- Search Bar -->
+<div class="glass-card max-w-4xl mx-auto p-sm rounded-xl shadow-lg flex flex-col md:flex-row gap-xs items-center">
+<div class="flex-1 w-full relative">
+<span class="absolute left-xs top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">location_on</span>
+<input class="w-full pl-xl pr-sm py-md border-none rounded-lg focus:ring-2 focus:ring-primary text-on-surface" placeholder="County (e.g. Nairobi)" type="text"/>
+</div>
+<div class="flex-1 w-full relative">
+<span class="absolute left-xs top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">home_work</span>
+<input class="w-full pl-xl pr-sm py-md border-none rounded-lg focus:ring-2 focus:ring-primary text-on-surface" placeholder="Estate (e.g. Karen)" type="text"/>
+</div>
+<div class="flex-1 w-full relative">
+<span class="absolute left-xs top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">apartment</span>
+<select class="w-full pl-xl pr-sm py-md border-none rounded-lg focus:ring-2 focus:ring-primary text-on-surface appearance-none">
+<option>Property Type</option>
+<option>Apartment</option>
+<option>Villa</option>
+<option>Land</option>
+</select>
+</div>
+<button class="w-full md:w-auto bg-primary text-on-primary px-xl py-md rounded-lg font-label-md flex items-center justify-center gap-xs" id="hero-search-btn">
+<span class="material-symbols-outlined">search</span> Search
+                </button>
+</div>
+</div>
+</section>
+<!-- Featured Counties (Bento Grid) -->
+<section class="py-xl bg-surface anim-observe anim-county-tilt">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Explore by County</h2>
+<p class="text-on-surface-variant font-body-md mt-base">The most sought-after investment destinations in Kenya.</p>
+</div>
+<a class="text-secondary font-label-md flex items-center gap-xs hover:underline" href="properties.html">View All <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md md:h-[500px] min-h-[250px] md:min-h-0">
+<div class="md:col-span-2 relative group overflow-hidden rounded-xl cursor-pointer shadow-[0_4px_20px_rgba(0,31,63,0.05)] county-card">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A vibrant aerial cityscape of Nairobi, Kenya, showing the iconic Central Business District skyline during the blue hour. The image features modern skyscrapers, glowing street lights, and the lush green canopy of Uhuru Park. The lighting is crisp and urban, with a sophisticated professional tone, emphasizing Nairobi as a hub of African commerce." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCpiLpXgLWAGd25SXqokRvCl_E3NtrSnnH5LcRT_j_zafMs5NdaXp-86zrMyD-AEtjQ-9edtjT92QkSaJw2niAc0IUAG2J_83Qv8EFjFt9q_NTX_hnS6Kaj0si5vam2kQgnIsYuQEAbplIe38N7r-r_N0c_NyujW14n-cnijJD-9G6Xr_-DIQiKSL8i82i7xGWr99oYBGf83oabgEUPfMOmAdekH9CmCClwYZfoQsF6BLWnq7s5w6zY3WM6YZixHBiakKreJFgfDiE')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-lg">
+<h3 class="text-on-primary font-headline-md text-headline-md">Nairobi</h3>
+<p class="text-on-primary/80 font-label-md">1,240 Properties</p>
+</div>
+</div>
+<div class="relative group overflow-hidden rounded-xl cursor-pointer shadow-[0_4px_20_rgba(0,31,63,0.05)] county-card">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110 county-image" data-alt="A serene view of the Mombasa coastline at Nyali Beach, featuring white sand and crystal-clear turquoise waters of the Indian Ocean. In the background, elegant coastal villas with traditional Swahili architecture and modern balconies overlook the sea. The lighting is bright and tropical, evoking a luxury vacation and investment vibe." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuANujteNGZFT-VlMGxIlEhFzrFs1n2_wI6YsXTmt5ofXiVIdlQ5bSEX-BUwmIFfM4rsIU9GJPy0CLgTY0gF4vcAywcSmN65eAaarJbM8q_LVeSJztzIYAS5E3bORNb_4rMAZQ5tVjh1VLabx6z1DGD7UMMz3Xz8vq7V7UHby3uMtJtEf3tMlXv9SP1NEkv6Ku5Ejm5hztI11K-3La4Pr9xbugEa5TQ6vB2F8_ktqyv48J0WYN-ALcHRvdMN_xu83KaEipsa41UW_Io')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-lg">
+<h3 class="text-on-primary font-headline-md text-headline-md">Mombasa</h3>
+<p class="text-on-primary/80 font-label-md">450 Properties</p>
+</div>
+</div>
+<div class="flex flex-col gap-md">
+<div class="flex-1 relative group overflow-hidden rounded-xl cursor-pointer shadow-[0_4px_20px_rgba(0,31,63,0.05)] county-card">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110 county-image" data-alt="A scenic evening view of the Kisumu yacht club at Lake Victoria, Kenya. The image captures a peaceful sunset reflecting on the water, with modern residential apartments visible in the distance. The mood is calm and upscale, highlighting Kisumu's potential for waterfront luxury living." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCjsSTdXfY7e43K0f8xiVesISwghgu4_KFfAJ0o9kMNjax4Sq98IWCbNiGMOWP0WYg9qsgQ5kmQg52dWUFgECg72rAx-qGDcv_o23ZmO3T-Aslqz0OnQJixfXw4s9_-OvcFhO5ryaS-tX8mhtyE65X3GMrQeMu_5XtHa5OmTDEL-IOXus7TijC4kDD5rkgpxeQlrYiiB-urpLuQLbgKgYZQX0MFJgBkX5XEr4T4PwupMEVwe3aTH3jDWtlY2r9bnPWZcyRC8mFZDZA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-md">
+<h3 class="text-on-primary font-headline-md text-headline-md">Kisumu</h3>
+</div>
+</div>
+<div class="flex-1 relative group overflow-hidden rounded-xl cursor-pointer shadow-[0_4px_20px_rgba(0,31,63,0.05)] county-card">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110 county-image" data-alt="A panoramic view of the Rift Valley near Nakuru, Kenya, showing expansive green landscapes and modern gated community developments nestled in the hills. The lighting is soft morning sunlight, emphasizing the freshness and tranquility of upcountry living in a high-growth real estate area." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAWyIcOwpx5Kf4bTCnr8HpAKlAyyB82uDDbFzzX0L4BnZcCQB2xZldEXRGZD1ZRzaYuq90LP-2lf8rYs30TIC13XewBdHAfWXQD_6nDSxcuK8UG7jdKD70xdrTA8Kota-leWkaAgy16M64z3TI2D0B_5DZiuVmQVZjrWUDzAJpDb6mG_RdCcz5J1-JqKoGnleX-zXrCBIxIjyzK2JY1G4nOGbHuWN0eDIeM2N_OkOdWHmEJ7hFP_HosxhRGv0aRvlZPcFMuG_VOS38')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-md">
+<h3 class="text-on-primary font-headline-md text-headline-md">Nakuru</h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Listings -->
+<section class="py-xl bg-surface-container-low anim-observe anim-listing-grid">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary">Featured Premium Listings</h2>
+<a class="text-secondary font-label-md flex items-center gap-xs hover:underline" href="properties.html">View All <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Property Card 1 -->
+<div class="listing-card-wrapper">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant/30 group card-aurora">
+<div class="relative h-64 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="An ultra-modern 5-bedroom penthouse in Westlands, Nairobi. The image showcases a spacious balcony with a private infinity pool, minimalist outdoor furniture, and a stunning view of the city skyline. The interior visible through glass doors is luxurious and high-end, featuring emerald green accents and professional studio lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC556UUGMHbQOmIV6ljdVOQ7d20YFWYhzgjsbH8O3VUERG1YFgfRFsBDud6qK5TO8PY4-VvDPvsADs1_LdgWT5HgXZwQIIrfsBlAEUioZugEftNvLl9qkoawkPYVK5-4o0qFrEyT28FcSjE2wfh_uvEuykZ-3qHTJyR9WxwmDp-xc9J2B8z8fcpU-FTiLlKqyjwb1wK5TpeEWd8szegVmYv9Kn3ratQDxU-IbW7gfsw2xeXefR_i3RoZOI5rTS1cddC6twALM86kAk')"></div>
+<div class="absolute top-sm left-sm flex gap-xs">
+<span class="bg-secondary text-on-secondary px-xs py-1 rounded-full text-label-sm font-label-sm">Premium</span>
+<span class="bg-primary text-on-primary px-xs py-1 rounded-full text-label-sm font-label-sm">For Sale</span>
+</div>
+</div>
+<div class="p-md">
+<h3 class="font-headline-md text-headline-md text-primary mb-xs">Azure Penthouse</h3>
+<p class="text-on-surface-variant font-label-md flex items-center gap-xs mb-sm"><span class="material-symbols-outlined text-sm">location_on</span> Westlands, Nairobi</p>
+<div class="flex justify-between items-center py-sm border-y border-outline-variant/30 mb-sm">
+<span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">bed</span> 5 Beds</span>
+<span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">bathtub</span> 4 Baths</span>
+<span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">square_foot</span> 4,200 sqft</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-secondary font-bold text-headline-md">KES 85,000,000</span>
+<button class="bg-primary text-on-primary p-xs rounded-lg hover:bg-secondary transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Property Card 2 -->
+<div class="listing-card-wrapper">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant/30 group card-aurora">
+<div class="relative h-64 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="A contemporary Swahili-fusion mansion in Nyali, Mombasa. The property features white-washed walls, intricate wood carvings, and a massive palm-fringed garden with a sprawling blue swimming pool. The lighting is golden evening sun, highlighting the architectural elegance and coastal tranquility." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAO2Aum2qXS0DIBPqlxkJUfY_5O2zcSpzRjASDc5vp1GZw9E5i1s1hhcM7u2AwhUcROVMariORnRdV9EttNyZ1prCVOdjQHuQrBWRseptUK_IaaGEGGKawqiRICJ7BBZzEje4YKcC9h3fiCqSzVA_igxIR101jiIZbdvl-U9uJi2GNV4cEgluzPQFTHRuXUdI2y9_jwuuRD2jmzqqIW0iW0ODRKS6h-6mPEQYnn7WBbjLQSWuvhANu6NakN47bPaQCIaU6glpNRA2w')"></div>
+<div class="absolute top-sm left-sm flex gap-xs">
+<span class="bg-secondary text-on-secondary px-xs py-1 rounded-full text-label-sm font-label-sm">Coastal</span>
+<span class="bg-primary text-on-primary px-xs py-1 rounded-full text-label-sm font-label-sm">For Sale</span>
+</div>
+</div>
+<div class="p-md">
+<h3 class="font-headline-md text-headline-md text-primary mb-xs">Ocean Breeze Villa</h3>
+<p class="text-on-surface-variant font-label-md flex items-center gap-xs mb-sm"><span class="material-symbols-outlined text-sm">location_on</span> Nyali, Mombasa</p>
+<div class="flex justify-between items-center py-sm border-y border-outline-variant/30 mb-sm">
+<span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">bed</span> 6 Beds</span>
+<span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">bathtub</span> 6 Baths</span>
+<span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">square_foot</span> 6,500 sqft</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-secondary font-bold text-headline-md">KES 120,000,000</span>
+<button class="bg-primary text-on-primary p-xs rounded-lg hover:bg-secondary transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Property Card 3 -->
+<div class="listing-card-wrapper">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant/30 group card-aurora">
+<div class="relative h-64 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="A grand colonial-style estate set on 2 acres of lush forest in Karen, Nairobi. The house features red-tiled roofs, massive stone pillars, and a circular driveway. The lighting is diffused soft daylight, emphasizing the privacy, heritage, and prestigious nature of the property." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBjj_0xFhH3Q1zOZQUfOiJdekpGLh1xHLtkPXblh8ed-4hAcdPxb7k5G2l8cfuTwpl41wgF_9pKnTPyDlXXyME58LqTG_QxB3PVzArR01cIUGGdVvM3FV6j0cZMywUy3YJfoZOpuxUTd1_NkrXhw_v1GKDt7Km5INaLVy9eIZeFm1YU9aKJ4UMiO0qWRKdTpxBAwLHwCC8NrCXqC6R5tjTR2Rr6LUt41d63gjOBDSEVkhCSrjdoWQtGDDEXrYVRcsmFe6qnD6ZSVIY')"></div>
+<div class="absolute top-sm left-sm flex gap-xs">
+<span class="bg-secondary text-on-secondary px-xs py-1 rounded-full text-label-sm font-label-sm">Heritage</span>
+<span class="bg-primary text-on-primary px-xs py-1 rounded-full text-label-sm font-label-sm">New Listing</span>
+</div>
+</div>
+<div class="p-md">
+<h3 class="font-headline-md text-headline-md text-primary mb-xs">Forest Edge Manor</h3>
+<p class="text-on-surface-variant font-label-md flex items-center gap-xs mb-sm"><span class="material-symbols-outlined text-sm">location_on</span> Karen, Nairobi</p>
+<div class="flex justify-between items-center py-sm border-y border-outline-variant/30 mb-sm">
+<span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">bed</span> 4 Beds</span>
+<span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">bathtub</span> 4 Baths</span>
+<span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">square_foot</span> 3,800 sqft</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-secondary font-bold text-headline-md">KES 95,000,000</span>
+<button class="bg-primary text-on-primary p-xs rounded-lg hover:bg-secondary transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Us -->
+<section class="py-xl bg-surface anim-observe anim-why-cards">
+<div class="max-w-container-max mx-auto px-gutter text-center">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-lg">Why Choose TobillionHomes</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="p-lg bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant/20 why-card card-dual-glow">
+<div class="why-card-icon-wrapper">
+<div class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mx-auto mb-md why-card-icon">
+<span class="material-symbols-outlined text-primary text-3xl">verified</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Verified Listings</h3>
+<p class="text-on-surface-variant font-body-md">Every property is manually vetted for title authenticity and ownership transparency.</p>
+</div>
+<div class="p-lg bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant/20 why-card card-dual-glow">
+<div class="why-card-icon-wrapper">
+<div class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mx-auto mb-md why-card-icon">
+<span class="material-symbols-outlined text-primary text-3xl">support_agent</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Expert Agents</h3>
+<p class="text-on-surface-variant font-body-md">Our team consists of market specialists with decades of experience in Kenyan real estate.</p>
+</div>
+<div class="p-lg bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant/20 why-card card-dual-glow">
+<div class="why-card-icon-wrapper">
+<div class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mx-auto mb-md why-card-icon">
+<span class="material-symbols-outlined text-primary text-3xl">analytics</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Market Intelligence</h3>
+<p class="text-on-surface-variant font-body-md">Data-driven insights to help you make the best investment decisions in growing counties.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-xl bg-primary relative overflow-hidden anim-observe anim-cta-mesh">
+<div class="cta-glow-particle"></div>
+<div class="cta-glow-particle"></div>
+<div class="cta-glow-particle"></div>
+<div class="cta-glow-particle"></div>
+<div class="cta-glow-particle"></div>
+<div class="max-w-container-max mx-auto px-gutter relative z-10">
+<div class="bg-surface-container-lowest/5 backdrop-blur-md rounded-2xl p-xl border border-white/10 text-center max-w-4xl mx-auto">
+<h2 class="font-display-lg text-display-lg text-on-primary mb-md">Ready to Sell or Lease Your Property?</h2>
+<p class="text-on-primary/80 font-body-lg text-body-lg mb-xl">Reach thousands of premium investors and home-buyers across East Africa today.</p>
+<div class="flex flex-col md:flex-row gap-md justify-center">
+<a href="list-property.html" class="bg-secondary text-on-secondary px-xl py-md rounded-lg font-label-md hover:scale-105 transition-transform text-center vegence-btn-interactive">List My Property Now</a>
+<a href="contact.html" class="border border-on-primary text-on-primary px-xl py-md rounded-lg font-label-md hover:bg-white/10 transition-colors text-center">Contact Our Sales Team</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Latest News -->
+<section class="py-xl bg-surface anim-observe anim-news-clip">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary">Market Insights &amp; News</h2>
+<a class="text-secondary font-label-md flex items-center gap-xs" href="news.html">Read All News <span class="material-symbols-outlined text-sm">open_in_new</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="flex flex-col md:flex-row gap-md items-center group cursor-pointer news-card">
+<div class="w-full md:w-48 h-48 rounded-xl overflow-hidden flex-shrink-0 shadow-sm news-image-wrap">
+<div class="w-full h-full bg-cover bg-center transition-transform group-hover:scale-110" data-alt="A professional business meeting in a high-rise office in Nairobi, featuring investors reviewing architectural blueprints and market data on large tablets. The atmosphere is corporate and high-stakes, with warm morning light filtering through the window. The color palette emphasizes deep navy and professional grays." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDU0YQmrBNyk7ASrjp85DhM4mjbRMHp2QVWC9o_aCuDGdGG2Hu0punWd7efWVLOKnG2qyZFxpMwyfCNN-DNy0hIT1n1zbUdp9VnH70XZd3i5sJoa_YzQt_6kgKeL0PXAx59pmamCG1vpsg8GiTX_tS8UqGQgPgHL08oy6vsN38T5mgTWsxrPLbv25dA5TgU2cvoarEmjV_9Suo_Qum6FwDS_NAPlF0VRgo5DZ5E8SGerKFHqztO5cNuA-oUuB7QnzXVe6TFaBaiJAk')"></div>
+</div>
+<div>
+<span class="text-secondary font-label-sm uppercase tracking-widest">Market Trends</span>
+<h3 class="font-headline-md text-headline-md news-title text-primary mt-xs group-hover:text-secondary transition-colors">The Rise of Gated Communities in Nakuru County</h3>
+<p class="text-on-surface-variant font-body-md mt-sm line-clamp-2">How infrastructure development is driving real estate demand in the Rift Valley's economic hub...</p>
+<span class="text-on-surface-variant font-label-sm mt-md block">Nov 24, 2024 · 5 min read</span>
+</div>
+</div>
+<div class="flex flex-col md:flex-row gap-md items-center group cursor-pointer news-card">
+<div class="w-full md:w-48 h-48 rounded-xl overflow-hidden flex-shrink-0 shadow-sm news-image-wrap">
+<div class="w-full h-full bg-cover bg-center transition-transform group-hover:scale-110" data-alt="A close-up shot of a legal mortgage document being signed by a professional hand with a premium fountain pen. Beside the document is a set of luxury house keys on a leather keychain. The lighting is sophisticated and moody, suggesting trust, finality, and high-end property transactions." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDGVQYLZghKNu67ctso2ONcwaSdFK-FOSGUa2m2Dtq8q5efT4-owRIqj-TS_MUskC2Ur_rwj7JrmrUFdz47sn4u3saqdN8kEXF-IhxPjA6UH2LG0-kHigkbCi5Q6l8j-ekB6eLJbY2UOemDJVl-CSsdsiD08P94aU5Dm-fz1E9K0yi6buM5joApehs7A_hGkTuUFx65nYX3em4VvL9lJY8m06UMFGtl4xPRodQAC95Oa3iV62j7E5qDSHf08fQacq4u7_wWDO2odcQ')"></div>
+</div>
+<div>
+<span class="text-secondary font-label-sm uppercase tracking-widest">Investment Guide</span>
+<h3 class="font-headline-md text-headline-md news-title text-primary mt-xs group-hover:text-secondary transition-colors">Understanding New Property Tax Laws in Kenya</h3>
+<p class="text-on-surface-variant font-body-md mt-sm line-clamp-2">Everything you need to know about the latest Finance Bill implications for property owners and investors...</p>
+<span class="text-on-surface-variant font-label-sm mt-md block">Nov 20, 2024 · 8 min read</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-primary text-on-primary">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md px-gutter py-xl max-w-container-max mx-auto">
+<div class="md:col-span-1">
+<span class="font-headline-md text-headline-md text-on-primary mb-md block">TobillionHomes</span>
+<p class="text-primary-fixed-dim opacity-80 font-body-md">Defining luxury real estate across the East African landscape with integrity and excellence.</p>
+<div class="flex gap-sm mt-lg">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed">facebook</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed">share</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed">public</span>
+</div>
+</div>
+<div>
+<h4 class="font-label-md text-on-primary mb-md uppercase tracking-wider">Quick Links</h4>
+<ul class="flex flex-col gap-sm">
+<li class=""><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-all font-body-md" href="properties.html">Browse Counties</a></li>
+<li class=""><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-all font-body-md" href="list-property.html">Property Management</a></li>
+<li class=""><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-all font-body-md" href="mortgage.html">Mortgage Guide</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-on-primary mb-md uppercase tracking-wider">Support</h4>
+<ul class="flex flex-col gap-sm">
+<li class=""><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-all font-body-md" href="privacy.html">Privacy Policy</a></li>
+<li class=""><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-all font-body-md" href="contact.html">Contact Support</a></li>
+<li class=""><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-all font-body-md" href="privacy.html">Terms of Service</a></li>
+<li class=""><a class="text-secondary font-label-md flex items-center gap-xs hover:underline font-body-md" href="admin-login.html"><span class="material-symbols-outlined text-sm">admin_panel_settings</span> Admin Login</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-on-primary mb-md uppercase tracking-wider">Newsletter</h4>
+<p class="text-primary-fixed-dim opacity-80 font-body-md mb-md">Subscribe for exclusive off-market listings.</p>
+<div class="flex">
+<input class="bg-white/10 border-none rounded-l-lg text-on-primary p-sm w-full focus:ring-1 focus:ring-secondary" placeholder="Email Address" type="email"/>
+<button class="bg-secondary px-sm rounded-r-lg"><span class="material-symbols-outlined">send</span></button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter py-md border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-sm">
+<div class="flex flex-col md:flex-row items-center gap-sm md:gap-md">
+<p class="font-body-md text-primary-fixed-dim opacity-60">© 2024 TobillionHomes. Premium Kenyan Real Estate.</p>
+</div>
+<p class="font-body-md text-primary-fixed-dim opacity-60 italic">Handcrafted for the Kenyan Investor.</p>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full flex justify-around items-center py-xs md:hidden bg-surface-container-lowest z-50 shadow-[0_-4px_20px_rgba(0,31,63,0.05)] border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-secondary font-bold scale-95 transition-transform" href="index.html">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm-mobile">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container transition-transform" href="properties.html">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm-mobile">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container transition-transform" href="account.html">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-label-sm-mobile">Saved</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container transition-transform" href="login.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm-mobile">Profile</span>
+</a>
+</nav>
+<!-- WhatsApp Floating Button -->
+<a class="fixed bottom-24 right-sm md:bottom-md md:right-md bg-[#25D366] text-white p-md rounded-full shadow-lg z-40 animate-float flex items-center justify-center hover:scale-110 transition-transform" href="https://wa.me/254700000000?text=Hello%20TobillionHomes%2C%20I%20am%20interested%20in%20a%20property." target="_blank" rel="noopener noreferrer">
+<svg fill="currentColor" height="32" viewbox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.634 1.437h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path>
+</svg>
+</a>
+<script>
+        // Enhanced scroll reveal using anim-observe system
+        const animObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('anim-visible');
+                    animObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        // Dynamic Supabase Featured Properties Loading
+        async function loadFeaturedProperties() {
+            const heading = Array.from(document.querySelectorAll('h2')).find(h => h.textContent.includes('Featured Premium Listings'));
+            if (!heading) return;
+            const section = heading.closest('section');
+            const container = heading.nextElementSibling;
+            if (!container) return;
+
+            const properties = await fetchProperties();
+            if (!properties || properties.length === 0) return;
+
+            container.innerHTML = properties.slice(0, 3).map((p, i) => `
+                <div class="listing-card-wrapper" style="transition-delay:${i * 100}ms">
+                    <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant/30 group card-aurora listing-card">
+                        <div class="relative h-64 overflow-hidden cursor-pointer" onclick="window.location.href='detail.html?id=${p.id}'">
+                            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style="background-image: url('${p.image_url || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80'}')"></div>
+                            <div class="absolute top-sm left-sm flex gap-xs">
+                                <span class="bg-secondary text-on-secondary px-xs py-1 rounded-full text-label-sm font-label-sm">Premium</span>
+                                <span class="bg-primary text-on-primary px-xs py-1 rounded-full text-label-sm font-label-sm">${p.status}</span>
+                            </div>
+                        </div>
+                        <div class="p-md">
+                            <h3 class="font-headline-md text-headline-md text-primary mb-xs cursor-pointer" onclick="window.location.href='detail.html?id=${p.id}'">${p.title}</h3>
+                            <p class="text-on-surface-variant font-label-md flex items-center gap-xs mb-sm"><span class="material-symbols-outlined text-sm">location_on</span> ${p.location_estate}, ${p.location_county}</p>
+                            <div class="flex justify-between items-center py-sm border-y border-outline-variant/30 mb-sm">
+                                <span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">bed</span> ${p.bedrooms} Beds</span>
+                                <span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">bathtub</span> ${p.bathrooms} Baths</span>
+                                <span class="flex items-center gap-xs font-label-sm text-on-surface-variant"><span class="material-symbols-outlined">square_foot</span> ${p.area_sqft.toLocaleString()} sqft</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-secondary font-bold text-headline-md">KES ${p.price.toLocaleString()}</span>
+                                <button onclick="window.location.href='detail.html?id=${p.id}'" class="bg-primary text-on-primary p-xs rounded-lg hover:bg-secondary transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFeaturedProperties();
+
+            // Wire hero search
+            document.getElementById('hero-search-btn')?.addEventListener('click', () => {
+                const county = document.querySelector('input[placeholder*="County"]')?.value || '';
+                const estate = document.querySelector('input[placeholder*="Estate"]')?.value || '';
+                const type = document.querySelector('select')?.value || '';
+                const params = new URLSearchParams();
+                if (county) params.set('county', county);
+                if (estate) params.set('estate', estate);
+                if (type && type !== 'Property Type') params.set('type', type);
+                window.location.href = 'properties.html?' + params.toString();
+            });
+
+            document.querySelectorAll('.anim-observe').forEach(el => {
+                animObserver.observe(el);
+            });
+        });
+    </script>
+<script src="public-nav.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const DEFAULTS = {
+    hero: { headline: "Your Gateway to Premium Kenyan Real Estate", subheadline: "Discover architectural masterpieces and exclusive developments across Kenya.", bgImage: "", searchPlaceholder: "Search by county, estate, or type..." },
+    features: [
+      { icon: "verified", title: "Verified Listings", desc: "Every property is meticulously vetted for title authenticity and ownership transparency." },
+      { icon: "support_agent", title: "Expert Agents", desc: "Our seasoned professionals bring decades of experience in Kenyan real estate." },
+      { icon: "insights", title: "Market Intelligence", desc: "Access real-time data and analytics to make informed investment decisions." }
+    ],
+    featured: { title: "Featured Estates", subtitle: "Handpicked premium properties available this month.", viewAllText: "View All Portfolio" },
+    cta: { headline: "Ready to Sell or Lease?", desc: "List your property with Kenya's most trusted luxury real estate platform.", btn1Text: "List My Property Now", btn1Link: "list-property.html", btn2Text: "Contact Our Sales Team", btn2Link: "contact.html" },
+    news: [
+      { title: "Nairobi Luxury Market Trends 2025", summary: "Explore the shifting dynamics of Nairobi's high-end property market.", date: "Jun 12, 2025", link: "news.html" },
+      { title: "Your Guide to Real Estate Investment", summary: "A comprehensive guide to making smart property investments in Kenya.", date: "May 28, 2025", link: "news.html" }
+    ],
+    footer: { brand: "TobillionHomes connects discerning buyers with exceptional properties across Kenya's most prestigious locations.", copyright: "\u00a9 2025 TobillionHomes. All Rights Reserved.", facebook: "#", instagram: "#", twitter: "#", linkedin: "#", whatsapp: "#" }
+  };
+
+  function preloadImage(url, cb) {
+    var img = new Image();
+    img.onload = cb;
+    img.onerror = cb;
+    img.src = url;
+  }
+
+  async function load(key) {
+    try {
+      const val = await fetchSiteContent(key);
+      if (val !== null && val !== undefined) return val;
+      return DEFAULTS[key];
+    } catch (e) {
+      return DEFAULTS[key];
+    }
+  }
+
+  // 1. Load hero FIRST and update background immediately
+  const hero = await load('hero');
+  const heroTitle = document.querySelector('.hero-title-glow');
+  if (heroTitle) heroTitle.textContent = hero.headline;
+  const heroDesc = heroTitle?.nextElementSibling;
+  if (heroDesc?.tagName === 'P') heroDesc.textContent = hero.subheadline;
+  const searchInput = document.querySelector('input[placeholder*="County"]');
+  if (searchInput) searchInput.placeholder = hero.searchPlaceholder;
+
+  // Hero background — preload new image then swap
+  const heroBg = document.querySelector('section .bg-cover.bg-center');
+  if (heroBg && hero.bgImage) {
+    preloadImage(hero.bgImage, function() {
+      heroBg.style.backgroundImage = 'url("' + hero.bgImage + '")';
+    });
+  }
+
+  // 2. Load remaining content in parallel
+  const [features, featuredVal, ctaVal, newsVal, footerVal] = await Promise.all([
+    load('features'), load('featured'), load('cta'), load('news'), load('footer')
+  ]);
+
+  document.querySelectorAll('.why-card').forEach((card, i) => {
+    const f = features[i];
+    if (!f) return;
+    const icon = card.querySelector('.material-symbols-outlined');
+    if (icon) icon.textContent = f.icon;
+    const h3 = card.querySelector('h3');
+    if (h3) h3.textContent = f.title;
+    const p = card.querySelector('p');
+    if (p) p.textContent = f.desc;
+  });
+
+  const featHeading = Array.from(document.querySelectorAll('h2')).find(h => h.textContent.includes('Featured Premium Listings'));
+  if (featHeading) {
+    featHeading.textContent = featuredVal.title;
+    const container = featHeading.closest('.flex');
+    if (container) {
+      const viewAll = container.querySelector('a');
+      if (viewAll) {
+        const span = viewAll.querySelector('span');
+        viewAll.textContent = featuredVal.viewAllText + ' ';
+        if (span) viewAll.appendChild(span);
+      }
+    }
+    if (featuredVal.subtitle) {
+      const existingSub = featHeading.parentElement?.nextElementSibling;
+      if (existingSub?.tagName === 'P') {
+        existingSub.textContent = featuredVal.subtitle;
+      }
+    }
+  }
+
+  const ctaTitle = Array.from(document.querySelectorAll('h2')).find(h => h.textContent.includes('Ready to Sell'));
+  if (ctaTitle) {
+    ctaTitle.textContent = ctaVal.headline;
+    const ctaDesc = ctaTitle.nextElementSibling;
+    if (ctaDesc?.tagName === 'P') ctaDesc.textContent = ctaVal.desc;
+    const btns = ctaTitle.closest('section')?.querySelectorAll('a');
+    if (btns) {
+      if (btns[0]) { btns[0].textContent = ctaVal.btn1Text; btns[0].href = ctaVal.btn1Link; }
+      if (btns[1]) { btns[1].textContent = ctaVal.btn2Text; btns[1].href = ctaVal.btn2Link; }
+    }
+  }
+
+  document.querySelectorAll('.news-card').forEach((card, i) => {
+    const n = newsVal[i];
+    if (!n) return;
+    const h3 = card.querySelector('h3');
+    if (h3) h3.textContent = n.title;
+    const p = card.querySelector('p');
+    if (p) p.textContent = n.summary;
+    const spans = card.querySelectorAll('span');
+    if (spans.length) spans[spans.length - 1].textContent = n.date;
+    card.onclick = () => { window.location.href = n.link; };
+  });
+
+  const footerEl = document.querySelector('footer');
+  if (footerEl) {
+    const footerPs = footerEl.querySelectorAll('p');
+    if (footerPs[0]) footerPs[0].textContent = footerVal.brand;
+    const copyright = Array.from(footerPs).find(p => p.textContent.includes('\u00a9'));
+    if (copyright) copyright.textContent = footerVal.copyright;
+    const socialContainer = footerEl.querySelector('.flex.gap-sm.mt-lg');
+    if (socialContainer) {
+      socialContainer.innerHTML = [
+        { icon: 'facebook', url: footerVal.facebook },
+        { icon: 'instagram', url: footerVal.instagram },
+        { icon: 'twitter', url: footerVal.twitter },
+        { icon: 'linkedin', url: footerVal.linkedin },
+        { icon: 'whatsapp', url: footerVal.whatsapp }
+      ].map(s => '<a href="' + s.url + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center"><span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed">' + s.icon + '</span></a>').join('');
+    }
+  }
+});
+</script>
+<script src="brand-loader.js?v=1"></script>
+</body></html>

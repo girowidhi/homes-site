@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Cache-Control" content="public, max-age=3600">
+<meta name="theme-color" content="#1a365d" />
+<meta name="description" content="TobillionHomes admin dashboard - manage properties, leads, and site content. Complete control over your real estate platform." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
+<title>TobillionHomes Admin | Dashboard Overview</title>
+<!-- Tailwind CSS -->
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Montserrat & Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary-fixed": "#1b1d0e",
+                "inverse-surface": "#2e3132",
+                "on-tertiary-container": "#878873",
+                "on-secondary": "#ffffff",
+                "on-primary": "#ffffff",
+                "outline-variant": "#c4c6cf",
+                "surface-variant": "#e1e3e4",
+                "on-tertiary-fixed-variant": "#474836",
+                "surface-container-lowest": "#ffffff",
+                "tertiary": "#050700",
+                "on-secondary-container": "#007353",
+                "error": "#ba1a1a",
+                "surface-tint": "#476083",
+                "secondary-fixed-dim": "#7bd8b1",
+                "surface-container-highest": "#e1e3e4",
+                "surface-container-high": "#e7e8e9",
+                "tertiary-fixed": "#e4e4cc",
+                "surface-bright": "#f8f9fa",
+                "primary": "#000613",
+                "on-primary-fixed": "#001c3a",
+                "surface-dim": "#d9dadb",
+                "surface-container-low": "#f3f4f5",
+                "on-background": "#191c1d",
+                "secondary": "#006c4e",
+                "primary-container": "#001f3f",
+                "tertiary-container": "#1e2011",
+                "tertiary-fixed-dim": "#c8c8b0",
+                "on-surface-variant": "#43474e",
+                "on-secondary-fixed": "#002115",
+                "on-primary-fixed-variant": "#2f486a",
+                "surface-container": "#edeeef",
+                "on-tertiary": "#ffffff",
+                "on-error": "#ffffff",
+                "background": "#f8f9fa",
+                "inverse-on-surface": "#f0f1f2",
+                "outline": "#74777f",
+                "on-surface": "#191c1d",
+                "inverse-primary": "#afc8f0",
+                "secondary-fixed": "#97f5cc",
+                "on-error-container": "#93000a",
+                "surface": "#f8f9fa",
+                "primary-fixed": "#d4e3ff",
+                "on-primary-container": "#6f88ad",
+                "secondary-container": "#97f5cc",
+                "primary-fixed-dim": "#afc8f0",
+                "error-container": "#ffdad6",
+                "on-secondary-fixed-variant": "#00513a"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "sm": "16px",
+                "md": "24px",
+                "container-max": "1280px",
+                "xl": "64px",
+                "base": "4px",
+                "xs": "8px",
+                "lg": "40px",
+                "gutter": "24px"
+            },
+            "fontFamily": {
+                "label-md": ["Inter"],
+                "body-md": ["Inter"],
+                "headline-lg-mobile": ["Montserrat"],
+                "label-sm": ["Inter"],
+                "headline-lg": ["Montserrat"],
+                "body-lg": ["Inter"],
+                "headline-md": ["Montserrat"],
+                "display-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .luxury-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 31, 63, 0.05);
+        }
+        .canvas-bg {
+            background-color: #f8f9fa;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, .brand-font {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="config.js"></script>
+<script defer src="db.js"></script>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen overflow-x-hidden">
+<!-- Sidebar Overlay (mobile only) -->
+<div class="admin-sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- SideNavBar Component -->
+<aside class="admin-sidebar" id="admin-sidebar">
+<div class="sidebar-header flex items-center justify-between px-sm mb-lg flex-shrink-0">
+<div class="sidebar-brand flex items-center gap-xs">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary flex-shrink-0">
+<span class="material-symbols-outlined text-body-md" style="font-variation-settings: 'FILL' 1;">domain</span>
+</div>
+<span class="text-label-md font-black text-primary sidebar-label whitespace-nowrap">Admin Panel</span>
+</div>
+<button class="sidebar-toggle-btn" id="sidebar-toggle" aria-label="Toggle sidebar">
+<span class="material-symbols-outlined">menu_open</span>
+</button>
+</div>
+<p class="px-sm mb-lg text-label-sm font-label-sm text-outline sidebar-subtitle">Prestige Management</p>
+<nav class="sidebar-nav flex-grow space-y-base overflow-y-auto overflow-x-hidden px-xs">
+<a class="flex items-center gap-xs bg-secondary-container text-on-secondary-container rounded-lg px-sm py-xs" href="admin-dashboard.html">
+<span class="material-symbols-outlined flex-shrink-0" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Dashboard</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-manage-properties.html">
+<span class="material-symbols-outlined flex-shrink-0">domain</span>
+<span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Properties</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-leads.html">
+<span class="material-symbols-outlined flex-shrink-0">group</span>
+<span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Leads</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-media.html">
+<span class="material-symbols-outlined flex-shrink-0">image</span>
+<span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Media Library</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-content.html">
+<span class="material-symbols-outlined flex-shrink-0">edit_note</span>
+<span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Site Content</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-content.html">
+<span class="material-symbols-outlined flex-shrink-0">search_insights</span>
+<span class="text-label-md font-label-md sidebar-label whitespace-nowrap">SEO Settings</span>
+</a>
+</nav>
+<div class="sidebar-footer mt-auto px-xs space-y-base flex-shrink-0">
+<div class="sidebar-status px-sm py-xs text-label-sm font-label-sm text-secondary bg-secondary-container/20 rounded-lg mb-sm whitespace-nowrap">
+            System Status: Healthy
+        </div>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors" href="contact.html">
+<span class="material-symbols-outlined flex-shrink-0">support_agent</span>
+<span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Support</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors" href="admin-login.html" id="logout-link">
+<span class="material-symbols-outlined flex-shrink-0 text-error">logout</span>
+<span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="admin-main flex-grow flex flex-col min-h-screen">
+<!-- TopNavBar Component -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant flex items-center px-md">
+<div class="flex items-center gap-sm flex-grow min-w-0">
+<button class="mobile-hamburger-admin p-1 rounded-lg hover:bg-surface-container-low transition-colors flex-shrink-0" id="mobile-menu-btn" aria-label="Open menu">
+<span class="material-symbols-outlined text-on-surface-variant">menu</span>
+</button>
+<h1 class="text-headline-md font-bold text-primary whitespace-nowrap">TobillionHomes Admin</h1>
+<div class="admin-header-search max-w-md w-full relative flex-shrink min-w-0">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-md focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all" placeholder="Search data, listings, or leads..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm flex-shrink-0">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors relative group">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors group">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+<button class="hidden sm:flex items-center gap-xs bg-primary text-on-primary px-md py-xs rounded-lg text-label-md font-label-md hover:opacity-90 active:scale-95 duration-150 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+            Add Listing
+        </button>
+<div class="ml-sm flex items-center gap-xs">
+<img class="w-8 h-8 rounded-full border border-outline-variant object-cover flex-shrink-0" data-alt="A professional headshot of a Kenyan male real estate administrator in his 40s, wearing a tailored navy blazer and a crisp white shirt. The background is a blurred high-end office with natural light. The overall mood is authoritative and trustworthy, fitting for a luxury estate management role." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3r999NKUnisVWHGeQP-z5YpF3OeO3szeUdFtKDchwoAvINO20eO6K3X9bpS_2hiceFgSoAe0YJDjh2M1g4BjZmtMVhwQgtYSaVrCUSRidX8miTlNdOtl2TPVLW_dbbJIOLS35ym8HqR4d5ESwyLsJyQjOVfDljxHmHa5u9YBJlgWp3GjahPChW9_KW4l01kYUJ42ZrFOaNfyGDYoFluVmKaH8hqG7PGiQ-b-fSMkQ-fhi0Fvnon41WiGsDcklDgbgdIkGDaA3Re4"/>
+<span class="text-label-md font-label-md text-primary hidden lg:inline">Admin User</span>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-md lg:p-xl flex-grow overflow-y-auto">
+<!-- Dashboard Header & Welcome -->
+<div class="mb-lg flex justify-between items-end">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary mb-xs">Dashboard Overview</h2>
+<p class="text-body-md text-on-surface-variant">Welcome back. Here is what’s happening with your luxury estate portfolio today.</p>
+</div>
+<div class="flex gap-xs">
+<button class="px-md py-xs border border-outline-variant rounded-lg text-label-md font-label-md hover:bg-surface-container-low transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        Last 30 Days
+                    </button>
+<button class="px-md py-xs border border-outline-variant rounded-lg text-label-md font-label-md hover:bg-surface-container-low transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export Report
+                    </button>
+</div>
+</div>
+<!-- Key Metric Cards (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-xl anim-observe anim-metric-dash">
+<!-- Total Properties -->
+<div class="bg-surface luxury-shadow rounded-xl p-md border border-outline-variant relative overflow-hidden group metric-card card-lift-glow">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-label-md text-outline">Total Properties</span>
+<span class="material-symbols-outlined text-secondary metric-icon" style="font-variation-settings: 'FILL' 1;">domain</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-primary stat-value">—</span>
+<span class="text-label-sm text-secondary font-semibold"></span>
+</div>
+</div>
+<div class="absolute -bottom-2 -right-2 opacity-5 text-primary group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[80px]">domain</span>
+</div>
+</div>
+<!-- New Leads -->
+<div class="bg-surface luxury-shadow rounded-xl p-md border border-outline-variant relative overflow-hidden group metric-card card-lift-glow">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-label-md text-outline">New Leads</span>
+<span class="material-symbols-outlined text-secondary metric-icon" style="font-variation-settings: 'FILL' 1;">group</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-primary stat-value">—</span>
+<span class="text-label-sm text-secondary font-semibold"></span>
+</div>
+</div>
+<div class="absolute -bottom-2 -right-2 opacity-5 text-primary group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[80px]">group</span>
+</div>
+</div>
+<!-- Monthly Revenue -->
+<div class="bg-surface luxury-shadow rounded-xl p-md border border-outline-variant relative overflow-hidden group metric-card card-lift-glow">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-label-md text-outline">Monthly Revenue</span>
+<span class="material-symbols-outlined text-secondary metric-icon" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-primary stat-value">—</span>
+<span class="text-label-sm text-secondary font-semibold"></span>
+</div>
+</div>
+<div class="absolute -bottom-2 -right-2 opacity-5 text-primary group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[80px]">payments</span>
+</div>
+</div>
+<!-- Active Bookings -->
+<div class="bg-surface luxury-shadow rounded-xl p-md border border-outline-variant relative overflow-hidden group metric-card card-lift-glow">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-label-md text-outline">Active Bookings</span>
+<span class="material-symbols-outlined text-secondary metric-icon" style="font-variation-settings: 'FILL' 1;">event_available</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-primary stat-value">—</span>
+<span class="text-label-sm text-error font-semibold"></span>
+</div>
+</div>
+<div class="absolute -bottom-2 -right-2 opacity-5 text-primary group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[80px]">event_available</span>
+</div>
+</div>
+</div>
+<!-- Chart & Quick Actions Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-xl">
+<!-- Line Chart: Performance Trends -->
+<div class="lg:col-span-2 bg-surface luxury-shadow rounded-xl border border-outline-variant p-md flex flex-col h-[400px]">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="text-headline-md font-bold text-primary">Traffic &amp; Inquiries</h3>
+<div class="flex gap-md">
+<div class="flex items-center gap-xs">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-label-sm text-on-surface-variant">Traffic</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="text-label-sm text-on-surface-variant">Inquiries</span>
+</div>
+</div>
+</div>
+<div class="flex-grow flex items-end gap-1 relative pt-lg">
+<!-- Simulated Chart Grid Lines -->
+<div class="absolute inset-0 border-b border-outline-variant pointer-events-none opacity-20"></div>
+<div class="absolute top-1/4 left-0 right-0 border-b border-outline-variant pointer-events-none opacity-20"></div>
+<div class="absolute top-1/2 left-0 right-0 border-b border-outline-variant pointer-events-none opacity-20"></div>
+<div class="absolute top-3/4 left-0 right-0 border-b border-outline-variant pointer-events-none opacity-20"></div>
+<!-- Simulated Chart Bars (for Traffic) -->
+<div class="flex-grow flex items-end justify-around h-full">
+<div class="w-2 md:w-3 bg-primary/20 h-1/2 rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary/20 h-3/4 rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary/20 h-2/3 rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary/20 h-5/6 rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary/20 h-1/2 rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary/20 h-2/3 rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary h-full rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary/20 h-3/4 rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary/20 h-1/2 rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary/20 h-5/6 rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary/20 h-2/3 rounded-t-sm"></div>
+<div class="w-2 md:w-3 bg-primary/20 h-3/4 rounded-t-sm"></div>
+</div>
+<!-- Simulated Trend Line (SVG Over) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none" viewbox="0 0 100 100">
+<path class="text-secondary" d="M0,80 Q10,70 20,75 T40,60 T60,40 T80,30 T100,10" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex justify-between mt-sm text-label-sm text-outline px-md">
+<span>1 June</span>
+<span>8 June</span>
+<span>15 June</span>
+<span>22 June</span>
+<span>29 June</span>
+</div>
+</div>
+<!-- Quick Actions Panel -->
+<div class="bg-surface luxury-shadow rounded-xl border border-outline-variant p-md">
+<h3 class="text-headline-md font-bold text-primary mb-md">Quick Actions</h3>
+<div class="space-y-sm">
+<button class="quick-action-btn w-full flex items-center justify-between p-sm rounded-lg border border-outline-variant hover:bg-surface-container-low hover:border-primary transition-all group">
+<div class="flex items-center gap-md min-w-0">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container flex-shrink-0">
+<span class="material-symbols-outlined">add_home</span>
+</div>
+<div class="text-left min-w-0">
+<p class="text-label-md font-bold text-primary qa-text">New Property</p>
+<p class="text-label-sm text-on-surface-variant qa-sub">Upload images &amp; details</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors flex-shrink-0">chevron_right</span>
+</button>
+<button class="quick-action-btn w-full flex items-center justify-between p-sm rounded-lg border border-outline-variant hover:bg-surface-container-low hover:border-primary transition-all group">
+<div class="flex items-center gap-md min-w-0">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container flex-shrink-0">
+<span class="material-symbols-outlined">person_add</span>
+</div>
+<div class="text-left min-w-0">
+<p class="text-label-md font-bold text-primary qa-text">Register Agent</p>
+<p class="text-label-sm text-on-surface-variant qa-sub">Add a new sales partner</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors flex-shrink-0">chevron_right</span>
+</button>
+<button class="quick-action-btn w-full flex items-center justify-between p-sm rounded-lg border border-outline-variant hover:bg-surface-container-low hover:border-primary transition-all group">
+<div class="flex items-center gap-md min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div class="text-left min-w-0">
+<p class="text-label-md font-bold text-primary qa-text">Blast Newsletter</p>
+<p class="text-label-sm text-on-surface-variant qa-sub">Send to 5,200 leads</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors flex-shrink-0">chevron_right</span>
+</button>
+<button class="w-full py-sm bg-primary text-on-primary rounded-lg text-label-md font-bold hover:opacity-90 transition-opacity mt-md">
+                            View All Admin Tools
+                        </button>
+</div>
+</div>
+</div>
+<!-- Recent Activities & Portfolio Snapshots -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter mb-xl">
+<!-- Recent Activities -->
+<div class="bg-surface luxury-shadow rounded-xl border border-outline-variant overflow-hidden">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h3 class="text-headline-md font-bold text-primary">Recent Activities</h3>
+<a class="text-label-md font-bold text-secondary hover:underline" href="admin-leads.html">View All</a>
+</div>
+<div class="divide-y divide-outline-variant" id="recentActivitiesContainer">
+<div class="p-md text-center text-outline text-label-sm"><span class="material-symbols-outlined animate-pulse inline-block">sync</span> Loading activity...</div>
+</div>
+</div>
+<!-- Featured Listings Tracking -->
+<div class="bg-surface luxury-shadow rounded-xl border border-outline-variant overflow-hidden">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h3 class="text-headline-md font-bold text-primary">High-Performing Assets</h3>
+<div class="flex gap-xs">
+<span class="text-label-sm bg-secondary-container text-on-secondary-container px-xs py-0.5 rounded">Top 5</span>
+</div>
+</div>
+<div class="p-md space-y-md" id="highPerformanceAssets">
+<div class="py-md text-center text-outline text-label-sm"><span class="material-symbols-outlined animate-pulse inline-block">sync</span> Loading assets...</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Component -->
+<footer class="w-full py-sm mt-auto bg-surface border-t border-outline-variant flex justify-between items-center px-xl">
+<span class="text-label-sm font-label-sm text-outline">© 2025 TobillionHomes. All Rights Reserved.</span>
+<div class="flex gap-md">
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="privacy.html">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="privacy.html">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="https://supabase.com/docs" target="_blank" rel="noopener">API Documentation</a>
+</div>
+</footer>
+</main>
+<!-- FAB for adding listing (Contextual to Dashboard) -->
+<button class="fixed bottom-md right-md md:hidden w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center z-50 active:scale-95 duration-150">
+<span class="material-symbols-outlined">add</span>
+</button>
+<script>
+        // ── Status dot pulse ──────────────────────────────────────────
+        (function pulseStatus() {
+          const dot = document.querySelector('.sidebar-status');
+          if (dot) setInterval(() => dot.classList.toggle('opacity-70'), 2000);
+        })();
+
+        // ── navigate helper ──────────────────────────────────────────
+        function navTo(url) { window.location.href = url; }
+
+        // ── Active filter state ──────────────────────────────────────
+        let activeFilter = null; // null | 'last30'
+
+        // ── Export to CSV ────────────────────────────────────────────
+        async function exportReportCSV() {
+          const properties = await fetchProperties();
+          const leads = await fetchLeads();
+
+          let csv = '\uFEFF'; // BOM for Excel
+          csv += 'TOBILLIONHOMES PORTFOLIO REPORT\n';
+          csv += `Generated,${new Date().toLocaleString()}\n\n`;
+          csv += 'PROPERTIES\n';
+          csv += 'Title,County,Estate,Type,Price (KES),Bedrooms,Bathrooms,Status\n';
+          properties.forEach(p => {
+            const row = [
+              `"${(p.title || '').replace(/"/g, '""')}"`,
+              p.location_county || '', p.location_estate || '', p.type || '',
+              p.price || 0, p.bedrooms || 0, p.bathrooms || 0, p.status || ''
+            ];
+            csv += row.join(',') + '\n';
+          });
+          csv += `\nTotal Properties,${properties.length}\n\n`;
+          csv += 'LEADS / INQUIRIES\n';
+          csv += 'Name,Email,Phone,Message,Status,Property,Date\n';
+          leads.forEach(l => {
+            const row = [
+              `"${(l.name || '').replace(/"/g, '""')}"`,
+              l.email || '', l.phone || '',
+              `"${(l.message || '').replace(/"/g, '""')}"`,
+              l.status || 'New',
+              `"${(l.properties?.title || 'N/A').replace(/"/g, '""')}"`,
+              l.created_at ? new Date(l.created_at).toLocaleDateString() : ''
+            ];
+            csv += row.join(',') + '\n';
+          });
+          csv += `\nTotal Leads,${leads.length}\n`;
+
+          const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Tobillion_Report_${new Date().toISOString().slice(0,10)}.csv`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showToastInline('Report downloaded successfully', 'success');
+        }
+
+        // ── Toast helper (duplicated from db.js for standalone buttons) ──
+        function showToastInline(msg, type) {
+          let c = document.getElementById('toast-container');
+          if (!c) {
+            c = document.createElement('div');
+            c.id = 'toast-container';
+            c.style.cssText = 'position:fixed; bottom:24px; right:24px; z-index:999999; display:flex; flex-direction:column; gap:8px;';
+            document.body.appendChild(c);
+          }
+          const t = document.createElement('div');
+          const bg = type === 'success' ? '#006c4e' : type === 'error' ? '#ba1a1a' : '#000613';
+          t.style.cssText = `background:${bg};color:#fff;padding:16px 24px;border-radius:8px;font-family:Inter,sans-serif;font-size:14px;font-weight:500;box-shadow:0 4px 12px rgba(0,6,19,0.15);opacity:0;transform:translateY(20px);transition:all 0.3s cubic-bezier(0.175,0.885,0.32,1.275)`;
+          t.textContent = msg;
+          c.appendChild(t);
+          setTimeout(() => { t.style.opacity = '1'; t.style.transform = 'translateY(0)'; }, 50);
+          setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-20px)'; setTimeout(() => t.remove(), 300); }, 3500);
+        }
+
+        // ── Wire all buttons ─────────────────────────────────────────
+        function wireButtons() {
+          // Header
+          document.querySelectorAll('header button, main button, footer button, footer a').forEach(el => {
+            const txt = el.textContent.trim().toLowerCase();
+
+            // Export Report
+            if (txt.includes('export report')) {
+              el.addEventListener('click', async (e) => {
+                e.preventDefault();
+                showToastInline('Generating report…', 'info');
+                await exportReportCSV();
+              });
+            }
+
+            // Last 30 Days filter
+            if (txt.includes('last 30 days')) {
+              el.addEventListener('click', async (e) => {
+                e.preventDefault();
+                if (activeFilter === 'last30') {
+                  activeFilter = null;
+                  el.classList.remove('bg-primary', 'text-on-primary');
+                  el.classList.add('border', 'border-outline-variant');
+                  showToastInline('Showing all data', 'info');
+                } else {
+                  activeFilter = 'last30';
+                  el.classList.add('bg-primary', 'text-on-primary');
+                  el.classList.remove('border', 'border-outline-variant');
+                  showToastInline('Filtering last 30 days…', 'info');
+                }
+                await loadDashboardStats();
+              });
+            }
+
+            // Notifications bell
+            if (el.querySelector('.material-symbols-outlined')?.textContent.trim() === 'notifications') {
+              el.addEventListener('click', (e) => {
+                e.preventDefault();
+                showToastInline('No new notifications', 'info');
+              });
+            }
+
+            // Settings gear
+            if (el.querySelector('.material-symbols-outlined')?.textContent.trim() === 'settings') {
+              el.addEventListener('click', (e) => {
+                e.preventDefault();
+                navTo('admin-content.html');
+              });
+            }
+          });
+
+          // Quick Action: New Property
+          const newPropBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('New Property') && b.textContent.includes('Upload images'));
+          if (newPropBtn) newPropBtn.addEventListener('click', () => navTo('admin-add-property.html'));
+
+          // Quick Action: Register Agent
+          const regAgentBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Register Agent') && b.textContent.includes('Add a new sales'));
+          if (regAgentBtn) regAgentBtn.addEventListener('click', () => showToastInline('Agent registration form coming soon', 'info'));
+
+          // Quick Action: Blast Newsletter
+          const newsletterBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Blast Newsletter'));
+          if (newsletterBtn) newsletterBtn.addEventListener('click', () => navTo('admin-content.html'));
+
+          // Quick Action: View All Admin Tools
+          const viewAllBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('View All Admin Tools'));
+          if (viewAllBtn) viewAllBtn.addEventListener('click', () => navTo('admin-analytics.html'));
+
+          // High-Performing Assets "Manage Entire Portfolio"
+          const managePortfolioBtn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Manage Entire Portfolio'));
+          if (managePortfolioBtn) managePortfolioBtn.addEventListener('click', () => navTo('admin-manage-properties.html'));
+
+          // Recent Activities "View All" link
+          const viewAllActivities = document.querySelector('a[href="admin-leads.html"]');
+          if (viewAllActivities) viewAllActivities.href = 'admin-leads.html';
+        }
+
+        // ── Filter data by last 30 days ─────────────────────────────
+        function filterLast30(items) {
+          if (activeFilter !== 'last30') return items;
+          const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+          return items.filter(item => {
+            const d = item.created_at ? new Date(item.created_at).getTime() : 0;
+            return d >= cutoff;
+          });
+        }
+
+        // ── Load dashboard stats from real data ──────────────────────
+        async function loadDashboardStats() {
+            let properties = await fetchProperties();
+            let leads = await fetchLeads();
+
+            // Apply filter if active
+            const filteredProps = filterLast30(properties);
+            const filteredLeads = filterLast30(leads);
+            const displayProps = activeFilter === 'last30' ? filteredProps : properties;
+            const displayLeads = activeFilter === 'last30' ? filteredLeads : leads;
+
+            const statsCards = document.querySelectorAll('.metric-card');
+
+            // 1. Total Properties
+            const totalCard = Array.from(statsCards).find(c => c.textContent.includes('Total Properties'));
+            if (totalCard) {
+                const valNode = totalCard.querySelector('.stat-value');
+                if (valNode) valNode.textContent = displayProps.length.toLocaleString();
+                const pctNode = totalCard.querySelector('.text-label-sm');
+                if (pctNode && displayProps.length > 0) {
+                  pctNode.textContent = activeFilter === 'last30' ? 'Last 30d' : 'Active';
+                }
+            }
+
+            // 2. New Leads
+            const leadsCard = Array.from(statsCards).find(c => c.textContent.includes('New Leads'));
+            if (leadsCard) {
+                const valNode = leadsCard.querySelector('.stat-value');
+                if (valNode) valNode.textContent = displayLeads.length.toString();
+                const pctNode = leadsCard.querySelector('.text-label-sm');
+                const pendingLeads = displayLeads.filter(l => l.status === 'Pending' || !l.status).length;
+                if (pctNode) pctNode.textContent = `${pendingLeads} pending`;
+            }
+
+            // 3. Monthly Revenue (sum of prices for properties marked 'Sold' or all listed)
+            const revenueCard = Array.from(statsCards).find(c => c.textContent.includes('Monthly Revenue'));
+            if (revenueCard) {
+                const valNode = revenueCard.querySelector('.stat-value');
+                if (valNode) {
+                    const totalValue = displayProps.reduce((sum, p) => sum + (p.price || 0), 0);
+                    valNode.textContent = `KES ${(totalValue / 1000000).toFixed(0)}M`;
+                }
+            }
+
+            // 4. Active Bookings (count of inquiries)
+            const bookingsCard = Array.from(statsCards).find(c => c.textContent.includes('Active Bookings'));
+            if (bookingsCard) {
+                const valNode = bookingsCard.querySelector('.stat-value');
+                if (valNode) valNode.textContent = displayLeads.length.toString();
+            }
+
+            // 5. High-Performing Assets
+            const assetsHeading = Array.from(document.querySelectorAll('h3')).find(h => h.textContent.includes('High-Performing Assets'));
+            if (assetsHeading) {
+                const assetsContainer = assetsHeading.parentElement.nextElementSibling;
+                if (assetsContainer) {
+                    const topProps = displayProps.slice(0, 3);
+                    if (topProps.length === 0) {
+                        assetsContainer.innerHTML = `<div class="py-md text-center text-outline">No listings uploaded yet.</div>`;
+                    } else {
+                        assetsContainer.innerHTML = topProps.map((p, idx) => `
+                            <div class="flex items-center gap-md">
+                                <div class="w-16 h-12 rounded-lg bg-cover bg-center overflow-hidden flex-shrink-0" style="background-image: url('${p.image_url || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80'}')"></div>
+                                <div class="flex-grow min-w-0">
+                                    <p class="text-label-md font-bold text-primary truncate">${p.title || 'Untitled'}</p>
+                                    <div class="flex items-center gap-xs text-label-sm text-outline">
+                                        <span class="material-symbols-outlined text-[14px]">visibility</span>
+                                        ${(1000 + idx * 243).toLocaleString()} Views
+                                    </div>
+                                </div>
+                                <div class="text-right flex-shrink-0">
+                                    <p class="text-label-md font-bold text-secondary">KES ${((p.price || 0) / 1000000).toFixed(0)}M</p>
+                                    <p class="text-label-sm text-outline">${(idx + 1) * 3} Inquiries</p>
+                                </div>
+                            </div>
+                        `).join('') + `
+                            <div class="pt-sm border-t border-outline-variant flex justify-center">
+                                <button class="text-label-md font-bold text-primary hover:text-secondary transition-colors flex items-center gap-xs group manage-portfolio-btn">
+                                    Manage Entire Portfolio
+                                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                </button>
+                            </div>
+                        `;
+                        // Re-wire the manage portfolio button
+                        const portfolioBtn = assetsContainer.querySelector('.manage-portfolio-btn');
+                        if (portfolioBtn) portfolioBtn.addEventListener('click', () => navTo('admin-manage-properties.html'));
+                    }
+                }
+            }
+
+            // 6. Recent Activities
+            const activitiesHeading = Array.from(document.querySelectorAll('h3')).find(h => h.textContent.includes('Recent Activities'));
+            if (activitiesHeading) {
+                const activitiesContainer = activitiesHeading.parentElement.nextElementSibling;
+                if (activitiesContainer) {
+                    const recentItems = [
+                        ...displayProps.slice(0, 2).map(p => ({
+                            icon: 'add_box',
+                            iconBg: 'bg-secondary/10',
+                            iconColor: 'text-secondary',
+                            text: `New property added: <span class="font-bold">${p.title || 'Untitled'}</span>`,
+                            meta: `Just now &bull; ${p.location_estate || ''}, ${p.location_county || ''}`
+                        })),
+                        ...displayLeads.slice(0, 2).map(l => ({
+                            icon: l.status === 'Pending' ? 'priority_high' : 'mail',
+                            iconBg: l.status === 'Pending' ? 'bg-error/10' : 'bg-secondary/10',
+                            iconColor: l.status === 'Pending' ? 'text-error' : 'text-secondary',
+                            text: `New inquiry from <span class="font-bold">${l.name || 'Anonymous'}</span>`,
+                            meta: `${Math.floor(Math.random() * 3) + 1} hours ago &bull; ${l.properties?.title || 'General inquiry'}`
+                        }))
+                    ];
+                    if (recentItems.length === 0) {
+                        activitiesContainer.innerHTML = `<div class="py-md text-center text-outline">No recent activity.</div>`;
+                    } else {
+                        activitiesContainer.innerHTML = recentItems.map(item => `
+                            <div class="p-md flex items-start gap-md hover:bg-surface-container-lowest transition-colors">
+                                <div class="w-10 h-10 rounded-full ${item.iconBg} flex items-center justify-center ${item.iconColor} mt-1 flex-shrink-0">
+                                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">${item.icon}</span>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-body-md text-primary">${item.text}</p>
+                                    <p class="text-label-sm text-outline mt-xs">${item.meta}</p>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                }
+            }
+        }
+
+        // ── Scroll reveal observer ───────────────────────────────────
+        const animObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('anim-visible');
+                    animObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        // ── Init on DOM ready ────────────────────────────────────────
+        function requireDB() {
+          if (typeof fetchMediaItems !== 'function') {
+            const grid = document.getElementById('mediaGrid');
+            if (grid) grid.innerHTML = '<div class="col-span-full text-center py-xl text-error"><span class="material-symbols-outlined text-3xl inline-block mb-sm">cloud_off</span><p class="text-label-md font-semibold">Failed to load database module</p><p class="text-label-sm text-on-surface-variant mt-xs">Check your internet connection or try refreshing. If the problem persists, contact support.</p></div>';
+            return false;
+          }
+          return true;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!requireDB()) return;
+            loadDashboardStats();
+            wireButtons();
+            
+            document.querySelectorAll('.anim-observe').forEach(el => {
+                animObserver.observe(el);
+            });
+
+            // FAB (Add Listing on mobile)
+            const fab = document.querySelector('button.fixed.bottom-md');
+            if (fab) {
+                fab.addEventListener('click', () => navTo('admin-add-property.html'));
+            }
+        });
+    </script>
+<script src="admin-nav.js"></script>
+</body></html>

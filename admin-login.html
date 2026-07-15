@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Cache-Control" content="public, max-age=3600">
+<meta name="theme-color" content="#1a365d" />
+<meta name="description" content="Secure login portal for TobillionHomes administration. Authorized agents and staff access only." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
+<title>TobillionHomes Administration | Secure Login</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8f9fa;color:#191c1d;min-height:100vh;overflow:hidden}
+.flex{display:flex}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.w-full{width:100%}.min-h-screen{min-height:100vh}.h-full{height:100%}
+.relative{position:relative}.absolute{position:absolute}.inset-0{inset:0}.z-0{z-index:0}.z-10{z-index:10}.z-20{z-index:20}.z-\[-1\]{z-index:-1}
+.hidden{display:none}.pointer-events-none{pointer-events:none}.cursor-pointer{cursor:pointer}
+.text-center{text-align:center}.leading-tight{line-height:1.2}.tracking-widest{letter-spacing:.2em}.underline{text-decoration:underline}.uppercase{text-transform:uppercase}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-md{max-width:448px}.max-w-\[500px\]{max-width:500px}
+/* Spacing utility classes */
+.px-md{padding-left:24px;padding-right:24px}.px-xl{padding-left:64px;padding-right:64px}.px-sm{padding-left:16px;padding-right:16px}
+.py-xl{padding-top:64px;padding-bottom:64px}.py-sm{padding-top:16px;padding-bottom:16px}.py-xs{padding-top:8px;padding-bottom:8px}
+.pt-base{padding-top:4px}.pt-sm{padding-top:16px}.pt-md{padding-top:24px}
+.p-sm{padding:16px}.p-md{padding:24px}
+.mb-xs{margin-bottom:8px}.mb-sm{margin-bottom:16px}.mb-lg{margin-bottom:40px}.mt-xl{margin-top:64px}.mt-md{margin-top:24px}.mt-lg{margin-top:40px}
+.ml-xs{margin-left:8px}.ml-sm{margin-left:16px}
+.gap-xs{gap:8px}.gap-sm{gap:16px}.gap-md{gap:24px}
+.space-y-xs>*+*{margin-top:8px}.space-y-sm>*+*{margin-top:16px}.space-y-md>*+*{margin-top:24px}.space-y-base>*+*{margin-top:4px}
+/* Typography */
+.text-display-lg{font-size:48px;line-height:56px;font-weight:700;letter-spacing:-.02em;font-family:Montserrat,sans-serif}
+.text-headline-lg{font-size:32px;line-height:40px;font-weight:600;font-family:Montserrat,sans-serif}
+.text-headline-md{font-size:24px;line-height:32px;font-weight:600;font-family:Montserrat,sans-serif}
+.text-body-lg{font-size:18px;line-height:28px;font-weight:400}
+.text-body-md{font-size:16px;line-height:24px;font-weight:400}.text-\[18px\]{font-size:18px}.text-\[10px\]{font-size:10px}
+.text-label-md{font-size:14px;line-height:20px;font-weight:600;letter-spacing:.01em}
+.text-label-sm{font-size:12px;line-height:16px;font-weight:500;letter-spacing:.05em}
+.font-bold{font-weight:700}
+/* Colors */
+.bg-surface{background:#f8f9fa}.bg-background{background:#f8f9fa}.bg-primary{background:#000613}
+.bg-surface-container-lowest{background:#fff}.bg-surface-container-highest{background:#e1e3e4}
+.bg-surface-variant{background:#e1e3e4}.bg-secondary{background:#006c4e}
+.text-primary{color:#000613}.text-on-primary{color:#fff}.text-on-surface{color:#191c1d}
+.text-on-surface-variant{color:#43474e}.text-outline{color:#74777f}.text-secondary{color:#006c4e}
+.text-secondary-fixed{color:#97f5cc}.text-primary-fixed-dim{color:#afc8f0}
+.text-on-secondary{color:#fff}.text-error{color:#ba1a1a}.opacity-80{opacity:.8}.opacity-\[0\.03\]{opacity:.03}
+/* Layout */
+main.flex{display:flex;width:100%;min-height:100vh}
+section.side-section{display:none;background:#000613}
+@media(min-width:1024px){
+  section.side-section{display:flex;width:50%;position:relative;overflow:hidden;align-items:center;justify-content:center}
+  section.form-section{width:50%}
+}
+section.form-section{width:100%;display:flex;align-items:center;justify-content:center;padding:64px 24px;position:relative}
+/* Side image */
+.side-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:.8}
+.side-overlay{position:absolute;inset:0;z-index:10;background:linear-gradient(to top,rgba(0,6,19,.9) 0%,rgba(0,6,19,.3) 50%,transparent 100%)}
+.side-content{position:relative;z-index:20;padding:0 64px;text-align:center}
+/* Brand header mobile */
+.mobile-brand{display:flex;position:absolute;top:24px;left:24px;align-items:center;gap:8px}
+@media(min-width:1024px){.mobile-brand{display:none}}
+/* Form */
+.login-container{width:100%;max-width:448px;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.form-group{margin-bottom:24px}.form-group>*+*{margin-top:4px}
+label{display:block}.input-wrapper{position:relative}
+.input-field{width:100%;padding:16px;border:1px solid #c4c6cf;border-radius:8px;background:#fff;font-size:16px;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.input-field:focus{outline:none;box-shadow:0 0 0 2px rgba(0,6,19,.1)}
+.input-field-pwd{padding-right:48px}
+.btn-submit{width:100%;background:#000613;color:#fff;padding:16px;border:none;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:.01em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.btn-submit:hover{opacity:.9}.btn-submit:active{transform:scale(.98)}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed}
+/* Checkbox */
+.checkbox-wrap{display:flex;align-items:center;cursor:pointer;gap:8px}
+.checkbox-wrap input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.checkbox-visual{width:20px;height:20px;border:2px solid #c4c6cf;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all .3s cubic-bezier(.4,0,.2,1);flex-shrink:0}
+.checkbox-wrap input:checked+.checkbox-visual{background:#000613;border-color:#000613}
+.checkbox-wrap input:checked+.checkbox-visual::after{content:'âœ“';color:#fff;font-size:14px;font-weight:700}
+.checkbox-label{font-size:14px;color:#43474e}.checkbox-wrap:hover .checkbox-label{color:#000613}
+/* Password toggle */
+.pwd-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;padding:4px;color:#74777f;transition:color .2s;line-height:1}
+.pwd-toggle:hover{color:#000613}
+/* 2FA toggle */
+.tfa-row{display:flex;align-items:center;gap:8px;border:none;background:none;cursor:pointer;padding:0}
+.tfa-toggle{width:40px;height:20px;background:#e1e3e4;border-radius:9999px;position:relative;transition:all .3s;border:1px solid #c4c6cf;flex-shrink:0}
+.tfa-dot{position:absolute;top:50%;transform:translateY(-50%);left:2px;width:14px;height:14px;background:#74777f;border-radius:50%;transition:all .3s}
+.tfa-label{font-size:12px;color:#43474e}.tfa-row:hover .tfa-label{color:#000613}
+/* 2FA inputs */
+.tfa-inputs{display:flex;gap:8px;justify-content:space-between}
+.tfa-digit{width:48px;height:56px;text-align:center;font-size:24px;font-weight:600;font-family:Montserrat,sans-serif;border:1px solid #c4c6cf;border-radius:8px;background:#e7e8e9}
+.tfa-digit:focus{outline:none;border-color:#006c4e}
+/* Forgot link */
+.forgot-link{font-size:12px;color:#006c4e;text-decoration:none}.forgot-link:hover{color:#007353}
+/* Footer links */
+.footer-links{display:flex;justify-content:center;gap:24px}
+.footer-links a{font-size:12px;color:#43474e;text-decoration:underline}.footer-links a:hover{color:#000613}
+/* Spinner */
+.spinner{display:inline-block;width:18px;height:18px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* Override bg for side image */
+.side-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:.8}
+.grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.03;z-index:-1;background-image:radial-gradient(#000 1px,transparent 1px);background-size:24px 24px}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>/* db.js auth functions inlined for login page only */
+let supabaseClient;
+
+function initSupabaseClient() {
+  if (window.supabase && SUPABASE_CONFIG && SUPABASE_CONFIG.url) {
+    supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey, { auth: { persistSession: true, autoRefreshToken: true } });
+  }
+}
+initSupabaseClient();
+
+async function getCurrentUser() {
+  if (!supabaseClient) return null;
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  return user || null;
+}
+
+async function loginUser(email, password) {
+  if (!supabaseClient) return { data: null, error: { message: "Supabase not connected." } };
+  return await supabaseClient.auth.signInWithPassword({ email, password });
+}
+
+async function getUserProfile() {
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const { data, error } = await supabaseClient.from('profiles').select('*').eq('id', user.id).single();
+  return error ? null : data;
+}
+
+async function logoutUser() {
+  if (supabaseClient) await supabaseClient.auth.signOut();
+}
+
+function showToast(message, type = 'success') {
+  let c = document.getElementById('toast-container');
+  if (!c) { c = document.createElement('div'); c.id = 'toast-container'; c.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;display:flex;flex-direction:column;gap:8px;'; document.body.appendChild(c); }
+  const t = document.createElement('div');
+  t.style.cssText = `background:${type === 'success' ? '#006c4e' : type === 'error' ? '#ba1a1a' : '#000613'};color:#fff;padding:16px 24px;border-radius:8px;font-size:14px;font-weight:500;opacity:0;transform:translateY(20px);transition:all .3s`;
+  t.textContent = message;
+  c.appendChild(t);
+  requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translateY(0)'; });
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-10px)'; setTimeout(() => t.remove(), 300); }, 3000);
+}
+</script>
+</head>
+<body>
+<main class="flex">
+<section class="side-section">
+<div class="side-bg" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxC8IYCaiyGNaCKMAYkIi9ubFg70L35FxvSpCctIi3Ys7HO-IKvJi2HyPTQpTbASc9W3jv3gTTroGZJpCK2z0mH0hI6pTXdHIQv90nLW8qocfK3QanxjbBcTX9wum4HsTPNffUVC3pzOWweP3-zPAA_e0uzH1Tmaoz5qrEXeeN6QAnYJ1CScZOVpmHN__NIpiPTjZXhOn0syZMtJdzhP-x0yLibvM0Xt9JbGKNsFeQwGYlDnkuT4AFNwp7PCnXgqNyEhSqXxMccd0')"></div>
+<div class="side-overlay"></div>
+<div class="side-content">
+<h1 class="text-display-lg" style="color:#fff;margin-bottom:16px">TobillionHomes</h1>
+<p class="text-body-lg" style="color:#afc8f0;max-width:500px;margin:0 auto">Global excellence in Kenyan luxury real estate. Access the command center for prestige management.</p>
+<div style="margin-top:40px;display:flex;justify-content:center;align-items:center;gap:8px;color:#97f5cc">
+<span class="text-label-sm tracking-widest uppercase">Secured</span>
+</div>
+</div>
+</section>
+<section class="form-section">
+<div class="mobile-brand">
+<span class="text-headline-md" style="color:#000613;font-weight:700">TobillionHomes</span>
+</div>
+<div class="login-container">
+<div style="margin-bottom:40px">
+<h2 class="text-headline-lg" style="color:#000613;margin-bottom:8px">Staff Portal</h2>
+<p class="text-body-md" style="color:#43474e">Please authenticate to access the administration dashboard.</p>
+</div>
+<form id="loginForm">
+<div class="form-group">
+<label class="text-label-md" style="color:#191c1d">Email Address</label>
+<div class="input-wrapper">
+<input class="input-field" id="email" placeholder="name@tobillionhomes.com" required type="email"/>
+</div>
+</div>
+<div class="form-group">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<label class="text-label-md" style="color:#191c1d">Password</label>
+<a class="forgot-link" href="recovery.html">Forgot Password?</a>
+</div>
+<div class="input-wrapper">
+<input class="input-field input-field-pwd" id="password" placeholder="Enter your password" required type="password"/>
+<button type="button" class="pwd-toggle" id="pwd-toggle" aria-label="Toggle password visibility" tabindex="-1">👁</button>
+</div>
+</div>
+<div style="margin-bottom:24px">
+<label class="checkbox-wrap">
+<input type="checkbox"/>
+<div class="checkbox-visual"></div>
+<span class="checkbox-label">Remember this device</span>
+</label>
+</div>
+<div style="padding-top:4px">
+<button class="tfa-row" onclick="toggle2FA()" type="button">
+<div class="tfa-toggle" id="tfa-toggle-btn"><div class="tfa-dot" id="tfa-dot"></div></div>
+<span class="tfa-label">Enable Two-Factor Authentication</span>
+</button>
+</div>
+<div class="hidden" id="2fa-container" style="overflow:hidden;transition:all .3s;max-height:0">
+<div style="padding-top:16px">
+<label class="text-label-sm" style="color:#191c1d;display:block;margin-bottom:4px">6-Digit Security Code</label>
+<div class="tfa-inputs">
+<input class="tfa-digit" maxlength="1" type="text"/>
+<input class="tfa-digit" maxlength="1" type="text"/>
+<input class="tfa-digit" maxlength="1" type="text"/>
+<input class="tfa-digit" maxlength="1" type="text"/>
+<input class="tfa-digit" maxlength="1" type="text"/>
+<input class="tfa-digit" maxlength="1" type="text"/>
+</div>
+<p style="font-size:10px;color:#74777f;text-align:center;margin-top:8px">Check your registered authenticator app</p>
+</div>
+</div>
+<button class="btn-submit" type="submit" id="signInBtn">
+<span>Sign In to Dashboard</span>
+</button>
+</form>
+<div style="margin-top:64px;text-align:center">
+<p class="text-label-sm" style="color:#74777f">Strictly for authorized staff only. IP addresses are logged for security auditing.</p>
+<div class="footer-links" style="margin-top:8px">
+<a href="privacy.html">Security Policy</a>
+<a href="contact.html">IT Support</a>
+</div>
+</div>
+</div>
+<div class="grid-bg"></div>
+</section>
+</main>
+<script>
+        let is2FAEnabled = false;
+
+        function toggle2FA() {
+            const container = document.getElementById('2fa-container');
+            const dot = document.getElementById('2fa-dot');
+            const btn = document.getElementById('2fa-toggle-btn');
+            
+            is2FAEnabled = !is2FAEnabled;
+
+            if (is2FAEnabled) {
+                container.classList.remove('hidden');
+                setTimeout(() => {
+                    container.style.maxHeight = '200px';
+                }, 10);
+                dot.style.left = '22px';
+                dot.style.backgroundColor = '#97f5cc';
+                btn.style.backgroundColor = '#006c4e';
+            } else {
+                container.style.maxHeight = '0';
+                dot.style.left = '2px';
+                dot.style.backgroundColor = '#74777f';
+                btn.style.backgroundColor = '#e1e3e4';
+                setTimeout(() => {
+                    container.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Password visibility toggle
+        document.getElementById('pwd-toggle').addEventListener('click', function() {
+            const pwd = document.getElementById('password');
+            const isPassword = pwd.type === 'password';
+            pwd.type = isPassword ? 'text' : 'password';
+            this.textContent = isPassword ? '👁‍🗨' : '👁';
+        });
+
+        // Auto-focus next input for 2FA code
+        const inputs = document.querySelectorAll('[id="2fa-container"] input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Form Submit
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('signInBtn');
+            
+            btn.innerHTML = '<span class="spinner"></span> Authenticating...';
+            btn.disabled = true;
+
+            const { data, error } = await loginUser(email, password);
+
+            if (error) {
+                    showToast(error.message, "error");
+                btn.innerHTML = '<span>Sign In to Dashboard</span>';
+                btn.disabled = false;
+                btn.style.background = '#000613';
+            } else {
+                const profile = await getUserProfile();
+                if (profile && profile.role === 'admin') {
+                    showToast("Access Granted: Welcome Admin", "success");
+                    btn.innerHTML = '<span>Access Granted</span>';
+                    btn.style.background = '#006c4e';
+                    setTimeout(() => {
+                        window.location.href = 'admin-dashboard.html';
+                    }, 1000);
+                } else {
+                    showToast("Access Denied: Admin role required.", "error");
+                    await logoutUser();
+                    btn.innerHTML = '<span>Sign In to Dashboard</span><span>â†’</span>';
+                    btn.disabled = false;
+                }
+            }
+        });
+    </script>
+</body></html>

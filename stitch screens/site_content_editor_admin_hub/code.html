@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luxury Kenyan Estates Admin | Content Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#1b1d0e",
+                    "inverse-surface": "#2e3132",
+                    "on-tertiary-container": "#878873",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c4c6cf",
+                    "surface-variant": "#e1e3e4",
+                    "on-tertiary-fixed-variant": "#474836",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#050700",
+                    "on-secondary-container": "#007353",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#476083",
+                    "secondary-fixed-dim": "#7bd8b1",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-container-high": "#e7e8e9",
+                    "tertiary-fixed": "#e4e4cc",
+                    "surface-bright": "#f8f9fa",
+                    "primary": "#000613",
+                    "on-primary-fixed": "#001c3a",
+                    "surface-dim": "#d9dadb",
+                    "surface-container-low": "#f3f4f5",
+                    "on-background": "#191c1d",
+                    "secondary": "#006c4e",
+                    "primary-container": "#001f3f",
+                    "tertiary-container": "#1e2011",
+                    "tertiary-fixed-dim": "#c8c8b0",
+                    "on-surface-variant": "#43474e",
+                    "on-secondary-fixed": "#002115",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "surface-container": "#edeeef",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "background": "#f8f9fa",
+                    "inverse-on-surface": "#f0f1f2",
+                    "outline": "#74777f",
+                    "on-surface": "#191c1d",
+                    "inverse-primary": "#afc8f0",
+                    "secondary-fixed": "#97f5cc",
+                    "on-error-container": "#93000a",
+                    "surface": "#f8f9fa",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-container": "#6f88ad",
+                    "secondary-container": "#97f5cc",
+                    "primary-fixed-dim": "#afc8f0",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#00513a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "16px",
+                    "md": "24px",
+                    "container-max": "1280px",
+                    "xl": "64px",
+                    "base": "4px",
+                    "xs": "8px",
+                    "lg": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Montserrat"],
+                    "headline-md": ["Montserrat"],
+                    "display-lg": ["Montserrat"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editable-block:hover {
+            outline: 2px dashed #006c4e;
+            outline-offset: 4px;
+            cursor: pointer;
+        }
+        .preview-pane {
+            height: calc(100vh - 128px);
+            scrollbar-width: thin;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- SideNavBar -->
+<aside class="w-64 h-screen fixed left-0 top-0 z-50 bg-surface-container-low border-r border-outline-variant shadow-sm flex flex-col py-md px-xs">
+<div class="px-sm mb-lg">
+<h1 class="text-label-md font-black text-primary">Admin Panel</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Prestige Management</p>
+</div>
+<nav class="flex-1 flex flex-col gap-xs">
+<a class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg px-sm py-xs transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg px-sm py-xs transition-colors" href="#">
+<span class="material-symbols-outlined">domain</span>
+<span class="text-label-md font-label-md">Properties</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg px-sm py-xs transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-md font-label-md">Leads</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg px-sm py-xs transition-colors" href="#">
+<span class="material-symbols-outlined">image</span>
+<span class="text-label-md font-label-md">Media Library</span>
+</a>
+<a class="flex items-center gap-xs bg-secondary-container text-on-secondary-container rounded-lg px-sm py-xs translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="text-label-md font-label-md">Site Content</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-variant hover:text-on-surface rounded-lg px-sm py-xs transition-colors" href="#">
+<span class="material-symbols-outlined">search_insights</span>
+<span class="text-label-md font-label-md">SEO Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md flex flex-col gap-xs">
+<div class="px-sm pb-sm">
+<span class="text-label-sm font-label-sm text-secondary">System Status: Healthy</span>
+</div>
+<a class="flex items-center gap-xs text-outline hover:text-secondary px-sm py-xs" href="#">
+<span class="material-symbols-outlined">support_agent</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<a class="flex items-center gap-xs text-outline hover:text-secondary px-sm py-xs" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<main class="pl-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant flex justify-between items-center px-md">
+<div class="flex items-center gap-md">
+<span class="text-headline-md font-bold text-primary">Luxury Kenyan Estates Admin</span>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-md focus:ring-2 focus:ring-secondary w-64" placeholder="Search components..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-container-low px-sm py-xs rounded-lg transition-colors">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">help</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-container-low px-sm py-xs rounded-lg transition-colors">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">settings</span>
+</button>
+<button class="bg-primary text-on-primary px-md py-2 rounded-lg font-label-md hover:opacity-90 active:scale-95 transition-all">
+                    Add Listing
+                </button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a sophisticated real estate administrator, wearing a tailored charcoal suit against a clean, minimalist architectural background with warm lighting and a high-end corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzcfd1ZTqp0hpyl7_xAnzcBXato2Ndhe4u4d2H6Fxgr5DTxHRmSsO0E5kgjiuP033Ym1NcPzP9YmhkTwZ_eYGI8X8v_TLfF449UiaVF6EK-J13bDsKZR7kVhhWwkMkRh13uddmmNPsbR6RTmC2LSNkaQMXqYWZ5BHHusQcXa2g-L2rTPVECBJDrnOraIaPHlFvceHj-gI1hspXrtmIfKz_V_SVQcAsz45yS1BY56DGjTM7pZwuMu1xGd5-4rXnniy1On59Uo5R05E"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Controls: Content Editor Sidebar -->
+<div class="w-80 bg-surface-container-lowest border-r border-outline-variant overflow-y-auto p-md space-y-lg">
+<div>
+<h2 class="text-label-md font-bold text-primary mb-md uppercase tracking-wider">Editor Controls</h2>
+<div class="space-y-sm">
+<details class="group" open="">
+<summary class="flex justify-between items-center cursor-pointer list-none py-xs border-b border-outline-variant">
+<span class="text-label-md font-semibold text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">view_carousel</span>
+                                    Hero Banner
+                                </span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="pt-sm space-y-sm">
+<div>
+<label class="text-label-sm text-outline block mb-xs">Main Heading</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 text-body-md focus:border-primary focus:ring-0" type="text" value="Modern Living in Nairobi"/>
+</div>
+<div>
+<label class="text-label-sm text-outline block mb-xs">Background Image</label>
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-sm text-center hover:bg-surface-container-low cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-outline">upload_file</span>
+<p class="text-label-sm text-outline mt-1">Replace Hero Image</p>
+</div>
+</div>
+</div>
+</details>
+<details class="group">
+<summary class="flex justify-between items-center cursor-pointer list-none py-xs border-b border-outline-variant">
+<span class="text-label-md font-semibold text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">grid_view</span>
+                                    Featured Sections
+                                </span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="pt-sm space-y-sm">
+<button class="w-full text-left p-xs hover:bg-surface-variant rounded-lg text-label-md">Manage 4 Core Properties</button>
+<button class="w-full text-left p-xs hover:bg-surface-variant rounded-lg text-label-md">Layout: Asymmetric Grid</button>
+</div>
+</details>
+<details class="group">
+<summary class="flex justify-between items-center cursor-pointer list-none py-xs border-b border-outline-variant">
+<span class="text-label-md font-semibold text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">format_quote</span>
+                                    Testimonials
+                                </span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="pt-sm space-y-sm">
+<div class="bg-surface-container-low p-sm rounded-xl">
+<p class="text-label-sm italic text-on-surface-variant">"Unparalleled service..."</p>
+<button class="text-primary text-label-sm font-bold mt-xs">Edit entry</button>
+</div>
+</div>
+</details>
+</div>
+</div>
+<div class="pt-md border-t border-outline-variant">
+<h2 class="text-label-md font-bold text-primary mb-md uppercase tracking-wider">Quick Actions</h2>
+<div class="grid grid-cols-2 gap-sm">
+<button class="flex flex-col items-center gap-xs p-sm bg-surface-container-high rounded-xl hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined">menu</span>
+<span class="text-label-sm">Nav Editor</span>
+</button>
+<button class="flex flex-col items-center gap-xs p-sm bg-surface-container-high rounded-xl hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined">search</span>
+<span class="text-label-sm">Meta Tags</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Area: Live Preview Pane -->
+<div class="flex-1 bg-surface-dim p-lg overflow-y-auto">
+<div class="max-w-5xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden min-h-[1200px]">
+<!-- Mini Toolbar for Preview -->
+<div class="bg-surface border-b border-outline-variant px-md py-sm flex justify-between items-center">
+<div class="flex gap-xs">
+<div class="w-3 h-3 rounded-full bg-error opacity-50"></div>
+<div class="w-3 h-3 rounded-full bg-secondary opacity-50"></div>
+<div class="w-3 h-3 rounded-full bg-primary opacity-50"></div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex bg-surface-container-low rounded-lg p-1">
+<button class="px-3 py-1 bg-white shadow-sm rounded-md text-label-sm">Desktop</button>
+<button class="px-3 py-1 text-label-sm text-outline">Tablet</button>
+<button class="px-3 py-1 text-label-sm text-outline">Mobile</button>
+</div>
+<span class="text-label-sm text-outline">Live Preview Mode</span>
+</div>
+</div>
+<!-- The Editable Homepage Content -->
+<div class="preview-pane scrollbar-hide">
+<!-- Hero Section -->
+<section class="relative h-[400px] editable-block">
+<div class="w-full h-full bg-cover bg-center flex items-center justify-center" data-alt="A breathtaking, cinematic wide-angle shot of a contemporary luxury villa in the leafy suburbs of Nairobi. The architecture features clean lines, expansive floor-to-ceiling glass walls, and a stunning infinity pool reflecting the golden hour Kenyan sunset. The lighting is warm and inviting, emphasizing premium stone and wood textures." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBwRiZOzl8JiyGG2-NUkcZ3TQi0QEHp5912THC_HDLhpVdlW7ZJN45TC5Inxcsf2RFTR1blrg-U1sRS2ygLZf6D-2p4iGT2nvXCdh2_7beePW7xGIXZ4_sewBkLVOXA5FMZlqHAYj1T5MH2CVoyXs_cXHOTHtiTrsHJFcSIUNu9J9rEr2lLFYdjY4WEFZV74gG_4S782vI2kbO35c1DH042tyGlV8xukrRLmAhlLdymGxPyj6dd4U_VOQdCkGHQ0XXE3lpEtGq_bGE')">
+<div class="absolute inset-0 bg-primary/30"></div>
+<div class="relative text-center text-white px-md">
+<h1 class="text-display-lg font-display-lg mb-sm">Modern Living in Nairobi</h1>
+<p class="text-body-lg max-w-xl mx-auto">Discover architectural masterpieces curated for the discerning investor. Experience luxury redefined in the heart of East Africa.</p>
+</div>
+</div>
+</section>
+<!-- Bento Grid Featured -->
+<section class="p-xl bg-white space-y-md">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary">Featured Estates</h2>
+<p class="text-body-md text-on-surface-variant">Handpicked premium properties available this month.</p>
+</div>
+<button class="text-secondary font-bold text-label-md flex items-center gap-xs">View All Portfolio <span class="material-symbols-outlined">arrow_forward</span></button>
+</div>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Main Large Card -->
+<div class="col-span-8 group editable-block">
+<div class="relative rounded-xl overflow-hidden shadow-sm h-[400px]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A lavish penthouse interior in Westlands, Nairobi, featuring minimalist Scandinavian furniture, high ceilings, and an incredible panoramic view of the city skyline through massive windows. The color palette is composed of soft beige, charcoal, and emerald green accents, radiating a sense of quiet confidence and premium living." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALQ83i5zGXoXjxZjmOhUDsFRbPaRbVKcdZ_FHZyApYzwkBekDjXkyhhdKFnGXpyLCF8-yFuYEkZN9RD8MC7x8V9cHhvWm-MhYP-ZrlEGfqTKhKAhVAspK9iBdWL11mDer0v6-odiaAnwO1AdRSoDK9yX0q8WVIGp4j3gM_CVSI1Pt4I5KDI79iQcDblzEcI16TpIC29-MbQjwW2GhNMxx-NgIC8zqaiSbtwOE1mtTZFYdJEGTev9thB2FLqR1k-foNuOouwsfv40E"/>
+<div class="absolute bottom-0 left-0 right-0 p-lg bg-gradient-to-t from-primary/80 to-transparent text-white">
+<span class="bg-secondary text-on-secondary px-sm py-1 rounded-full text-label-sm font-bold">Premium Listing</span>
+<h3 class="text-headline-md mt-sm">The Westlands Penthouse</h3>
+<p class="text-label-md opacity-90">$2,400,000 • 5 Bedrooms • 6,500 sqft</p>
+</div>
+</div>
+</div>
+<!-- Side Stack -->
+<div class="col-span-4 flex flex-col gap-gutter">
+<div class="h-1/2 relative rounded-xl overflow-hidden shadow-sm group editable-block">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An elegant, eco-friendly modern estate located in the lush Karen neighborhood. The property features solar integration, vertical gardens on stone walls, and a sophisticated outdoor lounge area. The style is Corporate Modern with a Minimalist Editorial edge, captured in bright morning daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4kMVXd0kzPvapvtsrd-BK68saqr5quFG_VUsc4OfHGXxBVeyAJdFf5oh7prg-NKJnidaC3tWT8IYwzocxYNmXOaG7VlPdxikqyM-PsiZlnovyNTT7vpJg47CuY2K047m3P-zpq2Rat0aNEzWtngY07krDoozKPqtJpgoBtDp0wi6DG1yhDhHES0Zx4zfTgG72qjCieULaTZviylLEMIW7Vj2v4cxirHTC-e-qhWdO3WmUeGlaWwa_zWSHyzc4VFBJ2gD0HY7OwUM"/>
+<div class="absolute inset-0 bg-primary/20 flex items-end p-md text-white">
+<h4 class="text-label-md font-bold">Karen Eco-Mansion</h4>
+</div>
+</div>
+<div class="h-1/2 relative rounded-xl overflow-hidden shadow-sm group editable-block">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-end development in Muthaiga, showing a sleek exterior with a mix of dark steel and light sandstone. The scene is clean and architectural, highlighting the stability and prestige of the Kenyan real estate market. The photograph uses high resolution and professional wide-angle perspective." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN1Pz4qIg8m5HEMPfTmsv_NgVOxnBHHzxUSiWrJ15vARIrIdLFKcZ4mPyIVFp2JDv7-0keH3o1MJB3Ak_W0PewE6mvlA44EoH5uWlayGqmwffo1puzcZ8U0sdihviXBWaKFxN3_QuU92Yf-raxl4AFGGdg9WrB8E18EmjXY4MgCu-oNVedtvh29Ddgwf4yr9n5wkA3N9-pAMxwys0k0fYUSLj1DYxLkOiAHeA5sQXscSWvxeZoFaXA7POEX4IuuDFzl5SSMb947Lo"/>
+<div class="absolute inset-0 bg-primary/20 flex items-end p-md text-white">
+<h4 class="text-label-md font-bold">Muthaiga Ridge Estate</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonial Section -->
+<section class="bg-surface-container-low p-xl editable-block">
+<div class="max-w-3xl mx-auto text-center">
+<span class="material-symbols-outlined text-secondary text-xl mb-md">format_quote</span>
+<p class="text-headline-md italic font-light text-primary leading-relaxed">
+                                    "Their attention to detail and understanding of the luxury market in Kenya is unparalleled. We found our dream family home in Karen within weeks, and the transition was seamless."
+                                </p>
+<div class="mt-lg flex items-center justify-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a sophisticated female property investor in professional business attire. She has a confident and serene expression. The setting is a blurred luxury lounge with warm, golden-hour lighting, maintaining a consistent high-end editorial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhNgfR27vKMRbzTYJcX5Un8RVZlNdl5qOxfcLSP1a3y93hIHN4OE0cZqMzTIFyn-eZS2UhL6lDI0YcVXDxixoENyYeH3NQOYbgesdnE3W1ynWk1TOgtUjEaMvmGwcPWqbRvvjNa96vZFcylRmIZ72e9n1SLJZWXNfJmEuU7P0vxsZMTZYXgXYipc7382qDyRXWah_G_qodCR5U9dTXue_fKooVj0-z32eaVDTfcc3yCHch4vnIyKHLf9PJrWr8b9IgcbY0qVNzLmc"/>
+</div>
+<div class="text-left">
+<p class="font-bold text-on-surface">Dr. Sarah Mwangi</p>
+<p class="text-label-sm text-outline">Investment Consultant</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full py-sm bg-surface border-t border-outline-variant flex justify-between items-center px-xl">
+<span class="text-label-sm font-label-sm text-outline">© 2024 Kenyan Luxury Estates Management. All Rights Reserved.</span>
+<div class="flex gap-lg">
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="#">API Documentation</a>
+</div>
+</footer>
+</main>
+<!-- Floating Save FAB -->
+<div class="fixed bottom-lg right-lg flex flex-col gap-sm">
+<button class="bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all group relative">
+<span class="material-symbols-outlined">save</span>
+<span class="absolute right-full mr-4 bg-primary text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">Save Changes</span>
+</button>
+<button class="bg-secondary text-on-secondary w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all group relative">
+<span class="material-symbols-outlined">publish</span>
+<span class="absolute right-full mr-4 bg-secondary text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">Publish Live</span>
+</button>
+</div>
+<script>
+        // Micro-interactions for editable blocks
+        document.querySelectorAll('.editable-block').forEach(block => {
+            block.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Simple highlight effect for prototype demonstration
+                block.classList.add('ring-2', 'ring-secondary', 'ring-offset-4');
+                setTimeout(() => {
+                    block.classList.remove('ring-2', 'ring-secondary', 'ring-offset-4');
+                }, 2000);
+                
+                // Show a mock notification
+                const toast = document.createElement('div');
+                toast.className = 'fixed bottom-4 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-lg py-sm rounded-xl shadow-lg z-[100] animate-bounce';
+                toast.innerText = 'Block selected for editing';
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2000);
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Property Listings | TobillionHomes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .property-card-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 31, 63, 0.05);
+        }
+        .map-gradient {
+            background: linear-gradient(to bottom, rgba(248, 249, 250, 0.8), transparent 20%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#43474e",
+                      "surface-bright": "#f8f9fa",
+                      "primary-fixed": "#d4e3ff",
+                      "on-secondary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#1e2011",
+                      "outline-variant": "#c4c6cf",
+                      "primary-container": "#001f3f",
+                      "error": "#ba1a1a",
+                      "on-surface": "#191c1d",
+                      "surface-tint": "#476083",
+                      "inverse-surface": "#2e3132",
+                      "surface-container-high": "#e7e8e9",
+                      "on-primary-container": "#6f88ad",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-container-low": "#f3f4f5",
+                      "tertiary-fixed": "#e4e4cc",
+                      "secondary-fixed": "#97f5cc",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "secondary-container": "#97f5cc",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#000613",
+                      "tertiary": "#050700",
+                      "on-secondary-fixed-variant": "#00513a",
+                      "secondary": "#006c4e",
+                      "surface-dim": "#d9dadb",
+                      "secondary-fixed-dim": "#7bd8b1",
+                      "tertiary-fixed-dim": "#c8c8b0",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#afc8f0",
+                      "on-secondary-container": "#007353",
+                      "on-tertiary-fixed-variant": "#474836",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#afc8f0",
+                      "surface": "#f8f9fa",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "on-tertiary-container": "#878873",
+                      "on-primary-fixed": "#001c3a",
+                      "on-secondary-fixed": "#002115",
+                      "outline": "#74777f",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-tertiary-fixed": "#1b1d0e",
+                      "surface-variant": "#e1e3e4",
+                      "on-background": "#191c1d",
+                      "surface-container": "#edeeef",
+                      "background": "#f8f9fa"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "40px",
+                      "gutter": "24px",
+                      "base": "4px",
+                      "xl": "64px",
+                      "xs": "8px",
+                      "sm": "16px",
+                      "md": "24px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "headline-md": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-surface border-b border-outline-variant dark:border-on-surface-variant shadow-sm docked full-width top-0 z-[60] sticky">
+<nav class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">TobillionHomes</span>
+</div>
+<div class="hidden md:flex items-center gap-md">
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-body-md text-body-md" href="#">Listings</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary transition-colors font-body-md text-body-md" href="#">Projects</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary transition-colors font-body-md text-body-md" href="#">Developments</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary transition-colors font-body-md text-body-md" href="#">About</a>
+<a class="text-on-surface-variant dark:text-on-surface hover:text-primary transition-colors font-body-md text-body-md" href="#">News</a>
+</div>
+<div class="flex items-center gap-sm">
+<div class="hidden md:flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary duration-200">favorite</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary duration-200">account_circle</span>
+</div>
+<button class="bg-primary text-on-primary px-sm py-xs rounded-lg font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-all duration-300">
+                    List Property
+                </button>
+</div>
+</nav>
+</header>
+<!-- Main Content Area -->
+<main class="max-w-container-max mx-auto px-gutter py-md">
+<!-- Filter Bar -->
+<section class="bg-surface-container-low rounded-xl p-md mb-md border border-outline-variant/30">
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-sm">
+<div class="flex flex-col gap-base">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">County</label>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg p-xs font-body-md focus:ring-2 focus:ring-primary outline-none">
+<option>Nairobi</option>
+<option>Kiambu</option>
+<option>Mombasa</option>
+<option>Nakuru</option>
+</select>
+</div>
+<div class="flex flex-col gap-base">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">Estate</label>
+<input class="bg-surface-container-lowest border border-outline-variant rounded-lg p-xs font-body-md focus:ring-2 focus:ring-primary outline-none" placeholder="e.g. Karen" type="text"/>
+</div>
+<div class="flex flex-col gap-base">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">Type</label>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg p-xs font-body-md focus:ring-2 focus:ring-primary outline-none">
+<option>Apartment</option>
+<option>Maisonette</option>
+<option>Land</option>
+<option>Villa</option>
+</select>
+</div>
+<div class="flex flex-col gap-base">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">Beds</label>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg p-xs font-body-md focus:ring-2 focus:ring-primary outline-none">
+<option>1+</option>
+<option>2+</option>
+<option>3+</option>
+<option>4+</option>
+</select>
+</div>
+<div class="flex flex-col gap-base lg:col-span-2">
+<label class="font-label-sm text-on-surface-variant uppercase tracking-wider">Price Range (KES)</label>
+<div class="flex items-center gap-xs">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-xs font-body-md focus:ring-2 focus:ring-primary outline-none" placeholder="Min" type="number"/>
+<span class="text-outline">-</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-xs font-body-md focus:ring-2 focus:ring-primary outline-none" placeholder="Max" type="number"/>
+</div>
+</div>
+</div>
+<div class="mt-md flex justify-end">
+<button class="bg-secondary text-on-secondary px-lg py-xs rounded-lg font-label-md flex items-center gap-xs hover:shadow-lg transition-all">
+<span class="material-symbols-outlined">search</span>
+                    Apply Filters
+                </button>
+</div>
+</section>
+<!-- View Controls -->
+<div class="flex justify-between items-center mb-sm">
+<h1 class="font-headline-md text-headline-md text-primary">Available Properties in Kenya</h1>
+<div class="flex items-center gap-xs bg-surface-container-high p-1 rounded-lg">
+<button class="p-1 rounded bg-surface-container-lowest shadow-sm text-primary transition-all" id="grid-view-btn">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container-lowest transition-all" id="list-view-btn">
+<span class="material-symbols-outlined">view_list</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Property List/Grid -->
+<div class="flex-grow grid grid-cols-1 md:grid-cols-2 gap-md items-start" id="property-container">
+<!-- Property Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden property-card-shadow border border-outline-variant/20 group hover:translate-y-[-4px] transition-transform duration-300">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A luxurious modern architectural villa in Muthaiga, Nairobi, during golden hour. The building features large glass windows, clean white walls, and a perfectly manicured lawn. The lighting is warm and inviting, highlighting the premium finishes and serene atmosphere. Corporate modern editorial style with high-resolution clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjglfvE5Fk1vLYvBGb8W3o0XQtM4W4TNh9I0XLNWcdJdb-tfjrk_cYT19jdQjTrkn-sidgkhT3w1f2JkadZmkHKbPuWTJ6xl6vg-shYTsB_muLJhLjA6bc-ICPG3ksb1OBXm_8V02rix9fNUARvC5oECVIlySqH_wsPn0DolZQZSBFsvIwsJl9GnBph5GGlNgyIM5xpbZCrnVIXeqwR4vEuj_Nasyne9D0Y9nQUybxqlBAmQdBueaNiHEvVoDOdPbeXks0YeDgEWk"/>
+<div class="absolute top-sm left-sm flex gap-xs">
+<span class="bg-secondary text-on-secondary px-xs py-1 rounded-full text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Verified
+                            </span>
+<span class="bg-primary/80 backdrop-blur-sm text-white px-xs py-1 rounded-full text-label-sm">Premium</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-sm bg-gradient-to-t from-black/60 to-transparent">
+<p class="text-white font-headline-md">KES 85,000,000</p>
+</div>
+</div>
+<div class="p-sm">
+<div class="flex justify-between items-start mb-xs">
+<div>
+<h3 class="font-headline-md text-[18px] text-primary">Contemporary 5BR Maisonette</h3>
+<div class="flex items-center gap-1 text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-label-sm">Muthaiga, Nairobi</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-error transition-colors">favorite</span>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/30 pt-sm mt-sm">
+<div class="flex gap-md">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">bed</span>
+<span class="text-label-sm">5 Beds</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">bathtub</span>
+<span class="text-label-sm">4 Baths</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">square_foot</span>
+<span class="text-label-sm">4500 sqft</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Property Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden property-card-shadow border border-outline-variant/20 group hover:translate-y-[-4px] transition-transform duration-300">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-rise luxury apartment complex in Westlands, Nairobi, at twilight. The building's sleek facade is lit with architectural accent lighting. A rooftop infinity pool reflects the city lights. The mood is sophisticated and urban, emphasizing an elite lifestyle. Minimalist editorial photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdQUg7JUaXGn4gr9B-3lWH3E2kP2PaWK5IWOvLmTtIVK7QBCjkiY5M5S-3u_fehZqMru-PJj7EpbEuKyZ9Ea2a9tuCC3W4jEk1rxxSGgomBaXztFjuDCP7jiNAjqnxHhvgIMcepj7LZiWW1AX5DnkNSE0FpA5J7yuV5cpNuGab5TNW0KLq55rpAai2PSydv81Xx1H9knFWzfSUnZh1gHqaqvTbe1EKz7XavRxzUWfXApj-_-lOjD_5T6sE6puMm8RcjQh21v07Teg"/>
+<div class="absolute top-sm left-sm flex gap-xs">
+<span class="bg-secondary text-on-secondary px-xs py-1 rounded-full text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Verified
+                            </span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-sm bg-gradient-to-t from-black/60 to-transparent">
+<p class="text-white font-headline-md">KES 22,500,000</p>
+</div>
+</div>
+<div class="p-sm">
+<div class="flex justify-between items-start mb-xs">
+<div>
+<h3 class="font-headline-md text-[18px] text-primary">Skyview Executive Suites</h3>
+<div class="flex items-center gap-1 text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-label-sm">Westlands, Nairobi</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-error transition-colors">favorite</span>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/30 pt-sm mt-sm">
+<div class="flex gap-md">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">bed</span>
+<span class="text-label-sm">2 Beds</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">bathtub</span>
+<span class="text-label-sm">2 Baths</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">square_foot</span>
+<span class="text-label-sm">1800 sqft</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Property Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden property-card-shadow border border-outline-variant/20 group hover:translate-y-[-4px] transition-transform duration-300">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A lush half-acre residential plot in Karen, Nairobi, surrounded by ancient leafy trees and a clear blue sky. A conceptual 3D overlay shows the potential for a sprawling estate. The lighting is soft morning sun, creating a peaceful and valuable real estate vibe. Natural and elite setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcKiOlRVtDyNeVoHnPE0a2f7BdD6LaeEoRmJM7GbA-dDsGmDpjv1CjFStWkV_IiMreUl_0dSXkQLLTNm9cdi7qJHx417ph1Q6_Olo_I4GUdKhqSSJQCO2biRox9Mzn1HelI3QZV2F0U7gbxYO2EZUePgouE8bWATJX1CtOTk2vmHeEeFPlLZ7XXaCE1RKgnXxGL8kdUSiyiQTKS5hn4UlpXvvDlRUYhgLJRvdcXECYv1wg2bwPnX1bIdtk1juL9_5ibxpieG9OQhY"/>
+<div class="absolute top-sm left-sm flex gap-xs">
+<span class="bg-secondary text-on-secondary px-xs py-1 rounded-full text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Verified
+                            </span>
+<span class="bg-tertiary text-white px-xs py-1 rounded-full text-label-sm">Hot Deal</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-sm bg-gradient-to-t from-black/60 to-transparent">
+<p class="text-white font-headline-md">KES 45,000,000</p>
+</div>
+</div>
+<div class="p-sm">
+<div class="flex justify-between items-start mb-xs">
+<div>
+<h3 class="font-headline-md text-[18px] text-primary">Prime Residential Half-Acre</h3>
+<div class="flex items-center gap-1 text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-label-sm">Karen, Nairobi</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-error transition-colors">favorite</span>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/30 pt-sm mt-sm">
+<div class="flex gap-md">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">square_foot</span>
+<span class="text-label-sm">0.5 Acre</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">fence</span>
+<span class="text-label-sm">Fenced</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Property Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden property-card-shadow border border-outline-variant/20 group hover:translate-y-[-4px] transition-transform duration-300">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beachfront Mediterranean-style villa in Nyali, Mombasa. The image shows the sparkling blue Indian Ocean in the background, a white terrace with blue accents, and tall palm trees swaying in the breeze. The vibe is tropical luxury, bright and airy. Clean, high-contrast digital photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC51707VGd0WFRcC0gmvBi7VRZyK0oULm5TeG2uCACZebqBjASWZj5tnUVjOkh9NQw1Na4gkLEnjSyTx7jGAdauDYou5ejVIDMTMZxX-98UMX6fLxaT-lYaGW7E62XkV0S7orlmwGVFuvA6oVA6vXfqBRiwZnk0eh4yGQwrwsNVGC6aA4aE68PBuWTkWeO3XGfKiQg8AZhpisr4PeNtibDc_59fy0LKsFHDvLVinuQ5XAfOYwcktpvAynN6t--UWc8eOFXjOlpwPKE"/>
+<div class="absolute top-sm left-sm flex gap-xs">
+<span class="bg-secondary text-on-secondary px-xs py-1 rounded-full text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Verified
+                            </span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-sm bg-gradient-to-t from-black/60 to-transparent">
+<p class="text-white font-headline-md">KES 120,000,000</p>
+</div>
+</div>
+<div class="p-sm">
+<div class="flex justify-between items-start mb-xs">
+<div>
+<h3 class="font-headline-md text-[18px] text-primary">Beachfront Nyali Manor</h3>
+<div class="flex items-center gap-1 text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-label-sm">Nyali, Mombasa</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-error transition-colors">favorite</span>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/30 pt-sm mt-sm">
+<div class="flex gap-md">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">bed</span>
+<span class="text-label-sm">6 Beds</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">pool</span>
+<span class="text-label-sm">Private Pool</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Map Sidebar -->
+<aside class="hidden lg:block w-[400px] sticky top-24 h-[calc(100vh-140px)]">
+<div class="h-full w-full rounded-xl overflow-hidden border border-outline-variant relative group">
+<div class="absolute top-sm left-sm z-10 flex flex-col gap-xs">
+<div class="bg-surface-container-lowest/90 backdrop-blur shadow-sm rounded-lg p-2 flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">map</span>
+<span class="font-label-md">Interactive View</span>
+</div>
+</div>
+<img class="w-full h-full object-cover" data-location="Nairobi, Kenya" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnnAn1hvzjz6nz99E4vagMhE0sS5_MiFnCjBiuVieVRzbxGP4tj4w9b5xRCGtEaoefo7INEaKyH35X3PjwBCUocqiA18peT4qlN6C5bJRTe1_6w6vkGqoBueoWdMtnFYKH2n3p9M-XvD8wVLeemXjskX6J8dErPPKfPmVLiXf3QIWHo-9Olem8UgsFp-BY6FP7ElrzvLYz85hB5fTxX7PlrT2xX6j9npuKqfFuBV808AoA28id1eBqQzLq9hXoSdMVPxrq7pbAtLA"/>
+<div class="absolute inset-0 map-gradient pointer-events-none"></div>
+<!-- Dummy Map Markers -->
+<div class="absolute top-1/4 left-1/3 group/marker">
+<div class="bg-primary text-white px-xs py-1 rounded-lg text-label-sm font-bold shadow-lg transform group-hover/marker:scale-110 transition-transform cursor-pointer">85M</div>
+<div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-primary mx-auto"></div>
+</div>
+<div class="absolute top-1/2 left-1/2 group/marker">
+<div class="bg-secondary text-white px-xs py-1 rounded-lg text-label-sm font-bold shadow-lg transform group-hover/marker:scale-110 transition-transform cursor-pointer">22.5M</div>
+<div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-secondary mx-auto"></div>
+</div>
+<div class="absolute bottom-1/4 right-1/4 group/marker">
+<div class="bg-primary text-white px-xs py-1 rounded-lg text-label-sm font-bold shadow-lg transform group-hover/marker:scale-110 transition-transform cursor-pointer">45M</div>
+<div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-primary mx-auto"></div>
+</div>
+<div class="absolute bottom-sm left-sm right-sm bg-surface-container-lowest/95 backdrop-blur p-sm rounded-lg shadow-lg border border-outline-variant">
+<p class="font-label-sm text-on-surface-variant">Currently viewing 4 properties in Nairobi</p>
+</div>
+</div>
+</aside>
+</div>
+<!-- Pagination -->
+<div class="mt-xl flex justify-center items-center gap-xs">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-label-md">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md">3</button>
+<span class="text-outline">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-surface-container-high mt-xl">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md px-gutter py-xl max-w-container-max mx-auto text-on-primary">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-md text-headline-md text-on-primary font-bold mb-sm block">TobillionHomes</span>
+<p class="text-primary-fixed-dim opacity-80 font-body-md text-body-md mb-md">Premium Kenyan Real Estate. Curated for the modern investor seeking architectural excellence and high returns.</p>
+<div class="flex gap-sm">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed transition-colors">public</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed transition-colors">alternate_email</span>
+</div>
+</div>
+<div>
+<h4 class="font-label-md uppercase tracking-wider mb-sm">Services</h4>
+<ul class="space-y-xs">
+<li><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-opacity" href="#">Browse Counties</a></li>
+<li><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-opacity" href="#">Property Management</a></li>
+<li><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-opacity" href="#">Mortgage Guide</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md uppercase tracking-wider mb-sm">Company</h4>
+<ul class="space-y-xs">
+<li><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-opacity" href="#">Privacy Policy</a></li>
+<li><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-opacity" href="#">Contact Support</a></li>
+<li><a class="text-primary-fixed-dim opacity-80 hover:opacity-100 hover:text-secondary-fixed transition-opacity" href="#">Careers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md uppercase tracking-wider mb-sm">Newsletter</h4>
+<p class="text-primary-fixed-dim opacity-80 text-label-sm mb-sm">Get the latest prime listings delivered to your inbox weekly.</p>
+<div class="flex">
+<input class="bg-on-primary-fixed-variant text-white border-none rounded-l-lg p-xs w-full focus:ring-0" placeholder="Email Address" type="email"/>
+<button class="bg-secondary text-on-secondary px-sm py-xs rounded-r-lg font-label-md">Join</button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter py-md border-t border-on-primary-fixed-variant flex justify-between items-center text-primary-fixed-dim opacity-60 text-label-sm">
+<span>© 2024 TobillionHomes. Premium Kenyan Real Estate.</span>
+<div class="flex gap-md">
+<span>Terms</span>
+<span>Security</span>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="fixed bottom-0 w-full flex justify-around items-center py-xs md:hidden bg-surface-container-lowest dark:bg-surface shadow-[0_-4px_20px_rgba(0,31,63,0.05)] border-t border-outline-variant z-50">
+<div class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container scale-95 transition-transform">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm-mobile">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary font-bold active:bg-surface-container scale-95 transition-transform">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-sm text-label-sm-mobile">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container scale-95 transition-transform">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-sm text-label-sm-mobile">Saved</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container scale-95 transition-transform">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm-mobile">Profile</span>
+</div>
+</nav>
+<!-- Floating WhatsApp Button -->
+<a class="fixed bottom-24 right-sm md:bottom-md md:right-md bg-[#25D366] text-white p-sm rounded-full shadow-lg hover:scale-110 transition-transform z-50 flex items-center justify-center group" href="https://wa.me/254700000000" target="_blank">
+<svg fill="currentColor" height="28" viewbox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
+<span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 font-label-md whitespace-nowrap ml-0 group-hover:ml-xs">Chat with an Expert</span>
+</a>
+<script>
+        const gridBtn = document.getElementById('grid-view-btn');
+        const listBtn = document.getElementById('list-view-btn');
+        const container = document.getElementById('property-container');
+
+        gridBtn.addEventListener('click', () => {
+            container.classList.remove('flex', 'flex-col');
+            container.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2');
+            gridBtn.classList.add('bg-surface-container-lowest', 'shadow-sm');
+            listBtn.classList.remove('bg-surface-container-lowest', 'shadow-sm');
+        });
+
+        listBtn.addEventListener('click', () => {
+            container.classList.remove('grid', 'grid-cols-1', 'md:grid-cols-2');
+            container.classList.add('flex', 'flex-col');
+            listBtn.classList.add('bg-surface-container-lowest', 'shadow-sm');
+            gridBtn.classList.remove('bg-surface-container-lowest', 'shadow-sm');
+        });
+
+        // Add small parallax effect to cards on scroll
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.property-card-shadow');
+            cards.forEach(card => {
+                const speed = 0.05;
+                const rect = card.getBoundingClientRect();
+                const visible = rect.top < window.innerHeight && rect.bottom > 0;
+                if (visible) {
+                    const shift = (window.innerHeight - rect.top) * speed;
+                    // card.style.transform = `translateY(${shift}px)`;
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Property Comparison | TobillionHomes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e1e3e4",
+                        "tertiary": "#050700",
+                        "surface-container-low": "#f3f4f5",
+                        "outline": "#74777f",
+                        "tertiary-container": "#1e2011",
+                        "inverse-primary": "#afc8f0",
+                        "surface-dim": "#d9dadb",
+                        "secondary": "#006c4e",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00513a",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "on-primary-fixed": "#001c3a",
+                        "surface-tint": "#476083",
+                        "primary-fixed": "#d4e3ff",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "primary": "#000613",
+                        "on-secondary-fixed": "#002115",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#afc8f0",
+                        "on-tertiary-container": "#878873",
+                        "on-tertiary-fixed": "#1b1d0e",
+                        "on-secondary-container": "#007353",
+                        "tertiary-fixed-dim": "#c8c8b0",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-primary-container": "#6f88ad",
+                        "on-tertiary-fixed-variant": "#474836",
+                        "primary-container": "#001f3f",
+                        "background": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e4e4cc",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9fa",
+                        "secondary-container": "#97f5cc",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#edeeef",
+                        "surface-container-highest": "#e1e3e4",
+                        "secondary-fixed": "#97f5cc",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-bright": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c4c6cf",
+                        "inverse-surface": "#2e3132",
+                        "secondary-fixed-dim": "#7bd8b1",
+                        "on-surface": "#191c1d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "xs": "8px",
+                        "gutter": "24px",
+                        "lg": "40px",
+                        "base": "4px",
+                        "sm": "16px",
+                        "md": "24px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .comparison-column {
+            width: calc((100% - 240px) / 3);
+        }
+        .row-label {
+            width: 240px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .premium-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 31, 63, 0.05);
+        }
+        .sticky-header {
+            position: sticky;
+            top: 64px;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="bg-background fixed top-0 w-full z-50 border-b border-outline-variant">
+<div class="flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto h-16">
+<div class="font-headline-md text-headline-md font-bold text-primary">TobillionHomes</div>
+<nav class="hidden md:flex gap-md items-center">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Properties</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Invest</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Services</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Market Insights</a>
+</nav>
+<div class="flex gap-sm items-center">
+<button class="hidden md:block px-md py-xs font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Login</button>
+<button class="bg-primary text-on-primary px-md py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors">List Property</button>
+</div>
+</div>
+</header>
+<main class="mt-xl pt-lg pb-xl px-sm md:px-lg max-w-container-max mx-auto">
+<!-- Title & Breadcrumbs -->
+<div class="mb-lg">
+<nav class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm mb-base">
+<a href="#">Home</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a href="#">Search</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">Compare Properties</span>
+</nav>
+<h1 class="font-display-lg text-display-lg text-primary">Property Comparison</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl mt-base">Review and compare the finest luxury residences in Nairobi side-by-side to find your perfect match.</p>
+</div>
+<!-- Comparison Interface -->
+<div class="relative">
+<!-- Property Headers (Sticky) -->
+<div class="bg-background/80 backdrop-blur-md sticky-header py-sm border-b border-outline-variant mb-md">
+<div class="flex gap-md">
+<div class="row-label hidden md:flex items-end pb-md">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Compare Features</span>
+</div>
+<!-- Property 1 -->
+<div class="comparison-column flex-grow md:flex-none">
+<div class="bg-surface-container-lowest rounded-xl premium-shadow p-xs relative group overflow-hidden border border-outline-variant/30">
+<button class="absolute top-2 right-2 z-10 bg-white/90 text-error p-1 rounded-full shadow-sm hover:bg-error hover:text-white transition-all">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<div class="aspect-video w-full rounded-lg bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-end modern villa in Muthaiga, Nairobi, featuring expansive glass windows, clean white architectural lines, and lush tropical landscaping under a bright, warm afternoon sun. The aesthetic is corporate luxury with a minimalist editorial edge, emphasizing the premium quality of Kenyan real estate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKyvN67LNp1Td8XdsjtRs5hXmUXNQbPZOJzY07P5vfn0kNVO0imx_PklqAiiCaFmScYplYnhIxUb7wnkedfDJrRfHZy5t1n_OhaEp4XH25n9agVIDphTwOXLeH_P_Ggb17KzW4HeWlbNrb66mkV4-N-46ThpfLnQYsQ7q5cdtkK7qktzRwvPrQM0Hpnq9yV91G3WCDhzkORp_NMV6pmLe7neyE3TAnHCqkhFNhPrasss-Uxnhqi5Vzg-PG9-7SnXYl7MRKJWEMWGg"/>
+</div>
+<div class="mt-sm px-xs pb-xs">
+<h3 class="font-headline-md text-[18px] text-primary truncate">Royal Ebony Estate</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Muthaiga, Nairobi</p>
+</div>
+</div>
+</div>
+<!-- Property 2 -->
+<div class="comparison-column flex-grow md:flex-none">
+<div class="bg-surface-container-lowest rounded-xl premium-shadow p-xs relative group overflow-hidden border border-outline-variant/30">
+<button class="absolute top-2 right-2 z-10 bg-white/90 text-error p-1 rounded-full shadow-sm hover:bg-error hover:text-white transition-all">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<div class="aspect-video w-full rounded-lg bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sleek penthouse interior in Westlands, Nairobi, showcasing a spacious living room with double-height ceilings, Italian marble flooring, and floor-to-ceiling windows overlooking the city skyline. The atmosphere is serene and sophisticated, lit by high-key natural daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUdNewxhR9xRWWlcaBYyn-19g9ybmOFqdGxXEzo2B-Dt0lW2xatcRc0MGWJ5cRP3C83Byq-4uv0zdbHV-rjaQzMgf0IOormaKNXd_cvccoCjoFCqFifcxLPg-yWxDqvIUyYSC-1HqW9s9nJcG7dR1HIi4nhCDhBexbloKGg-SXSvg7mbq1kLGz4lKt66OZ9xCNaHMXwRCscouXTE3yx30n0E8u79MWJ3FQryMvTq3fwpf4XLiomK00Nr0oEJxv_Gikf73krera2Ds"/>
+</div>
+<div class="mt-sm px-xs pb-xs">
+<h3 class="font-headline-md text-[18px] text-primary truncate">Azure Sky Heights</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Westlands, Nairobi</p>
+</div>
+</div>
+</div>
+<!-- Property 3 -->
+<div class="comparison-column flex-grow md:flex-none">
+<div class="bg-surface-container-lowest rounded-xl premium-shadow p-xs relative group overflow-hidden border border-outline-variant/30">
+<button class="absolute top-2 right-2 z-10 bg-white/90 text-error p-1 rounded-full shadow-sm hover:bg-error hover:text-white transition-all">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+<div class="aspect-video w-full rounded-lg bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A contemporary townhouse in Karen, Nairobi, with dark timber cladding and stone accents. The property is surrounded by mature trees and manicured lawns, reflecting a quiet confidence and architectural stability typical of prestigious Kenyan homes. The lighting is soft and golden." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUa1IPasEa_-PRaTthuaiUwgnkjXCsvulIP3-XIunB9fxJVeU_n9NP6DtjiMHGK8IYPpUiOsx5-RSIvJgE65dmdxgRCE3OoQfe0fMy915XcVO189J6-MlZAzsWYB2Xwo4kOCL3wwjkmG2-D3WSDlZueMBUhJD8EZbIQLFkqcfCcLLf8eGS_YlMUOB2DyhOudHcYdPkCEZNmZrta_YP8pXvK3L7wEIpwxpQdvw9ce7eRnf2stLllDbm0iwCI1vyVM0FI_PPid7i3Jk"/>
+</div>
+<div class="mt-sm px-xs pb-xs">
+<h3 class="font-headline-md text-[18px] text-primary truncate">The Amber Sanctuary</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Karen, Nairobi</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Comparison Table -->
+<div class="flex flex-col gap-px bg-outline-variant/30 overflow-hidden rounded-xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm">
+<!-- Price Row -->
+<div class="flex gap-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors group">
+<div class="row-label p-md flex items-center border-r border-outline-variant/20">
+<span class="font-label-md text-label-md text-on-surface-variant">Price (KES)</span>
+</div>
+<div class="comparison-column p-md font-headline-md text-primary">85,000,000</div>
+<div class="comparison-column p-md font-headline-md text-primary">62,500,000</div>
+<div class="comparison-column p-md font-headline-md text-primary">110,000,000</div>
+</div>
+<!-- Location Row -->
+<div class="flex gap-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="row-label p-md flex items-center border-r border-outline-variant/20">
+<span class="font-label-md text-label-md text-on-surface-variant">Location</span>
+</div>
+<div class="comparison-column p-md font-body-md text-on-surface">Muthaiga North</div>
+<div class="comparison-column p-md font-body-md text-on-surface">Westlands</div>
+<div class="comparison-column p-md font-body-md text-on-surface">Karen End</div>
+</div>
+<!-- Size Row -->
+<div class="flex gap-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="row-label p-md flex items-center border-r border-outline-variant/20">
+<span class="font-label-md text-label-md text-on-surface-variant">Size (sqft)</span>
+</div>
+<div class="comparison-column p-md font-body-md text-on-surface">4,500 sqft</div>
+<div class="comparison-column p-md font-body-md text-on-surface">2,800 sqft</div>
+<div class="comparison-column p-md font-body-md text-on-surface">6,200 sqft</div>
+</div>
+<!-- Bedrooms Row -->
+<div class="flex gap-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="row-label p-md flex items-center border-r border-outline-variant/20">
+<span class="font-label-md text-label-md text-on-surface-variant">Bedrooms</span>
+</div>
+<div class="comparison-column p-md font-body-md text-on-surface">5 Bedrooms</div>
+<div class="comparison-column p-md font-body-md text-on-surface">3 Bedrooms</div>
+<div class="comparison-column p-md font-body-md text-on-surface">6 Bedrooms</div>
+</div>
+<!-- Bathrooms Row -->
+<div class="flex gap-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="row-label p-md flex items-center border-r border-outline-variant/20">
+<span class="font-label-md text-label-md text-on-surface-variant">Bathrooms</span>
+</div>
+<div class="comparison-column p-md font-body-md text-on-surface">5.5 Units</div>
+<div class="comparison-column p-md font-body-md text-on-surface">3.0 Units</div>
+<div class="comparison-column p-md font-body-md text-on-surface">7.0 Units</div>
+</div>
+<!-- Unique Amenities Row -->
+<div class="flex gap-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="row-label p-md flex items-center border-r border-outline-variant/20">
+<span class="font-label-md text-label-md text-on-surface-variant">Key Amenities</span>
+</div>
+<div class="comparison-column p-md space-y-xs">
+<div class="flex items-center gap-xs font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">water_drop</span>
+                            Borehole
+                        </div>
+<div class="flex items-center gap-xs font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+                            Backup Generator
+                        </div>
+<div class="flex items-center gap-xs font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">solar_power</span>
+                            Solar Heating
+                        </div>
+</div>
+<div class="comparison-column p-md space-y-xs">
+<div class="flex items-center gap-xs font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">pool</span>
+                            Heated Pool
+                        </div>
+<div class="flex items-center gap-xs font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+                            Backup Generator
+                        </div>
+</div>
+<div class="comparison-column p-md space-y-xs">
+<div class="flex items-center gap-xs font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">water_drop</span>
+                            Borehole
+                        </div>
+<div class="flex items-center gap-xs font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">solar_power</span>
+                            Full Solar Off-grid
+                        </div>
+<div class="flex items-center gap-xs font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]">security</span>
+                            Smart Security
+                        </div>
+</div>
+</div>
+<!-- Call to Action Row -->
+<div class="flex gap-md bg-surface-container-lowest">
+<div class="row-label p-md flex items-center border-r border-outline-variant/20"></div>
+<div class="comparison-column p-md">
+<button class="w-full bg-primary text-on-primary py-sm rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">Book Viewing</button>
+</div>
+<div class="comparison-column p-md">
+<button class="w-full bg-primary text-on-primary py-sm rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">Book Viewing</button>
+</div>
+<div class="comparison-column p-md">
+<button class="w-full bg-primary text-on-primary py-sm rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">Book Viewing</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Trust Features -->
+<section class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="bg-surface-container-low p-md rounded-xl flex items-start gap-md">
+<div class="bg-primary-container/10 p-sm rounded-full text-primary">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-primary">Secure Transaction</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm mt-xs">All listings are verified by our expert legal team for absolute security.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl flex items-start gap-md">
+<div class="bg-primary-container/10 p-sm rounded-full text-primary">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-primary">Financial Advisory</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm mt-xs">Exclusive mortgage rates and investment planning for luxury assets.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl flex items-start gap-md">
+<div class="bg-primary-container/10 p-sm rounded-full text-primary">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-primary">Instant Bookings</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm mt-xs">Schedule private viewings directly from the comparison dashboard.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant mt-xl">
+<div class="w-full px-lg py-xl flex flex-col gap-md max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-start gap-xl">
+<div class="flex flex-col gap-sm max-w-sm">
+<div class="font-headline-md text-headline-md text-primary">TobillionHomes</div>
+<p class="text-on-surface-variant font-body-md text-body-md">Redefining luxury living in East Africa with curated real estate portfolios for the discerning investor.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-xl">
+<div class="flex flex-col gap-sm">
+<span class="font-label-md text-label-md text-primary uppercase">Explore</span>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="#">Nairobi Luxury</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="#">Coastal Retreats</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="#">Investment Hub</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-label-md text-label-md text-primary uppercase">Company</span>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="#">About Us</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="#">Contact</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="#">Career</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-label-md text-label-md text-primary uppercase">Legal</span>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="#">Staff Portal</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-xl border-t border-outline-variant/30 gap-sm">
+<p class="text-on-surface-variant font-label-sm text-label-sm">© 2024 TobillionHomes. Modern Luxury Real Estate Kenya.</p>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">language</span></a>
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">share</span></a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for rows
+        document.querySelectorAll('.bg-surface-container-lowest.transition-colors').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.querySelector('.row-label span').classList.add('text-primary');
+                row.querySelector('.row-label span').classList.add('font-bold');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.querySelector('.row-label span').classList.remove('text-primary');
+                row.querySelector('.row-label span').classList.remove('font-bold');
+            });
+        });
+    </script>
+</body></html>

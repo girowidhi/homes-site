@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TobillionHomes Administration | Secure Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#1b1d0e",
+                    "inverse-surface": "#2e3132",
+                    "on-tertiary-container": "#878873",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c4c6cf",
+                    "surface-variant": "#e1e3e4",
+                    "on-tertiary-fixed-variant": "#474836",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#050700",
+                    "on-secondary-container": "#007353",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#476083",
+                    "secondary-fixed-dim": "#7bd8b1",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-container-high": "#e7e8e9",
+                    "tertiary-fixed": "#e4e4cc",
+                    "surface-bright": "#f8f9fa",
+                    "primary": "#000613",
+                    "on-primary-fixed": "#001c3a",
+                    "surface-dim": "#d9dadb",
+                    "surface-container-low": "#f3f4f5",
+                    "on-background": "#191c1d",
+                    "secondary": "#006c4e",
+                    "primary-container": "#001f3f",
+                    "tertiary-container": "#1e2011",
+                    "tertiary-fixed-dim": "#c8c8b0",
+                    "on-surface-variant": "#43474e",
+                    "on-secondary-fixed": "#002115",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "surface-container": "#edeeef",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "background": "#f8f9fa",
+                    "inverse-on-surface": "#f0f1f2",
+                    "outline": "#74777f",
+                    "on-surface": "#191c1d",
+                    "inverse-primary": "#afc8f0",
+                    "secondary-fixed": "#97f5cc",
+                    "on-error-container": "#93000a",
+                    "surface": "#f8f9fa",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-container": "#6f88ad",
+                    "secondary-container": "#97f5cc",
+                    "primary-fixed-dim": "#afc8f0",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#00513a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "16px",
+                    "md": "24px",
+                    "container-max": "1280px",
+                    "xl": "64px",
+                    "base": "4px",
+                    "xs": "8px",
+                    "lg": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Montserrat"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Montserrat"],
+                    "display-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .transition-all-custom {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      input:focus {
+        outline: none !important;
+        box-shadow: 0 0 0 2px rgba(0, 6, 19, 0.1);
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen overflow-hidden">
+<main class="flex min-h-screen w-full">
+<!-- Side Image / Branding Section (Hidden on mobile) -->
+<section class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-primary items-center justify-center">
+<div class="absolute inset-0 z-0 opacity-80" data-alt="A breathtaking, cinematic aerial view of the Great Rift Valley in Kenya at sunrise. The landscape features rolling green hills, vast savannas, and distant volcanic mountains shrouded in soft morning mist. The lighting is golden and warm, casting long shadows across the acacia trees. The aesthetic is premium, high-resolution, and evokes a sense of architectural stability and natural prestige, aligned with a corporate luxury real estate brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxC8IYCaiyGNaCKMAYkIi9ubFg70L35FxvSpCctIi3Ys7HO-IKvJi2HyPTQpTbASc9W3jv3gTTroGZJpCK2z0mH0hI6pTXdHIQv90nLW8qocfK3QanxjbBcTX9wum4HsTPNffUVC3pzOWweP3-zPAA_e0uzH1Tmaoz5qrEXeeN6QAnYJ1CScZOVpmHN__NIpiPTjZXhOn0syZMtJdzhP-x0yLibvM0Xt9JbGKNsFeQwGYlDnkuT4AFNwp7PCnXgqNyEhSqXxMccd0')">
+</div>
+<!-- Overlay Gradient -->
+<div class="absolute inset-0 z-10 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
+<div class="relative z-20 px-xl text-center">
+<h1 class="text-display-lg font-display-lg text-on-primary mb-sm leading-tight">TobillionHomes</h1>
+<p class="text-body-lg font-body-lg text-primary-fixed-dim max-w-md mx-auto">
+                    Global excellence in Kenyan luxury real estate. Access the command center for prestige management.
+                </p>
+<div class="mt-lg flex justify-center items-center gap-xs text-secondary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-label-md font-label-md tracking-widest uppercase">Secured by T-Shield v2.4</span>
+</div>
+</div>
+</section>
+<!-- Login Form Section -->
+<section class="w-full lg:w-1/2 flex items-center justify-center px-md py-xl bg-background relative">
+<!-- Mobile Brand Header -->
+<div class="lg:hidden absolute top-md left-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-headline-md">domain</span>
+<span class="text-headline-md font-headline-md text-primary font-bold">TobillionHomes</span>
+</div>
+<div class="w-full max-w-md transition-all-custom">
+<div class="mb-lg">
+<h2 class="text-headline-lg font-headline-lg text-primary mb-xs">Staff Portal</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">Please authenticate to access the administration dashboard.</p>
+</div>
+<form class="space-y-md" id="loginForm">
+<!-- Email Field -->
+<div class="space-y-base">
+<label class="text-label-md font-label-md text-on-surface" for="email">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-body-md">mail</span>
+<input class="w-full pl-lg pr-sm py-sm rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface placeholder:text-outline/50 transition-all-custom focus:border-primary" id="email" placeholder="name@tobillionhomes.com" required="" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-base">
+<div class="flex justify-between items-center">
+<label class="text-label-md font-label-md text-on-surface" for="password">Password</label>
+<a class="text-label-sm font-label-sm text-secondary hover:text-on-secondary-container transition-colors" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-body-md">lock</span>
+<input class="w-full pl-lg pr-lg py-sm rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface placeholder:text-outline/50 transition-all-custom focus:border-primary" id="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-sm top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-body-md">visibility</span>
+</button>
+</div>
+</div>
+<!-- Options -->
+<div class="flex items-center">
+<label class="flex items-center cursor-pointer group">
+<div class="relative">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-5 h-5 border-2 border-outline-variant rounded-md peer-checked:bg-primary peer-checked:border-primary transition-all-custom"></div>
+<span class="material-symbols-outlined absolute top-0 left-0 text-on-primary text-[18px] opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+</div>
+<span class="ml-xs text-label-md font-label-md text-on-surface-variant group-hover:text-primary transition-colors">Remember this device</span>
+</label>
+</div>
+<!-- 2FA Toggle -->
+<div class="pt-base">
+<button class="flex items-center gap-xs group" onclick="toggle2FA()" type="button">
+<div class="w-10 h-5 bg-surface-variant rounded-full relative transition-all-custom border border-outline-variant" id="2fa-toggle-btn">
+<div class="absolute top-1/2 -translate-y-1/2 left-0.5 w-3.5 h-3.5 bg-outline rounded-full transition-all-custom" id="2fa-dot"></div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-primary">Enable Two-Factor Authentication</span>
+</button>
+</div>
+<!-- 2FA Code Field (Hidden initially) -->
+<div class="hidden overflow-hidden transition-all-custom max-h-0" id="2fa-container">
+<div class="pt-sm space-y-base">
+<label class="text-label-md font-label-md text-on-surface" for="2facode">6-Digit Security Code</label>
+<div class="flex gap-xs justify-between">
+<input class="w-12 h-14 text-center text-headline-md font-headline-md rounded-lg border border-outline-variant bg-surface-container-highest focus:border-secondary focus:ring-0" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-headline-md font-headline-md rounded-lg border border-outline-variant bg-surface-container-highest focus:border-secondary focus:ring-0" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-headline-md font-headline-md rounded-lg border border-outline-variant bg-surface-container-highest focus:border-secondary focus:ring-0" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-headline-md font-headline-md rounded-lg border border-outline-variant bg-surface-container-highest focus:border-secondary focus:ring-0" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-headline-md font-headline-md rounded-lg border border-outline-variant bg-surface-container-highest focus:border-secondary focus:ring-0" maxlength="1" type="text"/>
+<input class="w-12 h-14 text-center text-headline-md font-headline-md rounded-lg border border-outline-variant bg-surface-container-highest focus:border-secondary focus:ring-0" maxlength="1" type="text"/>
+</div>
+<p class="text-[10px] text-outline text-center">Check your registered authenticator app</p>
+</div>
+</div>
+<!-- Sign In Button -->
+<button class="w-full bg-primary text-on-primary py-sm rounded-lg font-label-md text-label-md shadow-sm hover:bg-primary-container active:scale-[0.98] transition-all-custom flex items-center justify-center gap-xs" type="submit">
+<span>Sign In to Dashboard</span>
+<span class="material-symbols-outlined text-body-md">arrow_forward</span>
+</button>
+</form>
+<!-- Footer Info -->
+<div class="mt-xl text-center space-y-xs">
+<p class="text-label-sm font-label-sm text-outline">
+                        Strictly for authorized staff only. IP addresses are logged for security auditing.
+                    </p>
+<div class="flex justify-center gap-md">
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary underline" href="#">Security Policy</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary underline" href="#">IT Support</a>
+</div>
+</div>
+</div>
+<!-- Subtle Grid Background Element -->
+<div class="absolute inset-0 pointer-events-none opacity-[0.03] z-[-1]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
+</section>
+</main>
+<script>
+        let is2FAEnabled = false;
+
+        function toggle2FA() {
+            const container = document.getElementById('2fa-container');
+            const dot = document.getElementById('2fa-dot');
+            const btn = document.getElementById('2fa-toggle-btn');
+            
+            is2FAEnabled = !is2FAEnabled;
+
+            if (is2FAEnabled) {
+                container.classList.remove('hidden');
+                setTimeout(() => {
+                    container.style.maxHeight = '200px';
+                }, 10);
+                dot.style.left = '22px';
+                dot.style.backgroundColor = '#97f5cc';
+                btn.style.backgroundColor = '#006c4e';
+            } else {
+                container.style.maxHeight = '0';
+                dot.style.left = '2px';
+                dot.style.backgroundColor = '#74777f';
+                btn.style.backgroundColor = '#e1e3e4';
+                setTimeout(() => {
+                    container.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Auto-focus next input for 2FA code
+        const inputs = document.querySelectorAll('#2fa-container input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Form Submit Simulation
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Authenticating...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Access Granted';
+                btn.classList.replace('bg-primary', 'bg-secondary');
+                // Logic to redirect would go here
+            }, 1500);
+        });
+    </script>
+</body></html>

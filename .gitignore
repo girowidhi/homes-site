@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Environment & secrets - copy config.template.js to config.local.js
+config.local.js
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build
+dist/
+build/

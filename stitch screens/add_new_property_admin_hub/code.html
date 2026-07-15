@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add/Edit Property | Luxury Kenyan Estates Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c4c6cf;
+            border-radius: 10px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#1b1d0e",
+                    "inverse-surface": "#2e3132",
+                    "on-tertiary-container": "#878873",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c4c6cf",
+                    "surface-variant": "#e1e3e4",
+                    "on-tertiary-fixed-variant": "#474836",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#050700",
+                    "on-secondary-container": "#007353",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#476083",
+                    "secondary-fixed-dim": "#7bd8b1",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-container-high": "#e7e8e9",
+                    "tertiary-fixed": "#e4e4cc",
+                    "surface-bright": "#f8f9fa",
+                    "primary": "#000613",
+                    "on-primary-fixed": "#001c3a",
+                    "surface-dim": "#d9dadb",
+                    "surface-container-low": "#f3f4f5",
+                    "on-background": "#191c1d",
+                    "secondary": "#006c4e",
+                    "primary-container": "#001f3f",
+                    "tertiary-container": "#1e2011",
+                    "tertiary-fixed-dim": "#c8c8b0",
+                    "on-surface-variant": "#43474e",
+                    "on-secondary-fixed": "#002115",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "surface-container": "#edeeef",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "background": "#f8f9fa",
+                    "inverse-on-surface": "#f0f1f2",
+                    "outline": "#74777f",
+                    "on-surface": "#191c1d",
+                    "inverse-primary": "#afc8f0",
+                    "secondary-fixed": "#97f5cc",
+                    "on-error-container": "#93000a",
+                    "surface": "#f8f9fa",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-container": "#6f88ad",
+                    "secondary-container": "#97f5cc",
+                    "primary-fixed-dim": "#afc8f0",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#00513a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "16px",
+                    "md": "24px",
+                    "container-max": "1280px",
+                    "xl": "64px",
+                    "base": "4px",
+                    "xs": "8px",
+                    "lg": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Montserrat"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Montserrat"],
+                    "display-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Side Navigation Bar -->
+<aside class="w-64 h-screen fixed left-0 top-0 z-50 bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline shadow-sm flex flex-col py-md px-xs hidden md:flex">
+<div class="px-sm mb-lg">
+<h1 class="text-label-md font-label-md font-black text-primary dark:text-secondary-fixed">Admin Panel</h1>
+<p class="text-label-sm font-label-sm text-outline">Prestige Management</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-xs text-on-surface-variant dark:text-surface-variant px-sm py-xs hover:bg-surface-variant dark:hover:bg-inverse-surface hover:text-on-surface dark:hover:text-inverse-on-surface rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-xs bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-sm py-xs translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="domain" style="font-variation-settings: 'FILL' 1;">domain</span>
+<span class="text-label-md font-label-md">Properties</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant dark:text-surface-variant px-sm py-xs hover:bg-surface-variant dark:hover:bg-inverse-surface hover:text-on-surface dark:hover:text-inverse-on-surface rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-label-md font-label-md">Leads</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant dark:text-surface-variant px-sm py-xs hover:bg-surface-variant dark:hover:bg-inverse-surface hover:text-on-surface dark:hover:text-inverse-on-surface rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="image">image</span>
+<span class="text-label-md font-label-md">Media Library</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant dark:text-surface-variant px-sm py-xs hover:bg-surface-variant dark:hover:bg-inverse-surface hover:text-on-surface dark:hover:text-inverse-on-surface rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span class="text-label-md font-label-md">Site Content</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant dark:text-surface-variant px-sm py-xs hover:bg-surface-variant dark:hover:bg-inverse-surface hover:text-on-surface dark:hover:text-inverse-on-surface rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="search_insights">search_insights</span>
+<span class="text-label-md font-label-md">SEO Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md flex flex-col gap-1">
+<div class="px-sm mb-xs">
+<span class="inline-flex items-center gap-2 text-label-sm font-label-sm text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                    System Status: Healthy
+                </span>
+</div>
+<a class="flex items-center gap-xs text-on-surface-variant dark:text-surface-variant px-sm py-xs hover:bg-surface-variant rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<a class="flex items-center gap-xs text-error px-sm py-xs hover:bg-error-container rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="text-label-md font-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen flex flex-col pb-32">
+<!-- Top Navigation Bar -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex justify-between items-center px-md">
+<div class="flex items-center gap-md">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-secondary-fixed">Luxury Kenyan Estates Admin</span>
+<div class="hidden lg:flex items-center bg-surface-container-low px-sm py-xs rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-64" placeholder="Search listings..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors" data-icon="help">help</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors" data-icon="settings">settings</button>
+<div class="relative">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors" data-icon="notifications">notifications</button>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</div>
+<div class="flex items-center gap-xs ml-xs cursor-pointer hover:bg-surface-container-low p-1 rounded-lg transition-colors">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A professional headshot of a luxury real estate administrator in a sharp navy blue suit, standing against a blurred background of a modern architectural building in Nairobi. The lighting is crisp and corporate, conveying trust and authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZFtb_Bu-B7ukhN8pF6ota5n5DqYY84REKEpQzOFss7eb9auyUI-MzSDQBCusD8WwZAH68Pl3Up3g6z78HCHCZ1H7v8NHlHV1IXxkv6i7yDx-lG3dAEOPcJoNDiwZmqqZ3Ne566CkD8vdR4EHwMbH7oSEW0Pa_4b2SOV6QEeIUqInUCgQyllu57ya6iA4q4P0H61kNc6SbUVbs-lTpNIIWVBz3WK2TNoQvCd6aMbfGcbbd5bu1MSRu95oMStZQWHjGvP0fMH1N-L4"/>
+<span class="text-label-md font-label-md hidden sm:inline">Admin</span>
+</div>
+</div>
+</header>
+<!-- Form Content -->
+<div class="max-w-5xl mx-auto w-full p-md lg:p-xl space-y-xl animate-fade-in">
+<header class="flex justify-between items-end">
+<div>
+<nav class="flex items-center gap-2 text-label-sm text-outline mb-2">
+<span>Properties</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-on-surface">Add New Listing</span>
+</nav>
+<h2 class="text-display-lg font-display-lg text-primary">New Property Listing</h2>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-sm border border-outline text-primary font-label-md rounded-lg hover:bg-surface-container-low transition-colors">Cancel</button>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Left Column: Primary Forms -->
+<div class="lg:col-span-2 space-y-lg">
+<!-- Basic Information -->
+<section class="bg-surface-container-lowest p-md lg:p-lg rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant">
+<div class="flex items-center gap-xs mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+<h3 class="text-headline-md font-headline-md">Basic Information</h3>
+</div>
+<div class="space-y-md">
+<div class="space-y-xs">
+<label class="text-label-md font-label-md block">Property Title</label>
+<input class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary focus:border-primary" placeholder="e.g. Modern Villa in Muthaiga" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="text-label-md font-label-md block">Category</label>
+<select class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary">
+<option>Residential Villa</option>
+<option>Luxury Apartment</option>
+<option>Commercial Space</option>
+<option>Land/Estate</option>
+</select>
+</div>
+<div class="space-y-xs">
+<label class="text-label-md font-label-md block">Price (KES)</label>
+<input class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" placeholder="85,000,000" type="number"/>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="text-label-md font-label-md block">Description</label>
+<textarea class="w-full border-outline-variant rounded-xl p-sm focus:ring-2 focus:ring-primary" placeholder="Describe the architectural highlights, amenities, and unique selling points..." rows="5"></textarea>
+</div>
+</div>
+</section>
+<!-- Location Manager -->
+<section class="bg-surface-container-lowest p-md lg:p-lg rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant">
+<div class="flex items-center gap-xs mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+<h3 class="text-headline-md font-headline-md">Location Details</h3>
+</div>
+<div class="grid grid-cols-2 gap-md mb-md">
+<div class="space-y-xs">
+<label class="text-label-md font-label-md block">County</label>
+<select class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary">
+<option>Nairobi</option>
+<option>Mombasa</option>
+<option>Kiambu</option>
+<option>Kilifi</option>
+</select>
+</div>
+<div class="space-y-xs">
+<label class="text-label-md font-label-md block">Sub-County / Area</label>
+<input class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" placeholder="e.g. Westlands, Muthaiga" type="text"/>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="text-label-md font-label-md block">Estate Map Pin</label>
+<div class="h-64 rounded-xl border border-outline-variant bg-surface-container relative overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A detailed digital map view of the Muthaiga suburb in Nairobi, showing lush green spaces, winding roads, and high-end residential plots. The map has a clean, professional aesthetic with subtle labels for major landmarks and a stylish custom red pin marking a specific luxury estate." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBVI29uDC4sMxG7wEjKuaa_6qOg9yOp-Z4ChHxKqPR3dpO7QCIhabmUQf8UE0BvbxSYYWvvfHMY-_vAT0A4-dFckm7FOlJnzitB4Ah1rSqmCviAKu0oRRQ1L31JVPYbrz_NzWt8KbcFNvmp9aCZqTKBZnrGE47JC2LTO-3ILKxyIn48VRDd0mcw116quOyzlj75vzR5d9_abSS8FXy8BKDXIjCDWUjYFO81dAtfvwRNAfo1fDosF7OjaQpB7zLXd1ZFbtAhznBGzTM')"></div>
+<div class="absolute inset-0 flex items-center justify-center bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-surface px-md py-sm rounded-full shadow-lg font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="add_location">add_location</span>
+                                        Adjust Pin Location
+                                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Media Manager -->
+<section class="bg-surface-container-lowest p-md lg:p-lg rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant">
+<div class="flex items-center justify-between mb-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" data-icon="photo_library">photo_library</span>
+<h3 class="text-headline-md font-headline-md">Media Manager</h3>
+</div>
+<span class="text-label-sm text-outline">Max 20 images • 5MB per file</span>
+</div>
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-xl flex flex-col items-center justify-center gap-md hover:border-primary transition-colors cursor-pointer group mb-md">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="cloud_upload" style="font-variation-settings: 'opsz' 40;">cloud_upload</span>
+</div>
+<div class="text-center">
+<p class="text-body-lg font-semibold">Drag and drop images here</p>
+<p class="text-body-md text-outline">or click to browse from your computer</p>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-md">
+<!-- Thumbnail 1 -->
+<div class="relative group aspect-square rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A high-resolution wide-angle photograph of a stunning infinity pool overlooking the rolling hills of Nairobi. The water is a brilliant turquoise, reflecting a soft golden hour sky. The surrounding deck is made of warm teak wood, with minimalist white lounge chairs perfectly aligned. The scene is luxurious and serene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzWiK0KnpUGWWlqFo8eXfoJQw0CzScMDNy0YtsDgGFf8xN4F1cwA5A5I9uZSWxxdXRnpW1T18GGeN17kQJWgUbknQCloYVVIm04eodKiDqw5I88uzwMajVY3BShthdXrKV_eUxjMDobTDUuWMIBhg3SuLiAk-bbf6pXHTsOHSW7EIEdIo5ubA2BHf_xXc3Rwuee4LNh5JhU8GUtOCLGNeZ24aJrkNEFNwcbGo_voh3t8ChVPZaOORbYwT8uoeKQVxvE4mHG7cO4eU"/>
+<div class="absolute top-2 left-2 bg-secondary text-on-secondary px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Hero</div>
+<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
+<button class="bg-surface-container-lowest p-1 rounded-full text-primary hover:bg-surface transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Thumbnail 2 -->
+<div class="relative group aspect-square rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A close-up interior shot of a gourmet kitchen in a luxury Kenyan estate. The kitchen features dark marble countertops with subtle white veining, state-of-the-art integrated appliances, and minimalist matte black cabinetry. Soft under-cabinet lighting creates a warm and inviting atmosphere. A bowl of tropical fruits sits on the counter as a pop of color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzLocbiLVfMqfyzTyIDkLCarLO269fJYptJTVFF9IgWMb8jxfrBNqepBr6eV6QY97C7_GMLcmmF7xAxRZPy52_yrcc5CYRX13JL_SINHyyLy7i7G_sP-8ii5GRfxOcH9cuOHyzzZ4A6lpw_OGLsRch6pZ4J7W34qW53FW2O254y0fDD0DQlw8iaTE_IRX1rdgo4ysyfYw1HXwZNmNhw0YxytuO5j8eeRiu_LSEBFzZk6POoIsARn7NwaKL9PeKM55l-22ywzJO9K4"/>
+<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
+<button class="bg-surface-container-lowest px-2 py-1 rounded text-label-sm font-label-sm hover:bg-surface transition-colors">Set Hero</button>
+<button class="bg-error text-on-error p-1 rounded-full hover:bg-error/90 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Empty Slots -->
+<div class="aspect-square rounded-lg border border-dashed border-outline-variant flex items-center justify-center text-outline">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</div>
+<div class="aspect-square rounded-lg border border-dashed border-outline-variant flex items-center justify-center text-outline">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar Actions -->
+<div class="space-y-lg">
+<!-- Amenities Checklist -->
+<section class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant">
+<div class="flex items-center gap-xs mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="checklist">checklist</span>
+<h3 class="text-label-md font-label-md uppercase tracking-wide">Key Amenities</h3>
+</div>
+<div class="space-y-sm">
+<label class="flex items-center gap-sm cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary transition-colors">Infinity Pool</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary transition-colors">24/7 Security</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary transition-colors">Backup Generator</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary transition-colors">Wine Cellar</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary transition-colors">Home Automation</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary transition-colors">Borehole</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary transition-colors">Private Gym</span>
+</label>
+</div>
+<button class="mt-md w-full py-2 border border-dashed border-outline-variant text-outline rounded-lg text-label-sm hover:border-primary hover:text-primary transition-all">
+                            + Add Custom Amenity
+                        </button>
+</section>
+<!-- SEO Settings -->
+<section class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant">
+<div class="flex items-center gap-xs mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="search_insights">search_insights</span>
+<h3 class="text-label-md font-label-md uppercase tracking-wide">SEO Settings</h3>
+</div>
+<div class="space-y-md">
+<div class="space-y-xs">
+<label class="text-label-sm font-label-sm text-outline">Meta Title</label>
+<input class="w-full border-outline-variant rounded-lg p-sm text-body-md focus:ring-2 focus:ring-primary" placeholder="Luxury Villa Muthaiga | Kenyan Estates" type="text"/>
+</div>
+<div class="space-y-xs">
+<label class="text-label-sm font-label-sm text-outline">Meta Description</label>
+<textarea class="w-full border-outline-variant rounded-lg p-sm text-body-md focus:ring-2 focus:ring-primary" placeholder="Discover the pinnacle of luxury living in this architectural masterpiece located in Nairobi's most prestigious neighborhood..." rows="3"></textarea>
+</div>
+<div class="bg-surface-container-low p-sm rounded-lg">
+<p class="text-[10px] font-bold text-outline uppercase mb-1">Google Preview</p>
+<p class="text-blue-700 font-semibold text-sm truncate">Luxury Villa Muthaiga | Kenyan Estates</p>
+<p class="text-green-800 text-xs truncate">kenyanestates.com &gt; properties &gt; villa-muthaiga</p>
+<p class="text-gray-600 text-xs line-clamp-2 mt-1">Discover the pinnacle of luxury living in this architectural masterpiece located in Nairobi's most...</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<!-- Sticky Footer Actions -->
+<footer class="fixed bottom-0 left-0 md:left-64 right-0 h-24 bg-surface/80 backdrop-blur-md border-t border-outline-variant z-40 flex items-center px-md lg:px-xl justify-between">
+<div class="hidden sm:flex items-center gap-sm text-label-sm text-outline">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+                    Last saved 2 mins ago
+                </span>
+</div>
+<div class="flex items-center gap-md w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-xl py-sm bg-surface text-primary border border-outline font-label-md rounded-lg hover:bg-surface-container-low transition-all active:scale-95">
+                    Save Draft
+                </button>
+<button class="flex-1 sm:flex-none px-xl py-sm bg-primary text-on-primary font-label-md rounded-lg shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="publish">publish</span>
+                    Publish Property
+                </button>
+</div>
+</footer>
+</main>
+<!-- Micro-interactions Script -->
+<script>
+        // Smooth transitions for inputs
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label')?.classList.add('text-primary');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label')?.classList.remove('text-primary');
+            });
+        });
+
+        // Toggle checkbox interaction
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', function() {
+                const span = this.nextElementSibling;
+                if(this.checked) {
+                    span.classList.add('font-semibold', 'text-primary');
+                } else {
+                    span.classList.remove('font-semibold', 'text-primary');
+                }
+            });
+        });
+    </script>
+</body></html>

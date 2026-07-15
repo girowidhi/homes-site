@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta http-equiv="Cache-Control" content="public, max-age=3600">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#1a365d" />
+<meta name="description" content="Compare properties side by side with TobillionHomes. Make informed decisions on Kenyan real estate with our comparison tool." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
+<title>Property Comparison | TobillionHomes</title>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e1e3e4",
+                        "tertiary": "#050700",
+                        "surface-container-low": "#f3f4f5",
+                        "outline": "#74777f",
+                        "tertiary-container": "#1e2011",
+                        "inverse-primary": "#afc8f0",
+                        "surface-dim": "#d9dadb",
+                        "secondary": "#006c4e",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00513a",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "on-primary-fixed": "#001c3a",
+                        "surface-tint": "#476083",
+                        "primary-fixed": "#d4e3ff",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "primary": "#000613",
+                        "on-secondary-fixed": "#002115",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#afc8f0",
+                        "on-tertiary-container": "#878873",
+                        "on-tertiary-fixed": "#1b1d0e",
+                        "on-secondary-container": "#007353",
+                        "tertiary-fixed-dim": "#c8c8b0",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-primary-container": "#6f88ad",
+                        "on-tertiary-fixed-variant": "#474836",
+                        "primary-container": "#001f3f",
+                        "background": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e4e4cc",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9fa",
+                        "secondary-container": "#97f5cc",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#edeeef",
+                        "surface-container-highest": "#e1e3e4",
+                        "secondary-fixed": "#97f5cc",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-bright": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c4c6cf",
+                        "inverse-surface": "#2e3132",
+                        "secondary-fixed-dim": "#7bd8b1",
+                        "on-surface": "#191c1d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "xs": "8px",
+                        "gutter": "24px",
+                        "lg": "40px",
+                        "base": "4px",
+                        "sm": "16px",
+                        "md": "24px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .comparison-column {
+            width: calc((100% - 240px) / 3);
+        }
+        .row-label {
+            width: 240px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .premium-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 31, 63, 0.05);
+        }
+        .sticky-header {
+            position: sticky;
+            top: 64px;
+            z-index: 20;
+        }
+    </style>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="config.js"></script>
+<script defer src="db.js"></script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="bg-background fixed top-0 w-full z-50 border-b border-outline-variant">
+<div class="flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto h-16">
+<div class="font-headline-md text-headline-md font-bold text-primary">TobillionHomes</div>
+<nav class="hidden md:flex gap-md items-center">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="properties.html">Properties</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="properties.html">Invest</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="list-property.html">Services</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="news.html">Market Insights</a>
+</nav>
+<div class="flex gap-sm items-center">
+<button class="hidden md:block px-md py-xs font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Login</button>
+<button class="bg-primary text-on-primary px-md py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors">List Property</button>
+</div>
+</div>
+</header>
+<main class="mt-xl pt-lg pb-xl px-sm md:px-lg max-w-container-max mx-auto">
+<!-- Title & Breadcrumbs -->
+<div class="mb-lg">
+<nav class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm mb-base">
+<a href="index.html">Home</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a href="search.html">Search</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">Compare Properties</span>
+</nav>
+<h1 class="font-display-lg text-display-lg text-primary">Property Comparison</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl mt-base">Review and compare the finest luxury residences in Nairobi side-by-side to find your perfect match.</p>
+</div>
+<!-- Comparison Interface -->
+<div class="relative">
+<div id="compareContainer">
+<div class="text-center py-xl text-on-surface-variant"><span class="material-symbols-outlined animate-spin inline-block">sync</span> Loading properties for comparison...</div>
+</div>
+</div>
+<!-- Trust Features -->
+<section class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="bg-surface-container-low p-md rounded-xl flex items-start gap-md">
+<div class="bg-primary-container/10 p-sm rounded-full text-primary">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-primary">Secure Transaction</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm mt-xs">All listings are verified by our expert legal team for absolute security.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl flex items-start gap-md">
+<div class="bg-primary-container/10 p-sm rounded-full text-primary">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-primary">Financial Advisory</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm mt-xs">Exclusive mortgage rates and investment planning for luxury assets.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl flex items-start gap-md">
+<div class="bg-primary-container/10 p-sm rounded-full text-primary">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-primary">Instant Bookings</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm mt-xs">Schedule private viewings directly from the comparison dashboard.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant mt-xl">
+<div class="w-full px-lg py-xl flex flex-col gap-md max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-start gap-xl">
+<div class="flex flex-col gap-sm max-w-sm">
+<div class="font-headline-md text-headline-md text-primary">TobillionHomes</div>
+<p class="text-on-surface-variant font-body-md text-body-md">Redefining luxury living in East Africa with curated real estate portfolios for the discerning investor.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-xl">
+<div class="flex flex-col gap-sm">
+<span class="font-label-md text-label-md text-primary uppercase">Explore</span>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="properties.html?county=Nairobi">Nairobi Luxury</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="properties.html?county=Mombasa">Coastal Retreats</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="properties.html">Investment Hub</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-label-md text-label-md text-primary uppercase">Company</span>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="about.html">About Us</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="contact.html">Contact</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="contact.html">Career</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-label-md text-label-md text-primary uppercase">Legal</span>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="privacy.html">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-secondary font-label-sm text-label-sm" href="admin-login.html">Staff Portal</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-xl border-t border-outline-variant/30 gap-sm">
+<p class="text-on-surface-variant font-label-sm text-label-sm">© 2024 TobillionHomes. Modern Luxury Real Estate Kenya.</p>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">language</span></a>
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">share</span></a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        function formatPrice(price) {
+            return 'KES ' + Number(price).toLocaleString();
+        }
+
+        function comparePropertyCardHTML(p) {
+            const loc = [p.location_estate, p.location_county].filter(Boolean).join(', ');
+            const imgStyle = p.image_url ? `background-image: url('${p.image_url}')` : 'background-color: #e1e3e4';
+            return `
+                <div class="comparison-column flex-grow md:flex-none">
+                    <div class="bg-surface-container-lowest rounded-xl premium-shadow p-xs relative group overflow-hidden border border-outline-variant/30">
+                        <div class="aspect-video w-full rounded-lg bg-surface-dim overflow-hidden bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="${imgStyle}"></div>
+                        <div class="mt-sm px-xs pb-xs">
+                            <h3 class="font-headline-md text-[18px] text-primary truncate">${p.title}</h3>
+                            <p class="text-on-surface-variant font-label-sm text-label-sm">${loc || 'N/A'}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function compareTableRow(label, values) {
+            return `
+                <div class="flex gap-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+                    <div class="row-label p-md flex items-center border-r border-outline-variant/20">
+                        <span class="font-label-md text-label-md text-on-surface-variant">${label}</span>
+                    </div>
+                    ${values.map(v => `<div class="comparison-column p-md font-body-md text-on-surface">${v}</div>`).join('')}
+                </div>
+            `;
+        }
+
+        function renderComparison(properties) {
+            const headersHTML = `
+                <div class="bg-background/80 backdrop-blur-md sticky-header py-sm border-b border-outline-variant mb-md">
+                    <div class="flex gap-md">
+                        <div class="row-label hidden md:flex items-end pb-md">
+                            <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Compare Features</span>
+                        </div>
+                        ${properties.map(comparePropertyCardHTML).join('')}
+                    </div>
+                </div>
+            `;
+
+            const priceRow = compareTableRow('Price (KES)', properties.map(p => `<span class="font-headline-md text-primary">${formatPrice(p.price)}</span>`));
+            const locationRow = compareTableRow('Location', properties.map(p => [p.location_estate, p.location_county].filter(Boolean).join(', ') || 'N/A'));
+            const typeRow = compareTableRow('Type', properties.map(p => p.type || 'N/A'));
+            const statusRow = compareTableRow('Status', properties.map(p => p.status || 'N/A'));
+            const bedRow = compareTableRow('Bedrooms', properties.map(p => (p.bedrooms || '?') + ' Bedrooms'));
+            const bathRow = compareTableRow('Bathrooms', properties.map(p => (p.bathrooms || '?') + ' Bathrooms'));
+            const sizeRow = compareTableRow('Size (sqft)', properties.map(p => p.area_sqft ? Number(p.area_sqft).toLocaleString() + ' sqft' : 'N/A'));
+
+            const amenitiesRow = `
+                <div class="flex gap-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+                    <div class="row-label p-md flex items-center border-r border-outline-variant/20">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Key Amenities</span>
+                    </div>
+                    ${properties.map(p => {
+                        const features = p.features || [];
+                        if (features.length === 0) return '<div class="comparison-column p-md font-body-md text-on-surface-variant">None listed</div>';
+                        return `<div class="comparison-column p-md space-y-xs">${features.map(f =>
+                            `<div class="flex items-center gap-xs font-label-md text-label-md text-secondary">
+                                <span class="material-symbols-outlined text-[18px]">check_circle</span> ${f}
+                            </div>`
+                        ).join('')}</div>`;
+                    }).join('')}
+                </div>
+            `;
+
+            const ctaRow = `
+                <div class="flex gap-md bg-surface-container-lowest">
+                    <div class="row-label p-md flex items-center border-r border-outline-variant/20"></div>
+                    ${properties.map(p =>
+                        `<div class="comparison-column p-md">
+                            <button class="w-full bg-primary text-on-primary py-sm rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all" onclick="window.location.href='detail.html?id=${p.id}'">View Details</button>
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            const tableHTML = `
+                <div class="flex flex-col gap-px bg-outline-variant/30 overflow-hidden rounded-xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm">
+                    ${priceRow}${locationRow}${typeRow}${statusRow}${bedRow}${bathRow}${sizeRow}${amenitiesRow}${ctaRow}
+                </div>
+            `;
+
+            return headersHTML + tableHTML;
+        }
+
+        async function loadCompare() {
+            const params = new URLSearchParams(window.location.search);
+            const idsParam = params.get('ids');
+            const ids = idsParam ? idsParam.split(',').map(id => id.trim()).filter(Boolean) : [];
+
+            const container = document.getElementById('compareContainer');
+
+            if (ids.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-xl text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[80px] text-outline opacity-20 mb-md">compare_arrows</span>
+                        <h2 class="font-headline-lg text-headline-lg text-primary mb-sm">No properties selected</h2>
+                        <p class="mb-lg">Use the compare button on property listings to add them here.</p>
+                        <a href="properties.html" class="bg-primary text-on-primary px-xl py-md rounded-lg inline-block">Browse Properties</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '<div class="text-center py-xl text-on-surface-variant"><span class="material-symbols-outlined animate-spin inline-block">sync</span> Loading properties for comparison...</div>';
+
+            const properties = [];
+            for (const id of ids) {
+                const p = await fetchPropertyById(id);
+                if (p) properties.push(p);
+            }
+
+            if (properties.length === 0) {
+                container.innerHTML = '<div class="text-center py-xl text-on-surface-variant"><h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Properties not found</h2><p>Could not load the selected properties.</p></div>';
+                return;
+            }
+
+            container.innerHTML = renderComparison(properties);
+        }
+
+        document.addEventListener('DOMContentLoaded', loadCompare);
+    </script>
+<script src="public-nav.js"></script>
+<script src="brand-loader.js?v=1"></script>
+</body></html>

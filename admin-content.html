@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Cache-Control" content="public, max-age=3600">
+<meta name="theme-color" content="#1a365d" />
+<meta name="description" content="Edit and manage website content for TobillionHomes. Update homepage, about page, and marketing copy." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
+<title>Luxury Kenyan Estates Admin | Content Editor</title>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#1b1d0e",
+                    "inverse-surface": "#2e3132",
+                    "on-tertiary-container": "#878873",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c4c6cf",
+                    "surface-variant": "#e1e3e4",
+                    "on-tertiary-fixed-variant": "#474836",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#050700",
+                    "on-secondary-container": "#007353",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#476083",
+                    "secondary-fixed-dim": "#7bd8b1",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-container-high": "#e7e8e9",
+                    "tertiary-fixed": "#e4e4cc",
+                    "surface-bright": "#f8f9fa",
+                    "primary": "#000613",
+                    "on-primary-fixed": "#001c3a",
+                    "surface-dim": "#d9dadb",
+                    "surface-container-low": "#f3f4f5",
+                    "on-background": "#191c1d",
+                    "secondary": "#006c4e",
+                    "primary-container": "#001f3f",
+                    "tertiary-container": "#1e2011",
+                    "tertiary-fixed-dim": "#c8c8b0",
+                    "on-surface-variant": "#43474e",
+                    "on-secondary-fixed": "#002115",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "surface-container": "#edeeef",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "background": "#f8f9fa",
+                    "inverse-on-surface": "#f0f1f2",
+                    "outline": "#74777f",
+                    "on-surface": "#191c1d",
+                    "inverse-primary": "#afc8f0",
+                    "secondary-fixed": "#97f5cc",
+                    "on-error-container": "#93000a",
+                    "surface": "#f8f9fa",
+                    "primary-fixed": "#d4e3ff",
+                    "on-primary-container": "#6f88ad",
+                    "secondary-container": "#97f5cc",
+                    "primary-fixed-dim": "#afc8f0",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#00513a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "16px",
+                    "md": "24px",
+                    "container-max": "1280px",
+                    "xl": "64px",
+                    "base": "4px",
+                    "xs": "8px",
+                    "lg": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Montserrat"],
+                    "headline-md": ["Montserrat"],
+                    "display-lg": ["Montserrat"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .content-tab { transition: all 0.2s ease; }
+        .content-tab.active { background: #006c4e; color: #fff; }
+        .content-tab.active .material-symbols-outlined { color: #fff; }
+        .content-pane { display: none; }
+        .content-pane.active { display: block; }
+        .field-card { background: #f3f4f5; border-radius: 0.5rem; padding: 0.75rem; }
+        .field-card label { font-size: 12px; font-weight: 600; color: #43474e; display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .field-card input, .field-card textarea, .field-card select { width: 100%; border: 1px solid #c4c6cf; border-radius: 0.375rem; padding: 8px 12px; font-size: 14px; background: #fff; }
+        .field-card input:focus, .field-card textarea:focus, .field-card select:focus { outline: none; border-color: #006c4e; box-shadow: 0 0 0 2px rgba(0,108,78,0.1); }
+        .field-card textarea { resize: vertical; min-height: 60px; }
+        .field-card .icon-select { display: flex; flex-wrap: wrap; gap: 4px; }
+        .field-card .icon-select button { width: 32px; height: 32px; border-radius: 6px; border: 1px solid #c4c6cf; display: flex; align-items: center; justify-content: center; background: #fff; cursor: pointer; }
+        .field-card .icon-select button.active { border-color: #006c4e; background: #97f5cc; }
+        .add-item-btn { color: #006c4e; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+        .add-item-btn:hover { opacity: 0.8; }
+        .sort-handle { cursor: grab; color: #74777f; }
+        .sort-handle:active { cursor: grabbing; }
+        .toast-fixed { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 9999; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .toast-fixed.success { background: #006c4e; color: #fff; }
+        .toast-fixed.error { background: #ba1a1a; color: #fff; }
+        .toast-fixed.info { background: #000613; color: #fff; }
+    </style>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="config.js"></script>
+<script defer src="db.js"></script>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen overflow-x-hidden">
+<!-- Sidebar Overlay (mobile only) -->
+<div class="admin-sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- SideNavBar Component -->
+<aside class="admin-sidebar" id="admin-sidebar">
+  <div class="sidebar-header flex items-center justify-between px-sm mb-lg flex-shrink-0">
+    <div class="sidebar-brand flex items-center gap-xs">
+      <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary flex-shrink-0">
+        <span class="material-symbols-outlined text-body-md" style="font-variation-settings: 'FILL' 1;">domain</span>
+      </div>
+      <span class="text-label-md font-black text-primary sidebar-label whitespace-nowrap">Admin Panel</span>
+    </div>
+    <button class="sidebar-toggle-btn" id="sidebar-toggle" aria-label="Toggle sidebar">
+      <span class="material-symbols-outlined">menu_open</span>
+    </button>
+  </div>
+  <p class="px-sm mb-lg text-label-sm font-label-sm text-outline sidebar-subtitle">Prestige Management</p>
+  <nav class="sidebar-nav flex-grow space-y-base overflow-y-auto overflow-x-hidden px-xs">
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-dashboard.html">
+      <span class="material-symbols-outlined flex-shrink-0">dashboard</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Dashboard</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-manage-properties.html">
+      <span class="material-symbols-outlined flex-shrink-0">domain</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Properties</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-leads.html">
+      <span class="material-symbols-outlined flex-shrink-0">group</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Leads</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-media.html">
+      <span class="material-symbols-outlined flex-shrink-0">image</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Media Library</span>
+    </a>
+    <a class="flex items-center gap-xs bg-secondary-container text-on-secondary-container rounded-lg px-sm py-xs" href="admin-content.html">
+      <span class="material-symbols-outlined flex-shrink-0" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Site Content</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-content.html">
+      <span class="material-symbols-outlined flex-shrink-0">search_insights</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">SEO Settings</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer mt-auto px-xs space-y-base flex-shrink-0">
+    <div class="sidebar-status px-sm py-xs text-label-sm font-label-sm text-secondary bg-secondary-container/20 rounded-lg mb-sm whitespace-nowrap">
+      System Status: Healthy
+    </div>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors" href="contact.html">
+      <span class="material-symbols-outlined flex-shrink-0">support_agent</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Support</span>
+    </a>
+    <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors" href="admin-login.html" id="logout-link">
+      <span class="material-symbols-outlined flex-shrink-0 text-error">logout</span>
+      <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Logout</span>
+    </a>
+  </div>
+</aside>
+<main class="admin-main flex-grow flex flex-col min-h-screen">
+<!-- TopNavBar Component -->
+<header class="w-full h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant flex items-center px-md">
+<div class="flex items-center gap-sm flex-grow min-w-0">
+<button class="mobile-hamburger-admin p-1 rounded-lg hover:bg-surface-container-low transition-colors flex-shrink-0" id="mobile-menu-btn" aria-label="Open menu">
+<span class="material-symbols-outlined text-on-surface-variant">menu</span>
+</button>
+<span class="text-headline-md font-bold text-primary whitespace-nowrap">Luxury Kenyan Estates Admin</span>
+<div class="admin-header-search max-w-md w-full relative flex-shrink min-w-0">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-md focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all" placeholder="Search components..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm flex-shrink-0">
+<button class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-container-low px-sm py-xs rounded-lg transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:bg-surface-container-low px-sm py-xs rounded-lg transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="bg-primary text-on-primary px-md py-2 rounded-lg font-label-md hover:opacity-90 active:scale-95 transition-all">
+                    Add Listing
+                </button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a sophisticated real estate administrator, wearing a tailored charcoal suit against a clean, minimalist architectural background with warm lighting and a high-end corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzcfd1ZTqp0hpyl7_xAnzcBXato2Ndhe4u4d2H6Fxgr5DTxHRmSsO0E5kgjiuP033Ym1NcPzP9YmhkTwZ_eYGI8X8v_TLfF449UiaVF6EK-J13bDsKZR7kVhhWwkMkRh13uddmmNPsbR6RTmC2LSNkaQMXqYWZ5BHHusQcXa2g-L2rTPVECBJDrnOraIaPHlFvceHj-gI1hspXrtmIfKz_V_SVQcAsz45yS1BY56DGjTM7pZwuMu1xGd5-4rXnniy1On59Uo5R05E"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left: Tab Navigation -->
+<div class="w-64 lg:w-72 bg-surface-container-lowest border-r border-outline-variant overflow-y-auto flex-shrink-0 hide-scrollbar p-sm space-y-1">
+  <div class="px-sm py-md">
+    <h2 class="text-label-md font-bold text-primary uppercase tracking-wider">Site Sections</h2>
+    <p class="text-label-sm text-outline mt-xs">Edit content for each section</p>
+  </div>
+  <button class="content-tab active flex items-center gap-xs w-full px-sm py-xs rounded-lg text-left text-label-md text-on-surface-variant" data-tab="hero"><span class="material-symbols-outlined text-[18px] text-secondary">view_carousel</span> Hero</button>
+  <button class="content-tab flex items-center gap-xs w-full px-sm py-xs rounded-lg text-left text-label-md text-on-surface-variant" data-tab="features"><span class="material-symbols-outlined text-[18px] text-secondary">verified</span> Why Choose Us</button>
+  <button class="content-tab flex items-center gap-xs w-full px-sm py-xs rounded-lg text-left text-label-md text-on-surface-variant" data-tab="featured"><span class="material-symbols-outlined text-[18px] text-secondary">star</span> Featured Listings</button>
+  <button class="content-tab flex items-center gap-xs w-full px-sm py-xs rounded-lg text-left text-label-md text-on-surface-variant" data-tab="cta"><span class="material-symbols-outlined text-[18px] text-secondary">campaign</span> CTA Section</button>
+  <button class="content-tab flex items-center gap-xs w-full px-sm py-xs rounded-lg text-left text-label-md text-on-surface-variant" data-tab="news"><span class="material-symbols-outlined text-[18px] text-secondary">news</span> News & Insights</button>
+  <button class="content-tab flex items-center gap-xs w-full px-sm py-xs rounded-lg text-left text-label-md text-on-surface-variant" data-tab="footer"><span class="material-symbols-outlined text-[18px] text-secondary">bottom_panel</span> Footer</button>
+  <button class="content-tab flex items-center gap-xs w-full px-sm py-xs rounded-lg text-left text-label-md text-on-surface-variant" data-tab="contact"><span class="material-symbols-outlined text-[18px] text-secondary">call</span> Contact Page</button>
+  <button class="content-tab flex items-center gap-xs w-full px-sm py-xs rounded-lg text-left text-label-md text-on-surface-variant" data-tab="nav"><span class="material-symbols-outlined text-[18px] text-secondary">menu</span> Navigation</button>
+  <button class="content-tab flex items-center gap-xs w-full px-sm py-xs rounded-lg text-left text-label-md text-on-surface-variant" data-tab="seo"><span class="material-symbols-outlined text-[18px] text-secondary">search</span> SEO</button>
+  <button class="content-tab flex items-center gap-xs w-full px-sm py-xs rounded-lg text-left text-label-md text-on-surface-variant" data-tab="brand"><span class="material-symbols-outlined text-[18px] text-secondary">branding_watermark</span> Brand</button>
+</div>
+<!-- Right: Content Forms -->
+<div class="flex-1 overflow-y-auto p-md lg:p-xl bg-surface-dim">
+  <div class="max-w-3xl mx-auto space-y-md">
+    <div class="flex items-center justify-between mb-md">
+      <div>
+        <h2 class="text-headline-md font-bold text-primary" id="sectionTitle">Hero</h2>
+        <p class="text-label-sm text-outline" id="sectionDesc">Edit the homepage hero banner content</p>
+      </div>
+      <div class="flex gap-sm">
+        <button class="flex items-center gap-xs bg-surface text-on-surface border border-outline-variant px-md py-sm rounded-lg font-label-md hover:bg-surface-container-low transition-colors" id="resetBtn"><span class="material-symbols-outlined text-[18px]">undo</span> Reset</button>
+        <button class="flex items-center gap-xs bg-secondary text-on-secondary px-md py-sm rounded-lg font-label-md hover:shadow-lg transition-shadow" id="saveBtn"><span class="material-symbols-outlined text-[18px]">save</span> Save Section</button>
+      </div>
+    </div>
+    <div id="paneContainer" class="space-y-md"></div>
+    <div class="flex items-center gap-xs text-label-sm text-outline pt-md border-t border-outline-variant">
+      <span class="material-symbols-outlined text-[16px]">info</span> Changes are saved per-section. After saving, refresh the public site to see updates.
+    </div>
+  </div>
+</div>
+</div>
+</main>
+<script>
+// ── DEFAULT CONTENT VALUES ──────────────────────────────────────
+const DEFAULTS = {
+  hero: {
+    headline: "Your Gateway to Premium Kenyan Real Estate",
+    subheadline: "Discover architectural masterpieces curated for the discerning investor. Experience luxury redefined in the heart of East Africa.",
+    bgImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1920&q=80",
+    searchPlaceholder: "Search by county, estate, or type..."
+  },
+  features: [
+    { icon: "verified", title: "Verified Listings", desc: "Every property is meticulously vetted to ensure authenticity, quality, and accurate market representation." },
+    { icon: "support_agent", title: "Expert Agents", desc: "Our seasoned professionals provide deep local knowledge and personalized guidance throughout your journey." },
+    { icon: "insights", title: "Market Intelligence", desc: "Access real-time data, trends, and analytics to make informed investment decisions with confidence." }
+  ],
+  featured: {
+    title: "Featured Estates",
+    subtitle: "Handpicked premium properties available this month.",
+    viewAllText: "View All Portfolio",
+    count: 3
+  },
+  cta: {
+    headline: "Ready to Sell or Lease?",
+    desc: "List your property with Kenya's most trusted luxury real estate platform and reach qualified buyers worldwide.",
+    btn1Text: "List My Property Now",
+    btn1Link: "list-property.html",
+    btn2Text: "Contact Our Sales Team",
+    btn2Link: "contact.html"
+  },
+  news: [
+    { title: "Nairobi Luxury Market Trends 2025", summary: "Explore the shifting dynamics of Nairobi's high-end property market, from emerging neighborhoods to evolving buyer preferences.", date: "Jun 12, 2025", link: "news.html" },
+    { title: "Your Guide to Real Estate Investment", summary: "A comprehensive guide for first-time and seasoned investors looking to capitalize on Kenya's growing real estate sector.", date: "May 28, 2025", link: "news.html" }
+  ],
+  footer: {
+    brand: "TobillionHomes connects discerning buyers with exceptional properties across Kenya. Experience a new standard in real estate excellence.",
+    copyright: "© 2025 TobillionHomes. All Rights Reserved.",
+    facebook: "#", instagram: "#", twitter: "#", linkedin: "#", whatsapp: "#"
+  },
+  contact: {
+    phone: "+254 700 000 000",
+    email: "concierge@tobillionhomes.com",
+    whatsapp: "254700000000",
+    nairobiAddr: "Tobillion Plaza, Upper Hill, Nairobi",
+    mombasaAddr: "Oceanic Tower, Nyali, Mombasa",
+    mapLat: "-1.2921", mapLng: "36.8219"
+  },
+  nav: [
+    { label: "Listings", link: "properties.html" },
+    { label: "Projects", link: "developments.html" },
+    { label: "Developments", link: "developments.html" },
+    { label: "About", link: "about.html" },
+    { label: "News", link: "news.html" }
+  ],
+  seo: {
+    metaTitle: "TobillionHomes | Premium Kenyan Real Estate",
+    metaDesc: "Discover exceptional properties across Kenya's most prestigious locations.",
+    ogImage: ""
+  },
+  brand: {
+    logo: "",
+    name: "TobillionHomes",
+    tagline: "Premium Kenyan Real Estate",
+    favicon: "",
+    logo_size: 40,
+    logo_bg_transparent: false
+  }
+};
+
+let currentTab = 'hero';
+let contentData = {};
+
+// ── ICON PICKER ────────────────────────────────────────────────
+const ICONS = ['verified','support_agent','insights','security','home','apartment','real_estate_agent','handshake','trending_up','location_city','park','pool','fitness_center','restaurant','local_hotel','directions_car','pedal_bike','airport_shuttle','shield','thumb_up','favorite','star','emoji_events','groups'];
+
+function iconPicker(value) {
+  return `<div class="icon-select">${ICONS.map(i => `<button type="button" class="${i === value ? 'active' : ''}" data-icon="${i}"><span class="material-symbols-outlined text-[18px]">${i}</span></button>`).join('')}</div>`;
+}
+
+// ── FORM BUILDERS ──────────────────────────────────────────────
+function sectionInfo(tab) {
+  const info = {
+    hero: ['Hero','Edit the homepage hero banner content'],
+    features: ['Why Choose Us','Edit the 3 feature cards on the homepage'],
+    featured: ['Featured Listings','Edit the featured listings section'],
+    cta: ['CTA Section','Edit the call-to-action section'],
+    news: ['News & Insights','Edit the latest news articles'],
+    footer: ['Footer','Edit footer content and social links'],
+    contact: ['Contact Page','Edit contact information and addresses'],
+    nav: ['Navigation','Edit the top navigation menu items'],
+    seo: ['SEO','Edit meta titles and descriptions'],
+    brand: ['Brand','Edit site logo, name, tagline and favicon']
+  };
+  return info[tab] || [tab, ''];
+}
+
+function buildHero(data) {
+  const imgUrl = data.bgImage || '';
+  return `
+    <div class="field-card"><label>Headline</label><input type="text" id="f-hero-headline" value="${esc(data.headline)}"/></div>
+    <div class="field-card"><label>Subheadline</label><textarea id="f-hero-subheadline">${esc(data.subheadline)}</textarea></div>
+    <div class="field-card">
+      <label>Background Image</label>
+      <div class="mb-sm">
+        <div class="w-full h-40 rounded-lg overflow-hidden bg-surface-container-high ${imgUrl ? '' : 'flex items-center justify-center'}" id="heroPreviewWrap">
+          ${imgUrl ? `<img src="${esc(imgUrl)}" class="w-full h-full object-cover" id="heroPreview"/>` : `<span class="material-symbols-outlined text-4xl text-outline">image</span>`}
+        </div>
+      </div>
+      <div class="border-2 border-dashed border-outline-variant rounded-xl p-md text-center hover:border-secondary transition-colors cursor-pointer bg-surface-container-low/30" id="heroUploadZone">
+        <span class="material-symbols-outlined text-3xl text-outline">cloud_upload</span>
+        <p class="text-label-sm text-outline mt-xs">Drop an image here or click to upload</p>
+      </div>
+      <input type="file" id="heroFileInput" accept="image/*" class="hidden"/>
+      <div id="heroUploadStatus" class="text-label-sm text-outline mt-xs"></div>
+      <div class="mt-sm"><label class="text-label-sm text-outline">Or paste image URL</label><input type="url" id="f-hero-bgImage" value="${esc(imgUrl)}" class="mt-xs"/></div>
+    </div>
+    <div class="field-card"><label>Search Placeholder</label><input type="text" id="f-hero-searchPlaceholder" value="${esc(data.searchPlaceholder)}"/></div>`;
+}
+
+function buildFeatures(data) {
+  return data.map((f, i) => `
+    <div class="field-card feature-item" data-idx="${i}">
+      <div class="flex items-center justify-between mb-xs">
+        <span class="sort-handle material-symbols-outlined text-[18px]">drag_indicator</span>
+        <span class="text-label-sm font-semibold text-primary">Feature ${i+1}</span>
+        <button type="button" class="text-error text-[18px]" onclick="removeFeature(${i})"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="space-y-sm">
+        <div><label>Icon</label>${iconPicker(f.icon)}</div>
+        <div><label>Title</label><input type="text" class="f-feat-title" value="${esc(f.title)}"/></div>
+        <div><label>Description</label><textarea class="f-feat-desc">${esc(f.desc)}</textarea></div>
+      </div>
+    </div>`).join('') + `<button type="button" class="add-item-btn mt-sm" onclick="addFeature()"><span class="material-symbols-outlined text-[18px]">add</span> Add Feature</button>`;
+}
+
+function buildFeatured(data) {
+  return `
+    <div class="field-card"><label>Section Title</label><input type="text" id="f-feat-title" value="${esc(data.title)}"/></div>
+    <div class="field-card"><label>Subtitle</label><textarea id="f-feat-subtitle">${esc(data.subtitle)}</textarea></div>
+    <div class="field-card"><label>"View All" Button Text</label><input type="text" id="f-feat-viewAll" value="${esc(data.viewAllText)}"/></div>
+    <div class="field-card"><label>Number of Properties to Show</label><input type="number" id="f-feat-count" value="${data.count}" min="1" max="20"/></div>`;
+}
+
+function buildCTA(data) {
+  return `
+    <div class="field-card"><label>Headline</label><input type="text" id="f-cta-headline" value="${esc(data.headline)}"/></div>
+    <div class="field-card"><label>Description</label><textarea id="f-cta-desc">${esc(data.desc)}</textarea></div>
+    <div class="grid grid-cols-2 gap-sm">
+      <div class="field-card"><label>Button 1 Text</label><input type="text" id="f-cta-btn1Text" value="${esc(data.btn1Text)}"/></div>
+      <div class="field-card"><label>Button 1 Link</label><input type="text" id="f-cta-btn1Link" value="${esc(data.btn1Link)}"/></div>
+    </div>
+    <div class="grid grid-cols-2 gap-sm">
+      <div class="field-card"><label>Button 2 Text</label><input type="text" id="f-cta-btn2Text" value="${esc(data.btn2Text)}"/></div>
+      <div class="field-card"><label>Button 2 Link</label><input type="text" id="f-cta-btn2Link" value="${esc(data.btn2Link)}"/></div>
+    </div>`;
+}
+
+function buildNews(data) {
+  return data.map((n, i) => `
+    <div class="field-card news-item" data-idx="${i}">
+      <div class="flex items-center justify-between mb-xs">
+        <span class="text-label-sm font-semibold text-primary">Article ${i+1}</span>
+        <button type="button" class="text-error" onclick="removeNews(${i})"><span class="material-symbols-outlined text-[18px]">close</span></button>
+      </div>
+      <div class="space-y-sm">
+        <div><label>Title</label><input type="text" class="f-news-title" value="${esc(n.title)}"/></div>
+        <div><label>Summary</label><textarea class="f-news-summary">${esc(n.summary)}</textarea></div>
+        <div class="grid grid-cols-2 gap-sm">
+          <div><label>Date</label><input type="text" class="f-news-date" value="${esc(n.date)}"/></div>
+          <div><label>Link</label><input type="text" class="f-news-link" value="${esc(n.link)}"/></div>
+        </div>
+      </div>
+    </div>`).join('') + `<button type="button" class="add-item-btn mt-sm" onclick="addNews()"><span class="material-symbols-outlined text-[18px]">add</span> Add Article</button>`;
+}
+
+function buildFooter(data) {
+  return `
+    <div class="field-card"><label>Brand Description</label><textarea id="f-footer-brand">${esc(data.brand)}</textarea></div>
+    <div class="field-card"><label>Copyright Text</label><input type="text" id="f-footer-copyright" value="${esc(data.copyright)}"/></div>
+    <div class="field-card"><span class="text-label-sm font-semibold text-primary block mb-xs">Social Links</span>
+      <div class="grid grid-cols-2 gap-sm">
+        <div><label class="text-[10px]">Facebook URL</label><input type="url" id="f-footer-facebook" value="${esc(data.facebook)}"/></div>
+        <div><label class="text-[10px]">Instagram URL</label><input type="url" id="f-footer-instagram" value="${esc(data.instagram)}"/></div>
+        <div><label class="text-[10px]">Twitter URL</label><input type="url" id="f-footer-twitter" value="${esc(data.twitter)}"/></div>
+        <div><label class="text-[10px]">LinkedIn URL</label><input type="url" id="f-footer-linkedin" value="${esc(data.linkedin)}"/></div>
+        <div><label class="text-[10px]">WhatsApp URL</label><input type="url" id="f-footer-whatsapp" value="${esc(data.whatsapp)}"/></div>
+      </div>
+    </div>`;
+}
+
+function buildContact(data) {
+  return `
+    <div class="grid grid-cols-2 gap-sm">
+      <div class="field-card"><label>Phone</label><input type="text" id="f-contact-phone" value="${esc(data.phone)}"/></div>
+      <div class="field-card"><label>Email</label><input type="email" id="f-contact-email" value="${esc(data.email)}"/></div>
+    </div>
+    <div class="field-card"><label>WhatsApp Number</label><input type="text" id="f-contact-whatsapp" value="${esc(data.whatsapp)}"/></div>
+    <div class="field-card"><label>Nairobi HQ Address</label><textarea id="f-contact-nairobi">${esc(data.nairobiAddr)}</textarea></div>
+    <div class="field-card"><label>Mombasa Branch Address</label><textarea id="f-contact-mombasa">${esc(data.mombasaAddr)}</textarea></div>
+    <div class="grid grid-cols-2 gap-sm">
+      <div class="field-card"><label>Map Latitude</label><input type="text" id="f-contact-mapLat" value="${esc(data.mapLat)}"/></div>
+      <div class="field-card"><label>Map Longitude</label><input type="text" id="f-contact-mapLng" value="${esc(data.mapLng)}"/></div>
+    </div>`;
+}
+
+function buildNav(data) {
+  return data.map((n, i) => `
+    <div class="field-card nav-item" data-idx="${i}">
+      <div class="flex items-center justify-between mb-xs">
+        <span class="sort-handle material-symbols-outlined text-[18px]">drag_indicator</span>
+        <span class="text-label-sm font-semibold text-primary">Item ${i+1}</span>
+        <button type="button" class="text-error" onclick="removeNav(${i})"><span class="material-symbols-outlined text-[18px]">close</span></button>
+      </div>
+      <div class="grid grid-cols-2 gap-sm">
+        <div><label>Label</label><input type="text" class="f-nav-label" value="${esc(n.label)}"/></div>
+        <div><label>Link</label><input type="text" class="f-nav-link" value="${esc(n.link)}"/></div>
+      </div>
+    </div>`).join('') + `<button type="button" class="add-item-btn mt-sm" onclick="addNav()"><span class="material-symbols-outlined text-[18px]">add</span> Add Menu Item</button>`;
+}
+
+function buildSEO(data) {
+  return `
+    <div class="field-card"><label>Meta Title</label><input type="text" id="f-seo-title" value="${esc(data.metaTitle)}"/></div>
+    <div class="field-card"><label>Meta Description</label><textarea id="f-seo-desc">${esc(data.metaDesc)}</textarea></div>
+    <div class="field-card"><label>OG Image URL</label><input type="url" id="f-seo-ogImage" value="${esc(data.ogImage)}"/></div>`;
+}
+
+// ── HELPERS ─────────────────────────────────────────────────────
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function getValue(id, fallback) {
+  const el = document.getElementById(id);
+  return el ? el.value : fallback;
+}
+
+// ── READ FORM VALUES ───────────────────────────────────────────
+function readHero() {
+  return {
+    headline: getValue('f-hero-headline', DEFAULTS.hero.headline),
+    subheadline: getValue('f-hero-subheadline', DEFAULTS.hero.subheadline),
+    bgImage: getValue('f-hero-bgImage', DEFAULTS.hero.bgImage),
+    searchPlaceholder: getValue('f-hero-searchPlaceholder', DEFAULTS.hero.searchPlaceholder)
+  };
+}
+
+function readFeatures() {
+  const items = document.querySelectorAll('.feature-item');
+  return Array.from(items).map(el => ({
+    icon: el.querySelector('.icon-select button.active')?.dataset.icon || 'verified',
+    title: el.querySelector('.f-feat-title')?.value || '',
+    desc: el.querySelector('.f-feat-desc')?.value || ''
+  }));
+}
+
+function readFeatured() {
+  return {
+    title: getValue('f-feat-title', DEFAULTS.featured.title),
+    subtitle: getValue('f-feat-subtitle', DEFAULTS.featured.subtitle),
+    viewAllText: getValue('f-feat-viewAll', DEFAULTS.featured.viewAllText),
+    count: parseInt(getValue('f-feat-count', DEFAULTS.featured.count)) || 3
+  };
+}
+
+function readCTA() {
+  return {
+    headline: getValue('f-cta-headline', DEFAULTS.cta.headline),
+    desc: getValue('f-cta-desc', DEFAULTS.cta.desc),
+    btn1Text: getValue('f-cta-btn1Text', DEFAULTS.cta.btn1Text),
+    btn1Link: getValue('f-cta-btn1Link', DEFAULTS.cta.btn1Link),
+    btn2Text: getValue('f-cta-btn2Text', DEFAULTS.cta.btn2Text),
+    btn2Link: getValue('f-cta-btn2Link', DEFAULTS.cta.btn2Link)
+  };
+}
+
+function readNews() {
+  const items = document.querySelectorAll('.news-item');
+  return Array.from(items).map(el => ({
+    title: el.querySelector('.f-news-title')?.value || '',
+    summary: el.querySelector('.f-news-summary')?.value || '',
+    date: el.querySelector('.f-news-date')?.value || '',
+    link: el.querySelector('.f-news-link')?.value || ''
+  }));
+}
+
+function readFooter() {
+  return {
+    brand: getValue('f-footer-brand', DEFAULTS.footer.brand),
+    copyright: getValue('f-footer-copyright', DEFAULTS.footer.copyright),
+    facebook: getValue('f-footer-facebook', DEFAULTS.footer.facebook),
+    instagram: getValue('f-footer-instagram', DEFAULTS.footer.instagram),
+    twitter: getValue('f-footer-twitter', DEFAULTS.footer.twitter),
+    linkedin: getValue('f-footer-linkedin', DEFAULTS.footer.linkedin),
+    whatsapp: getValue('f-footer-whatsapp', DEFAULTS.footer.whatsapp)
+  };
+}
+
+function readContact() {
+  return {
+    phone: getValue('f-contact-phone', DEFAULTS.contact.phone),
+    email: getValue('f-contact-email', DEFAULTS.contact.email),
+    whatsapp: getValue('f-contact-whatsapp', DEFAULTS.contact.whatsapp),
+    nairobiAddr: getValue('f-contact-nairobi', DEFAULTS.contact.nairobiAddr),
+    mombasaAddr: getValue('f-contact-mombasa', DEFAULTS.contact.mombasaAddr),
+    mapLat: getValue('f-contact-mapLat', DEFAULTS.contact.mapLat),
+    mapLng: getValue('f-contact-mapLng', DEFAULTS.contact.mapLng)
+  };
+}
+
+function readNav() {
+  const items = document.querySelectorAll('.nav-item');
+  return Array.from(items).map(el => ({
+    label: el.querySelector('.f-nav-label')?.value || '',
+    link: el.querySelector('.f-nav-link')?.value || ''
+  }));
+}
+
+function readSEO() {
+  return {
+    metaTitle: getValue('f-seo-title', DEFAULTS.seo.metaTitle),
+    metaDesc: getValue('f-seo-desc', DEFAULTS.seo.metaDesc),
+    ogImage: getValue('f-seo-ogImage', DEFAULTS.seo.ogImage)
+  };
+}
+
+function buildBrand(data) {
+  const imgUrl = data.logo || '';
+  const size = data.logo_size || 40;
+  const transparent = data.logo_bg_transparent || false;
+  const bgStyle = transparent ? '' : 'background:#fff';
+  return `
+    <div class="field-card">
+      <label>Logo Image</label>
+      <div class="mb-sm">
+        <div class="w-24 h-24 rounded-xl overflow-hidden bg-surface-container-high ${imgUrl ? 'p-xs' : 'flex items-center justify-center'}" id="brandLogoPreviewWrap">
+          ${imgUrl ? `<img src="${esc(imgUrl)}" class="w-full h-full object-contain" id="brandLogoPreview"/>` : `<span class="material-symbols-outlined text-3xl text-outline">image</span>`}
+        </div>
+      </div>
+      <div class="border-2 border-dashed border-outline-variant rounded-xl p-md text-center hover:border-secondary transition-colors cursor-pointer bg-surface-container-low/30" id="brandUploadZone">
+        <span class="material-symbols-outlined text-3xl text-outline">cloud_upload</span>
+        <p class="text-label-sm text-outline mt-xs">Upload logo image</p>
+      </div>
+      <input type="file" id="brandFileInput" accept="image/*" class="hidden"/>
+      <div id="brandUploadStatus" class="text-label-sm text-outline mt-xs"></div>
+      <div class="mt-sm"><label class="text-label-sm text-outline">Or paste logo URL</label><input type="url" id="f-brand-logo" value="${esc(imgUrl)}" class="mt-xs"/></div>
+    </div>
+    <div class="field-card"><label>Brand Name</label><input type="text" id="f-brand-name" value="${esc(data.name)}"/></div>
+    <div class="field-card"><label>Tagline</label><input type="text" id="f-brand-tagline" value="${esc(data.tagline)}"/></div>
+    <div class="field-card"><label>Favicon URL</label><input type="url" id="f-brand-favicon" value="${esc(data.favicon)}" placeholder="https://example.com/favicon.ico"/></div>
+    <div class="field-card">
+      <label>Logo Size (px)</label>
+      <div class="flex items-center gap-md">
+        <input type="range" id="f-brand-logo-size" min="16" max="120" value="${size}" class="flex-1 cursor-pointer accent-secondary"/>
+        <span id="brandSizeLabel" class="text-label-md font-semibold text-primary min-w-[3rem] text-right">${size}px</span>
+      </div>
+      <div class="flex justify-between text-label-sm text-outline mt-xs"><span>16</span><span>120</span></div>
+    </div>
+    <div class="field-card">
+      <label class="flex items-center gap-sm cursor-pointer">
+        <input type="checkbox" id="f-brand-bg-transparent" ${transparent ? 'checked' : ''} class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary"/>
+        <span>Transparent background (no white box behind logo)</span>
+      </label>
+    </div>
+    <div class="field-card" style="background:var(--md-sys-color-surface-container-low);border:1px solid var(--md-sys-color-outline-variant);border-radius:12px;padding:12px 16px">
+      <label style="font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:var(--md-sys-color-outline);margin-bottom:4px">Saved Data Preview</label>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+        <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid var(--md-sys-color-outline-variant);${bgStyle}">
+          ${imgUrl ? `<img src="${esc(imgUrl)}" style="max-width:100%;max-height:100%;object-fit:contain"/>` : `<span style="color:var(--md-sys-color-outline);font-size:20px">?</span>`}
+        </div>
+        <div style="font-size:13px;color:var(--md-sys-color-on-surface-variant);line-height:1.5">
+          <div><strong>Logo URL:</strong> ${imgUrl ? `<span style="word-break:break-all;font-size:12px">${esc(imgUrl)}</span>` : '<span style="color:var(--md-sys-color-outline)">(not set)</span>'}</div>
+          <div><strong>Name:</strong> ${esc(data.name)}</div>
+          <div><strong>Size:</strong> ${size}px ${transparent ? '| Transparent' : '| White bg'}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function readBrand() {
+  return {
+    logo: getValue('f-brand-logo', DEFAULTS.brand.logo),
+    name: getValue('f-brand-name', DEFAULTS.brand.name),
+    tagline: getValue('f-brand-tagline', DEFAULTS.brand.tagline),
+    favicon: getValue('f-brand-favicon', DEFAULTS.brand.favicon),
+    logo_size: parseInt(getValue('f-brand-logo-size', DEFAULTS.brand.logo_size)) || 40,
+    logo_bg_transparent: document.getElementById('f-brand-bg-transparent')?.checked || false
+  };
+}
+
+const READERS = {
+  hero: readHero, features: readFeatures, featured: readFeatured,
+  cta: readCTA, news: readNews, footer: readFooter,
+  contact: readContact, nav: readNav, seo: readSEO, brand: readBrand
+};
+
+const BUILDERS = {
+  hero: buildHero, features: buildFeatures, featured: buildFeatured,
+  cta: buildCTA, news: buildNews, footer: buildFooter,
+  contact: buildContact, nav: buildNav, seo: buildSEO, brand: buildBrand
+};
+
+// ── IMAGE UPLOAD (used by hero tab) ────────────────────────────
+function wireHeroUpload() {
+  const zone = document.getElementById('heroUploadZone');
+  const input = document.getElementById('heroFileInput');
+  const status = document.getElementById('heroUploadStatus');
+  const urlInput = document.getElementById('f-hero-bgImage');
+  if (!zone || !input) return;
+  zone.addEventListener('click', () => input.click());
+  zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('border-secondary', 'bg-secondary/5'); });
+  zone.addEventListener('dragleave', () => { zone.classList.remove('border-secondary', 'bg-secondary/5'); });
+  zone.addEventListener('drop', (e) => { e.preventDefault(); zone.classList.remove('border-secondary', 'bg-secondary/5'); if (e.dataTransfer.files.length) uploadHeroImage(e.dataTransfer.files[0]); });
+  input.addEventListener('change', () => { if (input.files.length) uploadHeroImage(input.files[0]); input.value = ''; });
+  urlInput.addEventListener('input', () => {
+    const wrap = document.getElementById('heroPreviewWrap');
+    if (urlInput.value) { wrap.innerHTML = `<img src="${esc(urlInput.value)}" class="w-full h-full object-cover" id="heroPreview"/>`; }
+    else { wrap.innerHTML = '<span class="material-symbols-outlined text-4xl text-outline">image</span>'; }
+  });
+  // Add spinner element if missing
+  if (!document.getElementById('heroUploadSpinner')) {
+    const sp = document.createElement('div');
+    sp.id = 'heroUploadSpinner';
+    sp.className = 'hidden flex-col items-center justify-center py-md';
+    sp.innerHTML = `<span class="material-symbols-outlined text-3xl text-secondary animate-spin">sync</span><p class="text-label-sm text-secondary mt-xs">Uploading...</p>`;
+    zone.parentElement.insertBefore(sp, zone.nextSibling);
+  }
+  if (!document.getElementById('heroUploadProgressWrap')) {
+    const pw = document.createElement('div');
+    pw.id = 'heroUploadProgressWrap';
+    pw.className = 'hidden mt-sm w-full bg-surface-container-high rounded-full h-2 overflow-hidden';
+    pw.innerHTML = `<div id="heroUploadProgressBar" class="h-full bg-secondary rounded-full transition-all duration-300" style="width:0%"></div>`;
+    zone.parentElement.insertBefore(pw, zone.nextSibling);
+  }
+}
+
+async function uploadHeroImage(file) {
+  const status = document.getElementById('heroUploadStatus');
+  const urlInput = document.getElementById('f-hero-bgImage');
+  const zone = document.getElementById('heroUploadZone');
+  const spinner = document.getElementById('heroUploadSpinner');
+  const pw = document.getElementById('heroUploadProgressWrap');
+  const bar = document.getElementById('heroUploadProgressBar');
+  status.textContent = '';
+  zone.classList.add('hidden');
+  if (spinner) spinner.classList.remove('hidden');
+  if (pw) pw.classList.remove('hidden');
+  if (bar) bar.style.width = '30%';
+  await new Promise(r => setTimeout(r, 100));
+  if (bar) bar.style.width = '70%';
+  const result = await uploadMediaItem(file);
+  if (bar) bar.style.width = '100%';
+  await new Promise(r => setTimeout(r, 300));
+  if (spinner) spinner.classList.add('hidden');
+  if (pw) pw.classList.add('hidden');
+  zone.classList.remove('hidden');
+  if (result.data) {
+    status.textContent = 'Uploaded!';
+    status.style.color = 'var(--md-sys-color-primary)';
+    urlInput.value = result.data.url;
+    const wrap = document.getElementById('heroPreviewWrap');
+    wrap.innerHTML = `<img src="${esc(result.data.url)}" class="w-full h-full object-cover" id="heroPreview"/>`;
+    setTimeout(() => { status.textContent = ''; status.style.color = ''; }, 2000);
+  } else {
+    status.textContent = 'Upload failed: ' + (result.error?.message || 'unknown error');
+    status.style.color = 'var(--md-sys-color-error)';
+  }
+}
+
+// ── BRAND LOGO UPLOAD ───────────────────────────────────────────
+function wireBrandUpload() {
+  const zone = document.getElementById('brandUploadZone');
+  const input = document.getElementById('brandFileInput');
+  const urlInput = document.getElementById('f-brand-logo');
+  if (!zone || !input) return;
+  zone.addEventListener('click', () => input.click());
+  zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('border-secondary', 'bg-secondary/5'); });
+  zone.addEventListener('dragleave', () => { zone.classList.remove('border-secondary', 'bg-secondary/5'); });
+  zone.addEventListener('drop', (e) => { e.preventDefault(); zone.classList.remove('border-secondary', 'bg-secondary/5'); if (e.dataTransfer.files.length) uploadBrandImage(e.dataTransfer.files[0]); });
+  input.addEventListener('change', () => { if (input.files.length) uploadBrandImage(input.files[0]); input.value = ''; });
+  urlInput.addEventListener('input', () => {
+    const wrap = document.getElementById('brandLogoPreviewWrap');
+    if (urlInput.value) { wrap.innerHTML = `<img src="${esc(urlInput.value)}" class="w-full h-full object-contain" id="brandLogoPreview"/>`; wrap.className = 'w-24 h-24 rounded-xl overflow-hidden bg-surface-container-high p-xs'; }
+    else { wrap.innerHTML = '<span class="material-symbols-outlined text-3xl text-outline">image</span>'; wrap.className = 'w-24 h-24 rounded-xl overflow-hidden bg-surface-container-high flex items-center justify-center'; }
+  });
+  const sizeSlider = document.getElementById('f-brand-logo-size');
+  const sizeLabel = document.getElementById('brandSizeLabel');
+  if (sizeSlider && sizeLabel) {
+    sizeSlider.addEventListener('input', () => {
+      sizeLabel.textContent = sizeSlider.value + 'px';
+    });
+  }
+  if (!document.getElementById('brandUploadSpinner')) {
+    const sp = document.createElement('div');
+    sp.id = 'brandUploadSpinner';
+    sp.className = 'hidden flex-col items-center justify-center py-md';
+    sp.innerHTML = `<span class="material-symbols-outlined text-3xl text-secondary animate-spin">sync</span><p class="text-label-sm text-secondary mt-xs">Uploading...</p>`;
+    zone.parentElement.insertBefore(sp, zone.nextSibling);
+  }
+  if (!document.getElementById('brandUploadProgressWrap')) {
+    const pw = document.createElement('div');
+    pw.id = 'brandUploadProgressWrap';
+    pw.className = 'hidden mt-sm w-full bg-surface-container-high rounded-full h-2 overflow-hidden';
+    pw.innerHTML = `<div id="brandUploadProgressBar" class="h-full bg-secondary rounded-full transition-all duration-300" style="width:0%"></div>`;
+    zone.parentElement.insertBefore(pw, zone.nextSibling);
+  }
+}
+
+async function uploadBrandImage(file) {
+  const status = document.getElementById('brandUploadStatus');
+  const urlInput = document.getElementById('f-brand-logo');
+  const zone = document.getElementById('brandUploadZone');
+  const spinner = document.getElementById('brandUploadSpinner');
+  const pw = document.getElementById('brandUploadProgressWrap');
+  const bar = document.getElementById('brandUploadProgressBar');
+  status.textContent = '';
+  zone.classList.add('hidden');
+  if (spinner) spinner.classList.remove('hidden');
+  if (pw) pw.classList.remove('hidden');
+  if (bar) bar.style.width = '30%';
+  await new Promise(r => setTimeout(r, 100));
+  if (bar) bar.style.width = '70%';
+  const result = await uploadMediaItem(file);
+  if (bar) bar.style.width = '100%';
+  await new Promise(r => setTimeout(r, 300));
+  if (spinner) spinner.classList.add('hidden');
+  if (pw) pw.classList.add('hidden');
+  zone.classList.remove('hidden');
+  if (result.data) {
+    status.textContent = 'Uploaded!';
+    status.style.color = 'var(--md-sys-color-primary)';
+    urlInput.value = result.data.url;
+    const wrap = document.getElementById('brandLogoPreviewWrap');
+    wrap.innerHTML = `<img src="${esc(result.data.url)}" class="w-full h-full object-contain" id="brandLogoPreview"/>`;
+    wrap.className = 'w-24 h-24 rounded-xl overflow-hidden bg-surface-container-high p-xs';
+    setTimeout(() => { status.textContent = ''; status.style.color = ''; }, 2000);
+  } else {
+    status.textContent = 'Upload failed: ' + (result.error?.message || 'unknown error');
+    status.style.color = 'var(--md-sys-color-error)';
+  }
+}
+
+// ── TAB SWITCHING ──────────────────────────────────────────────
+function showTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.content-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  const [title, desc] = sectionInfo(tab);
+  document.getElementById('sectionTitle').textContent = title;
+  document.getElementById('sectionDesc').textContent = desc;
+  const data = contentData[tab] || DEFAULTS[tab];
+  const builder = BUILDERS[tab];
+  document.getElementById('paneContainer').innerHTML = builder ? builder(data) : '<p class="text-outline">No editor for this section.</p>';
+  document.getElementById('paneContainer').querySelectorAll('.icon-select button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+  if (tab === 'hero') wireHeroUpload();
+  if (tab === 'brand') wireBrandUpload();
+}
+
+// ── ADD / REMOVE ITEMS ─────────────────────────────────────────
+function addFeature() {
+  contentData.features = [...readFeatures(), { icon: 'verified', title: '', desc: '' }];
+  showTab('features');
+}
+function removeFeature(i) {
+  const items = readFeatures();
+  items.splice(i, 1);
+  contentData.features = items;
+  showTab('features');
+}
+function addNews() {
+  contentData.news = [...readNews(), { title: '', summary: '', date: '', link: '' }];
+  showTab('news');
+}
+function removeNews(i) {
+  const items = readNews();
+  items.splice(i, 1);
+  contentData.news = items;
+  showTab('news');
+}
+function addNav() {
+  contentData.nav = [...readNav(), { label: '', link: '' }];
+  showTab('nav');
+}
+function removeNav(i) {
+  const items = readNav();
+  items.splice(i, 1);
+  contentData.nav = items;
+  showTab('nav');
+}
+
+// ── TOAST ──────────────────────────────────────────────────────
+function showToast(msg, type) {
+  const t = document.createElement('div');
+  t.className = `toast-fixed ${type}`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+// ── SAVE & RESET ───────────────────────────────────────────────
+async function saveSection() {
+  const reader = READERS[currentTab];
+  if (!reader) return;
+  const data = reader();
+  const key = currentTab;
+  const ok = await saveSiteContent(key, data);
+  if (ok) {
+    contentData[key] = data;
+    showToast(`${sectionInfo(key)[0]} saved successfully!`, 'success');
+  } else {
+    showToast('Failed to save. Check console for details.', 'error');
+  }
+}
+
+async function resetSection() {
+  const ok = await showConfirm('Reset Section', `Reset ${sectionInfo(currentTab)[0]} to defaults?`);
+  if (!ok) return;
+  contentData[currentTab] = JSON.parse(JSON.stringify(DEFAULTS[currentTab]));
+  showTab(currentTab);
+  showToast(`${sectionInfo(currentTab)[0]} reset to defaults`, 'info');
+}
+
+// ── LOAD ALL CONTENT ───────────────────────────────────────────
+async function loadAllContent() {
+  const keys = Object.keys(DEFAULTS);
+  for (const key of keys) {
+    const val = await fetchSiteContent(key);
+    contentData[key] = val || JSON.parse(JSON.stringify(DEFAULTS[key]));
+  }
+  showTab('hero');
+}
+
+// ── INIT ────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.content-tab').forEach(btn => {
+    btn.addEventListener('click', () => showTab(btn.dataset.tab));
+  });
+  document.getElementById('saveBtn').addEventListener('click', saveSection);
+  document.getElementById('resetBtn').addEventListener('click', resetSection);
+  loadAllContent();
+});
+</script>
+<script src="admin-nav.js"></script>
+</body></html>

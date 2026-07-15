@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Media Library | TobillionHomes Admin Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Montserrat:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .media-card:hover .media-overlay { opacity: 1; }
+        .media-overlay { opacity: 0; transition: opacity 0.2s ease-in-out; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e1e3e4",
+                        "tertiary": "#050700",
+                        "surface-container-low": "#f3f4f5",
+                        "outline": "#74777f",
+                        "tertiary-container": "#1e2011",
+                        "inverse-primary": "#afc8f0",
+                        "surface-dim": "#d9dadb",
+                        "secondary": "#006c4e",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00513a",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "on-primary-fixed": "#001c3a",
+                        "surface-tint": "#476083",
+                        "primary-fixed": "#d4e3ff",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "primary": "#000613",
+                        "on-secondary-fixed": "#002115",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#afc8f0",
+                        "on-tertiary-container": "#878873",
+                        "on-tertiary-fixed": "#1b1d0e",
+                        "on-secondary-container": "#007353",
+                        "tertiary-fixed-dim": "#c8c8b0",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-primary-container": "#6f88ad",
+                        "on-tertiary-fixed-variant": "#474836",
+                        "primary-container": "#001f3f",
+                        "background": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e4e4cc",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9fa",
+                        "secondary-container": "#97f5cc",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#edeeef",
+                        "surface-container-highest": "#e1e3e4",
+                        "secondary-fixed": "#97f5cc",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-bright": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c4c6cf",
+                        "inverse-surface": "#2e3132",
+                        "secondary-fixed-dim": "#7bd8b1",
+                        "on-surface": "#191c1d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "xs": "8px",
+                        "gutter": "24px",
+                        "lg": "40px",
+                        "base": "4px",
+                        "sm": "16px",
+                        "md": "24px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden h-screen flex">
+<!-- SideNavBar Anchor -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant shadow-sm flex flex-col p-md gap-sm z-50">
+<div class="mb-lg">
+<h1 class="font-headline-md text-headline-md font-bold text-primary mb-base">Admin Hub</h1>
+<p class="font-label-sm text-on-surface-variant">Property Management</p>
+</div>
+<nav class="flex-grow flex flex-col gap-xs">
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-sm px-sm py-xs bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">domain</span>
+                Properties
+            </a>
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined">mail</span>
+                Inquiries
+            </a>
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined">group</span>
+                Users
+            </a>
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors font-label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<button class="mt-md bg-primary text-on-primary py-sm px-md rounded-lg font-label-md flex items-center justify-center gap-xs transition-transform active:scale-95">
+<span class="material-symbols-outlined">add</span>
+            Add New Listing
+        </button>
+<div class="mt-auto flex flex-col gap-xs border-t border-outline-variant pt-md">
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                Help Center
+            </a>
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-grow h-screen flex flex-col overflow-hidden relative">
+<!-- Top Control Bar -->
+<header class="h-20 flex items-center justify-between px-xl bg-background/80 backdrop-blur-md sticky top-0 z-40 border-b border-outline-variant/30">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Media Library</h2>
+<nav class="flex gap-xs text-label-sm text-on-surface-variant mt-1">
+<span>Properties</span>
+<span>/</span>
+<span class="text-secondary font-semibold">Media Assets</span>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<!-- Search -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-md py-sm bg-surface-container rounded-lg border-none focus:ring-2 focus:ring-primary w-64 font-body-md text-sm" placeholder="Search filename or property..." type="text"/>
+</div>
+<button class="flex items-center gap-xs bg-secondary text-on-secondary px-md py-sm rounded-lg font-label-md hover:shadow-lg transition-shadow">
+<span class="material-symbols-outlined">cloud_upload</span>
+                    Upload New Media
+                </button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+</div>
+</header>
+<!-- Media Context Area -->
+<div class="flex flex-grow overflow-hidden">
+<!-- Library Grid -->
+<div class="flex-grow overflow-y-auto p-md hide-scrollbar">
+<!-- Filters & Bulk Actions -->
+<div class="flex items-center justify-between mb-md bg-surface-container-low p-sm rounded-xl border border-outline-variant/20">
+<div class="flex gap-sm">
+<div class="flex items-center gap-xs px-md py-xs bg-surface-container-highest rounded-full text-label-sm border border-outline-variant">
+<span class="material-symbols-outlined text-sm">filter_alt</span>
+<span>Filter by Type</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</div>
+<div class="flex items-center gap-xs px-md py-xs bg-surface-container-highest rounded-full text-label-sm border border-outline-variant">
+<span>Property ID: All</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</div>
+<div class="h-6 w-px bg-outline-variant mx-xs"></div>
+<p class="text-label-sm text-on-surface-variant self-center">Showing 24 of 1,248 assets</p>
+</div>
+<div class="flex gap-xs items-center" id="bulk-actions">
+<button class="flex items-center gap-xs text-error font-label-md px-md py-xs hover:bg-error/5 rounded-lg transition-colors">
+<span class="material-symbols-outlined">delete</span>
+                            Bulk Delete
+                        </button>
+<button class="flex items-center gap-xs text-primary font-label-md px-md py-xs border border-primary/20 rounded-lg hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">label</span>
+                            Tag Selection
+                        </button>
+</div>
+</div>
+<!-- Media Grid (Bento Style) -->
+<div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-md pb-xl">
+<!-- Media Item 1 -->
+<div class="group media-card relative aspect-square rounded-xl overflow-hidden border border-outline-variant/30 shadow-sm bg-surface-container cursor-pointer" onclick="selectMedia(this)">
+<div class="absolute top-3 left-3 z-20">
+<input class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary cursor-pointer" type="checkbox"/>
+</div>
+<div class="absolute top-3 right-3 z-20 bg-primary/80 backdrop-blur px-xs py-[2px] rounded text-[10px] text-white font-bold uppercase tracking-wider">Property Photo</div>
+<div class="w-full h-full" data-alt="A professional high-resolution architectural photograph of a luxury contemporary villa in Nairobi at sunset. The building features large floor-to-ceiling glass windows reflecting a dramatic orange and purple sky. The landscaping is lush with tropical plants and a clean minimalist driveway. The image is bright, crisp, and exudes a premium real estate aesthetic with warm ambient lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDjcdMshZADd-bgPshcIDWCv1tXUEP73Kj8xtUVmhqWEaY0nVkAi3RclkRKlU87YNjBghI44DDTeQlXxPLj4zpAf_7SzUIsSy2ln9ragkGEze7Zy3PmFjzuMgxv3hH_rBctEIZRU1KBw2Hm2-5GXb5QhK7NoVomGxOh_18AQlC0UML657-EpNDqOhvURniXf9ITjM-0xlAfkenNUEmex7I5Ea6cPQ48RSmUCFnwnWv68Zj0ou1kCxNx8uPGt4PvC6oAE1F0emrpyp4')"></div>
+<div class="media-overlay absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent p-md flex flex-col justify-end text-white">
+<p class="font-label-md truncate">Exterior_Twilight_Main.jpg</p>
+<p class="text-[10px] opacity-80">REF: TH-40291 • 4.2 MB</p>
+</div>
+</div>
+<!-- Media Item 2 -->
+<div class="group media-card relative aspect-square rounded-xl overflow-hidden border border-outline-variant/30 shadow-sm bg-surface-container cursor-pointer">
+<div class="absolute top-3 left-3 z-20">
+<input class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary cursor-pointer" type="checkbox"/>
+</div>
+<div class="absolute top-3 right-3 z-20 bg-secondary/80 backdrop-blur px-xs py-[2px] rounded text-[10px] text-white font-bold uppercase tracking-wider">Floor Plan</div>
+<div class="w-full h-full bg-white flex items-center justify-center p-xl">
+<div class="w-full h-full border-2 border-dashed border-outline-variant flex flex-col items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-4xl text-outline">architecture</span>
+<p class="text-label-sm text-outline">Level_1_Blueprint.pdf</p>
+</div>
+</div>
+<div class="media-overlay absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent p-md flex flex-col justify-end text-white">
+<p class="font-label-md truncate">Level_1_Blueprint.pdf</p>
+<p class="text-[10px] opacity-80">REF: TH-40291 • 1.1 MB</p>
+</div>
+</div>
+<!-- Media Item 3 (Video) -->
+<div class="group media-card relative aspect-square rounded-xl overflow-hidden border border-outline-variant/30 shadow-sm bg-surface-container cursor-pointer">
+<div class="absolute top-3 left-3 z-20">
+<input class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary cursor-pointer" type="checkbox"/>
+</div>
+<div class="absolute top-3 right-3 z-20 bg-error/80 backdrop-blur px-xs py-[2px] rounded text-[10px] text-white font-bold uppercase tracking-wider">Drone 4K</div>
+<div class="w-full h-full flex items-center justify-center overflow-hidden">
+<div class="w-full h-full" data-alt="A stunning aerial drone shot looking down at a modern residential complex in a high-end Kenyan neighborhood. The architecture features clean lines, white facades, and sparkling blue rooftop swimming pools. Bright morning sunlight creates sharp, elegant shadows on the manicured lawns. The atmosphere is upscale and serene, highlighting the scale of the development." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCT0luWIWKfDDsi9A9yauNCrW8w8kPqgiyt1QuT1tJfnSyuCFhSWOoANt1mNFlu1UjH_tpdmp4PCB02uoSI1Te9Y9YRt2uVtyF1BpT1bQJnc3bduwzMnONinyeyUq9gDWdNJzExOGU-mB0MlpOF4d9MzgSTp6zf3RGoYmHn_VoKmThJBR8DPgqICmuvOjEii3XKNVQsxnWFhEOulme7fWHf9ipoGUDDIF385ik5tHZYiPM7dGZ1gGDmux06JLkDNsnvKlnXmAjgKkQ')"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-lg flex items-center justify-center border border-white/40">
+<span class="material-symbols-outlined text-white text-3xl">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="media-overlay absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent p-md flex flex-col justify-end text-white">
+<p class="font-label-md truncate">Aerial_Flyover_v2.mp4</p>
+<p class="text-[10px] opacity-80">REF: TH-55098 • 128 MB</p>
+</div>
+</div>
+<!-- Repeat Items for Grid visual density -->
+<div class="group media-card relative aspect-square rounded-xl overflow-hidden border border-outline-variant/30 shadow-sm bg-surface-container cursor-pointer">
+<div class="absolute top-3 left-3 z-20"><input class="w-5 h-5 rounded border-outline-variant text-secondary" type="checkbox"/></div>
+<div class="absolute top-3 right-3 z-20 bg-primary/80 backdrop-blur px-xs py-[2px] rounded text-[10px] text-white font-bold uppercase tracking-wider">Photo</div>
+<div class="w-full h-full" data-alt="Close-up detail of high-end interior finishes in a luxury kitchen. Marble countertops with elegant gray veining, brushed gold faucet hardware, and minimalist dark wood cabinetry. The lighting is soft and focused, creating a sophisticated and expensive atmosphere. The color palette is neutral with warm wood tones and gold accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB5EOnB3r7r7Uka9dxTdR19v3D9NtwWsnEmbNUXxVGLlG1F1SUbje7z-INjOGWqEMEVaoEYHK70YWclxGVc2S8Uyi1G6DHH_ihLlwBuNWKToX0uHWEXhg3LmeifyHS1pL_asGKj0N39RpgnjjTAA45NmG7BGHHTeSzb-BXe2PnSP7neJr2-JIOWjdNLbfdh2CSUn42ZEr4fDnIA5qZDsDU4ZLYIYwn2Bb6Vkcl5GEiWc4-VCKRiUmNpJ2w2OO7YkVt4vlWVOnA_47U')"></div>
+<div class="media-overlay absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent p-md flex flex-col justify-end text-white">
+<p class="font-label-md truncate">Kitchen_Details_03.png</p>
+<p class="text-[10px] opacity-80">REF: TH-40291 • 3.7 MB</p>
+</div>
+</div>
+<!-- More placeholders for density -->
+<div class="group media-card relative aspect-square rounded-xl overflow-hidden border border-outline-variant/30 shadow-sm bg-surface-container cursor-pointer">
+<div class="absolute top-3 left-3 z-20"><input class="w-5 h-5 rounded border-outline-variant text-secondary" type="checkbox"/></div>
+<div class="absolute top-3 right-3 z-20 bg-primary/80 backdrop-blur px-xs py-[2px] rounded text-[10px] text-white font-bold uppercase tracking-wider">Photo</div>
+<div class="w-full h-full" data-alt="An expansive living room interior with a massive double-height ceiling and a statement chandelier. Modern leather furniture in charcoal gray is arranged around a minimalist glass coffee table. Floor-to-ceiling windows offer a view of a lush garden. The lighting is bright and airy, emphasizing the volume of the space in a high-key corporate modern real estate style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAj8SSF_vKaErnylkRhCaf5caNgEN8I9DPYFLu3R3L-yaiE_65hUaHNE3ShKcACwseIVUXucmSt8t2oJcQTyDLnylILVewxR-B72WWQp5ccA_aIdfktnpfJEdxjfc8utbyUqHtQC2wZ6LoLHjBXEGLU20YW2EKF0BhkETCsgEVo9leDRIUKp7-uLKg3mxoQ6wNTyLgQi93OWjqFkUy1KqdgF2wh0q29-UE5zP_KheuzbS5CefXbmb4eAJkMh6tZCx67BB7zaZPmyl4')"></div>
+<div class="media-overlay absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent p-md flex flex-col justify-end text-white">
+<p class="font-label-md truncate">LivingRoom_Wide_01.jpg</p>
+<p class="text-[10px] opacity-80">REF: TH-99821 • 6.1 MB</p>
+</div>
+</div>
+<div class="group media-card relative aspect-square rounded-xl overflow-hidden border border-outline-variant/30 shadow-sm bg-surface-container cursor-pointer">
+<div class="absolute top-3 left-3 z-20"><input class="w-5 h-5 rounded border-outline-variant text-secondary" type="checkbox"/></div>
+<div class="absolute top-3 right-3 z-20 bg-primary/80 backdrop-blur px-xs py-[2px] rounded text-[10px] text-white font-bold uppercase tracking-wider">Photo</div>
+<div class="w-full h-full" data-alt="A master bedroom suite with a king-sized bed, premium linens in soft cream colors, and a large upholstered headboard. Ambient bedside lighting creates a warm and relaxing mood. The room has a private balcony overlooking a pool. The overall design is minimalist yet luxurious, fitting the quiet confidence of a high-end Kenyan property brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBO8spx9jo3PxxHzj9-0lFnP0K7kKmm3rL9zDqq1sxeLol_ECVgI-kGhCU1Q91Ull8ESynmR2iqxq64CawIKFoWRrcHV7S5AOGtQWCJAlolyeA0dgjGJPmSKzWVzrskT4wMyeANVx2Vp90F9HaSIA2tdV24RQlM7hDAdORzFOhZi8D4M1_JBiiwcPOWd8sB0XCMTnn2bz1O9NwmVesdw-Pc94qBHsCjRH81-aVbTjZskntYBTTn6VHe-lWKkKlz6QRioSysEIyjECg')"></div>
+<div class="media-overlay absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent p-md flex flex-col justify-end text-white">
+<p class="font-label-md truncate">Master_Bed_Morning.jpg</p>
+<p class="text-[10px] opacity-80">REF: TH-40291 • 5.5 MB</p>
+</div>
+</div>
+<div class="group media-card relative aspect-square rounded-xl overflow-hidden border border-outline-variant/30 shadow-sm bg-surface-container cursor-pointer">
+<div class="absolute top-3 left-3 z-20"><input class="w-5 h-5 rounded border-outline-variant text-secondary" type="checkbox"/></div>
+<div class="absolute top-3 right-3 z-20 bg-primary/80 backdrop-blur px-xs py-[2px] rounded text-[10px] text-white font-bold uppercase tracking-wider">Photo</div>
+<div class="w-full h-full" data-alt="A luxurious home theater room with plush velvet seating in deep navy blue. The room is dimly lit with subtle LED strip lighting under the seats. A large projection screen displays a cinematic image. The atmosphere is intimate and exclusive, showcasing the premium entertainment amenities of a high-end estate in Nairobi." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCVjTKlNI4IVLsVAGG7eUleHN06rvhjo3y_Nt0epfBkPGZxohI06DZ5W-efG4ua7HQ_esXorblxAoY2E2M4czmN6TtbZwNabHcRm4Tx3hHIcjMXCvX0EkIj_to_wXfCumMUnQERmby2ZItJ8cZ5P_Ge3PpxmpKqft1p9dMm9qkl3tkdRG0L9udW5wKodFCIgm0VjWQF7FFzVJQaFoO_-os-4zxxEVup5-BOqrxLfJhaYDfUHEohfjnFlzdl89f_InZETTsLswg5QYs')"></div>
+<div class="media-overlay absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent p-md flex flex-col justify-end text-white">
+<p class="font-label-md truncate">Cinema_Room_Main.jpg</p>
+<p class="text-[10px] opacity-80">REF: TH-88210 • 4.9 MB</p>
+</div>
+</div>
+<div class="group media-card relative aspect-square rounded-xl overflow-hidden border border-outline-variant/30 shadow-sm bg-surface-container cursor-pointer border-2 border-primary ring-2 ring-primary/20">
+<div class="absolute top-3 left-3 z-20"><input checked="" class="w-5 h-5 rounded border-outline-variant text-secondary" type="checkbox"/></div>
+<div class="absolute top-3 right-3 z-20 bg-primary/80 backdrop-blur px-xs py-[2px] rounded text-[10px] text-white font-bold uppercase tracking-wider">Photo</div>
+<div class="w-full h-full" data-alt="A spacious modern garden area with a sparkling infinity pool reflecting the bright blue sky. Elegant lounge chairs are placed on a light-colored stone patio. Manicured hedges and vibrant flowering plants frame the outdoor space. The lighting is crisp afternoon sun, creating a vibrant and refreshing scene for a luxury property catalog." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA-3XhSFJVjvxmHPf7Nsr5J45GEU2cngLY7JSYD7PHNZ2J-7-jN0TUMPHDw652F6FeouS2ddYPnLKL1SroDYh067qxfGt7N_9IwgtsgzQOfKxFwxBQa_WAGjizLt_mzWx0sVP4MZgcj-bOlQ93riqAPTVvyOiS20vgDTLOHjov9sQ42KDNt388-0-XQ1tsjpqfwpN_T-Wd0BBKZKxmGgfvBWQgcjmz1gMSMEsJXI2sWY_ATpxW3BaWIOHzsdyz8_qXMLde5oGxcTLE')"></div>
+<div class="media-overlay absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent p-md flex flex-col justify-end text-white">
+<p class="font-label-md truncate">Poolside_West_View.jpg</p>
+<p class="text-[10px] opacity-80">REF: TH-40291 • 7.2 MB</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Metadata Sidebar -->
+<aside class="w-80 border-l border-outline-variant/30 bg-surface-container-lowest flex flex-col overflow-y-auto" id="metadata-sidebar">
+<div class="p-md border-b border-outline-variant/20">
+<h3 class="font-label-md text-primary mb-sm">Asset Preview</h3>
+<div class="aspect-video w-full rounded-lg overflow-hidden bg-surface-container-high relative">
+<div class="w-full h-full" data-alt="A spacious modern garden area with a sparkling infinity pool reflecting the bright blue sky. Elegant lounge chairs are placed on a light-colored stone patio. Manicured hedges and vibrant flowering plants frame the outdoor space. The lighting is crisp afternoon sun, creating a vibrant and refreshing scene for a luxury property catalog." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBe1mRVAvGGccTvCLLRE6QUPfOBbCzGpftIBY-VpUOdKcV5gfesI2uv_aErZeUi0dpE6nWWlWSewLVKhbAx43go-T8Ug3DUS7TkyoKd_tBDVicmetmtXogQnEJx_dYLRR3IVZyhRzXep4tgWslwW0J3Y7fMX5egGZuNZFlOa82AhTy1FzPDQPtTu0orYSuXNnIOrY0RJ5CF6f3oHQHOvFYxh8XUjQdCAGdVIZhaLAMyRQYsoQpaaLSTdmL5I1kreqc0Pg5_P291K8A')"></div>
+</div>
+<div class="mt-md flex flex-col gap-xs">
+<div class="flex justify-between items-center">
+<h4 class="font-bold text-primary truncate pr-sm">Poolside_West_View.jpg</h4>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">edit</span>
+</div>
+<p class="text-label-sm text-on-surface-variant">Uploaded May 24, 2024</p>
+</div>
+</div>
+<div class="p-md space-y-md">
+<div>
+<p class="text-label-sm text-on-surface-variant mb-1 uppercase tracking-tighter font-bold">Metadata</p>
+<div class="space-y-sm text-sm">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">File Size</span>
+<span class="font-semibold">7.2 MB</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Dimensions</span>
+<span class="font-semibold">5120 x 2880 px</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Resolution</span>
+<span class="font-semibold">300 DPI</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Format</span>
+<span class="font-semibold">JPEG</span>
+</div>
+</div>
+</div>
+<div class="pt-sm border-t border-outline-variant/10">
+<p class="text-label-sm text-on-surface-variant mb-2 uppercase tracking-tighter font-bold">Linked Property</p>
+<div class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/30 flex items-center gap-sm">
+<div class="w-12 h-12 rounded bg-primary flex items-center justify-center text-white font-bold text-xs">
+                                #40291
+                            </div>
+<div>
+<p class="font-label-md text-primary truncate">Riverside Luxury Penthouse</p>
+<p class="text-[11px] text-secondary font-bold">In-Market • High Demand</p>
+</div>
+</div>
+</div>
+<div class="pt-sm border-t border-outline-variant/10">
+<p class="text-label-sm text-on-surface-variant mb-2 uppercase tracking-tighter font-bold">Tags</p>
+<div class="flex flex-wrap gap-xs">
+<span class="px-sm py-[2px] bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-[11px] font-bold">Pool</span>
+<span class="px-sm py-[2px] bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-[11px] font-bold">Outdoor</span>
+<span class="px-sm py-[2px] bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-[11px] font-bold">Evening</span>
+<button class="px-sm py-[2px] bg-surface-container-high text-on-surface-variant border border-outline-variant rounded-full text-[11px] font-bold flex items-center gap-1 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-xs">add</span> Add Tag
+                            </button>
+</div>
+</div>
+</div>
+<div class="mt-auto p-md bg-surface-container-low/50 border-t border-outline-variant/20 grid grid-cols-2 gap-sm">
+<button class="flex items-center justify-center gap-xs py-sm border border-outline-variant rounded-lg font-label-md hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                        Export
+                    </button>
+<button class="flex items-center justify-center gap-xs py-sm bg-error/10 text-error rounded-lg font-label-md hover:bg-error/20 transition-colors">
+<span class="material-symbols-outlined text-sm">delete</span>
+                        Delete
+                    </button>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer Anchor (Minimal for Admin) -->
+<footer class="fixed bottom-0 right-0 left-64 bg-surface-container-lowest border-t border-outline-variant py-xs px-xl flex justify-between items-center z-50">
+<p class="font-label-sm text-on-surface-variant">© 2024 TobillionHomes. Modern Luxury Real Estate Kenya.</p>
+<div class="flex gap-md">
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Staff Portal</a>
+</div>
+</footer>
+<script>
+        function selectMedia(element) {
+            // Logic for highlighting and showing metadata
+            // Visual state managed by Tailwind classes in HTML
+        }
+
+        // Micro-interaction for search focus
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.classList.add('w-80');
+        });
+        searchInput.addEventListener('blur', () => {
+            if (searchInput.value === '') {
+                searchInput.classList.remove('w-80');
+            }
+        });
+    </script>
+</body></html>

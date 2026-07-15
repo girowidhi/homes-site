@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Cache-Control" content="public, max-age=3600">
+<meta name="theme-color" content="#1a365d" />
+<meta name="description" content="Add a new property listing to TobillionHomes. Create detailed property entries with photos, features, and pricing." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
+<title>Add Property | TobillionHomes Admin</title>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .animate-spin { animation: spin 1s linear infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .animate-pulse-slow { animation: pulse 2s ease-in-out infinite; }
+  .img-placeholder-pulse { background: linear-gradient(90deg, #e1e3e4 25%, #edeeef 50%, #e1e3e4 75%); background-size: 200% 100%; animation: pulse 1.5s ease-in-out infinite; }
+  .amenity-chip { transition: all 0.2s ease; }
+  .amenity-chip input:checked + .chip-label { background: #97f5cc; color: #00513a; border-color: #006c4e; }
+  .chip-label { display: flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px; border: 1px solid #c4c6cf; font-size: 13px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+  .chip-label:hover { border-color: #006c4e; background: #f3f4f5; }
+  .upload-zone.drag-over { border-color: #006c4e !important; background: rgba(0,108,78,0.04); }
+</style>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-tertiary-fixed": "#1b1d0e","inverse-surface": "#2e3132","on-tertiary-container": "#878873",
+          "on-secondary": "#ffffff","on-primary": "#ffffff","outline-variant": "#c4c6cf",
+          "surface-variant": "#e1e3e4","on-tertiary-fixed-variant": "#474836","surface-container-lowest": "#ffffff",
+          "tertiary": "#050700","on-secondary-container": "#007353","error": "#ba1a1a",
+          "surface-tint": "#476083","secondary-fixed-dim": "#7bd8b1","surface-container-highest": "#e1e3e4",
+          "surface-container-high": "#e7e8e9","tertiary-fixed": "#e4e4cc","surface-bright": "#f8f9fa",
+          "primary": "#000613","on-primary-fixed": "#001c3a","surface-dim": "#d9dadb",
+          "surface-container-low": "#f3f4f5","on-background": "#191c1d","secondary": "#006c4e",
+          "primary-container": "#001f3f","tertiary-container": "#1e2011","tertiary-fixed-dim": "#c8c8b0",
+          "on-surface-variant": "#43474e","on-secondary-fixed": "#002115","on-primary-fixed-variant": "#2f486a",
+          "surface-container": "#edeeef","on-tertiary": "#ffffff","on-error": "#ffffff",
+          "background": "#f8f9fa","inverse-on-surface": "#f0f1f2","outline": "#74777f",
+          "on-surface": "#191c1d","inverse-primary": "#afc8f0","secondary-fixed": "#97f5cc",
+          "on-error-container": "#93000a","surface": "#f8f9fa","primary-fixed": "#d4e3ff",
+          "on-primary-container": "#6f88ad","secondary-container": "#97f5cc","primary-fixed-dim": "#afc8f0",
+          "error-container": "#ffdad6","on-secondary-fixed-variant": "#00513a"
+        },
+        borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+        spacing: { sm: "16px", md: "24px", "container-max": "1280px", xl: "64px", base: "4px", xs: "8px", lg: "40px", gutter: "24px" },
+        fontFamily: { "label-md": ["Inter"], "body-md": ["Inter"], "headline-lg-mobile": ["Montserrat"], "label-sm": ["Inter"], "headline-lg": ["Montserrat"], "body-lg": ["Inter"], "headline-md": ["Montserrat"], "display-lg": ["Montserrat"] },
+        fontSize: { "label-md": ["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}], "body-md": ["16px",{"lineHeight":"24px","fontWeight":"400"}], "headline-lg-mobile": ["28px",{"lineHeight":"36px","fontWeight":"600"}], "label-sm": ["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"500"}], "headline-lg": ["32px",{"lineHeight":"40px","fontWeight":"600"}], "body-lg": ["18px",{"lineHeight":"28px","fontWeight":"400"}], "headline-md": ["24px",{"lineHeight":"32px","fontWeight":"600"}], "display-lg": ["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}] }
+        }
+    }
+  }
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="config.js"></script>
+<script defer src="db.js"></script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<div class="admin-sidebar-overlay" id="sidebar-overlay"></div>
+
+<aside class="admin-sidebar" id="admin-sidebar">
+<div class="sidebar-header flex items-center justify-between px-sm mb-lg flex-shrink-0">
+  <div class="sidebar-brand flex items-center gap-xs">
+    <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary flex-shrink-0">
+      <span class="material-symbols-outlined text-body-md" style="font-variation-settings:'FILL'1;">domain</span>
+    </div>
+    <span class="text-label-md font-black text-primary sidebar-label whitespace-nowrap">Admin Panel</span>
+  </div>
+  <button class="sidebar-toggle-btn" id="sidebar-toggle" aria-label="Toggle sidebar">
+    <span class="material-symbols-outlined">menu_open</span>
+  </button>
+</div>
+<p class="px-sm mb-lg text-label-sm font-label-sm text-outline sidebar-subtitle">Prestige Management</p>
+<nav class="sidebar-nav flex-grow space-y-base overflow-y-auto overflow-x-hidden px-xs">
+  <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-dashboard.html">
+    <span class="material-symbols-outlined flex-shrink-0">dashboard</span>
+    <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Dashboard</span>
+  </a>
+  <a class="flex items-center gap-xs bg-secondary-container text-on-secondary-container rounded-lg px-sm py-xs" href="admin-manage-properties.html">
+    <span class="material-symbols-outlined flex-shrink-0" style="font-variation-settings:'FILL'1;">domain</span>
+    <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Properties</span>
+  </a>
+  <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-leads.html">
+    <span class="material-symbols-outlined flex-shrink-0">group</span>
+    <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Leads</span>
+  </a>
+  <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-media.html">
+    <span class="material-symbols-outlined flex-shrink-0">image</span>
+    <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Media Library</span>
+  </a>
+  <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-content.html">
+    <span class="material-symbols-outlined flex-shrink-0">edit_note</span>
+    <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Site Content</span>
+  </a>
+  <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors group" href="admin-content.html">
+    <span class="material-symbols-outlined flex-shrink-0">search_insights</span>
+    <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">SEO Settings</span>
+  </a>
+</nav>
+<div class="sidebar-footer mt-auto px-xs space-y-base flex-shrink-0">
+  <div class="sidebar-status px-sm py-xs text-label-sm font-label-sm text-secondary bg-secondary-container/20 rounded-lg mb-sm whitespace-nowrap">System Status: Healthy</div>
+  <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors" href="contact.html">
+    <span class="material-symbols-outlined flex-shrink-0">support_agent</span>
+    <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Support</span>
+  </a>
+  <a class="flex items-center gap-xs text-on-surface-variant px-sm py-xs hover:bg-surface-variant hover:text-on-surface rounded-lg transition-colors" href="admin-login.html" id="logout-link">
+    <span class="material-symbols-outlined flex-shrink-0 text-error">logout</span>
+    <span class="text-label-md font-label-md sidebar-label whitespace-nowrap">Logout</span>
+  </a>
+</div>
+</aside>
+
+<main class="admin-main flex-grow flex flex-col min-h-screen">
+<header class="w-full h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant flex items-center px-md">
+  <div class="flex items-center gap-sm flex-grow min-w-0">
+    <button class="mobile-hamburger-admin p-1 rounded-lg hover:bg-surface-container-low transition-colors flex-shrink-0" id="mobile-menu-btn" aria-label="Open menu">
+      <span class="material-symbols-outlined text-on-surface-variant">menu</span>
+    </button>
+    <h1 class="text-headline-md font-bold text-primary whitespace-nowrap">TobillionHomes Admin</h1>
+  </div>
+  <div class="flex items-center gap-sm flex-shrink-0">
+    <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors relative group" id="notif-btn">
+      <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+      <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+    </button>
+    <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors group" id="settings-btn">
+      <span class="material-symbols-outlined text-on-surface-variant">settings</span>
+    </button>
+    <div class="ml-sm flex items-center gap-xs">
+      <img class="w-8 h-8 rounded-full border border-outline-variant object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3r999NKUnisVWHGeQP-z5YpF3OeO3szeUdFtKDchwoAvINO20eO6K3X9bpS_2hiceFgSoAe0YJDjh2M1g4BjZmtMVhwQgtYSaVrCUSRidX8miTlNdOtl2TPVLW_dbbJIOLS35ym8HqR4d5ESwyLsJyQjOVfDljxHmHa5u9YBJlgWp3GjahPChW9_KW4l01kYUJ42ZrFOaNfyGDYoFluVmKaH8hqG7PGiQ-b-fSMkQ-fhi0Fvnon41WiGsDcklDgbgdIkGDaA3Re4"/>
+      <span class="text-label-md font-label-md text-primary hidden lg:inline">Admin User</span>
+    </div>
+  </div>
+</header>
+
+<div class="p-md lg:p-xl flex-grow overflow-y-auto pb-28">
+<div class="max-w-5xl mx-auto w-full space-y-xl animate-fade-in">
+<header class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-sm">
+  <div>
+    <nav class="flex items-center gap-2 text-label-sm text-outline mb-2">
+      <a href="admin-manage-properties.html" class="hover:text-primary transition-colors">Properties</a>
+      <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+      <span class="text-on-surface">Add New Listing</span>
+    </nav>
+    <h2 class="text-headline-lg sm:text-display-lg font-display-lg text-primary">New Property Listing</h2>
+  </div>
+  <button class="px-md py-sm border border-outline text-primary font-label-md rounded-lg hover:bg-surface-container-low transition-colors text-sm sm:text-base" onclick="navTo('admin-manage-properties.html')">Cancel</button>
+</header>
+
+<form id="addPropertyForm" class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<div class="lg:col-span-2 space-y-lg">
+  <!-- Basic Information -->
+  <section class="bg-surface-container-lowest p-md lg:p-lg rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant">
+    <div class="flex items-center gap-xs mb-md">
+      <span class="material-symbols-outlined text-primary">info</span>
+      <h3 class="text-headline-md font-headline-md">Basic Information</h3>
+    </div>
+    <div class="space-y-md">
+      <div class="space-y-xs">
+        <label class="text-label-md font-label-md block" for="propTitle">Property Title *</label>
+        <input id="propTitle" name="title" class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary focus:border-primary" placeholder="e.g. Modern Villa in Muthaiga" type="text" required/>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+        <div class="space-y-xs">
+          <label class="text-label-md font-label-md block" for="propType">Category *</label>
+          <select id="propType" name="type" class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" required>
+            <option value="">Select type</option>
+            <option>Residential Villa</option>
+            <option>Luxury Apartment</option>
+            <option>Penthouse</option>
+            <option>Commercial Space</option>
+            <option>Land/Estate</option>
+            <option>Townhouse</option>
+            <option>Cottage</option>
+            <option>Mansion</option>
+            <option>Studio</option>
+          </select>
+        </div>
+        <div class="space-y-xs">
+          <label class="text-label-md font-label-md block" for="propPrice">Price (KES) *</label>
+          <input id="propPrice" name="price" class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" placeholder="85,000,000" type="number" required min="0"/>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-md">
+        <div class="space-y-xs">
+          <label class="text-label-md font-label-md block" for="propBedrooms">Bedrooms</label>
+          <input id="propBedrooms" name="bedrooms" class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" placeholder="4" type="number" min="0"/>
+        </div>
+        <div class="space-y-xs">
+          <label class="text-label-md font-label-md block" for="propBathrooms">Bathrooms</label>
+          <input id="propBathrooms" name="bathrooms" class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" placeholder="5" type="number" min="0"/>
+        </div>
+        <div class="space-y-xs">
+          <label class="text-label-md font-label-md block" for="propSqft">Area (sq ft)</label>
+          <input id="propSqft" name="area_sqft" class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" placeholder="4500" type="number" min="0"/>
+        </div>
+      </div>
+      <div class="space-y-xs">
+        <label class="text-label-md font-label-md block" for="propDescription">Description *</label>
+        <textarea id="propDescription" name="description" class="w-full border-outline-variant rounded-xl p-sm focus:ring-2 focus:ring-primary" placeholder="Describe the architectural highlights, amenities, and unique selling points..." rows="5" required></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location -->
+  <section class="bg-surface-container-lowest p-md lg:p-lg rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant">
+    <div class="flex items-center gap-xs mb-md">
+      <span class="material-symbols-outlined text-primary">location_on</span>
+      <h3 class="text-headline-md font-headline-md">Location Details</h3>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+      <div class="space-y-xs">
+        <label class="text-label-md font-label-md block" for="propCounty">County *</label>
+        <select id="propCounty" name="location_county" class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" required>
+          <option value="">Select county</option>
+          <option>Nairobi</option>
+          <option>Mombasa</option>
+          <option>Kiambu</option>
+          <option>Kilifi</option>
+          <option>Kajiado</option>
+          <option>Machakos</option>
+          <option>Nakuru</option>
+          <option>Uasin Gishu</option>
+          <option>Narok</option>
+          <option>Laikipia</option>
+          <option>Kwale</option>
+          <option>Lamu</option>
+        </select>
+      </div>
+      <div class="space-y-xs">
+        <label class="text-label-md font-label-md block" for="propEstate">Estate / Area *</label>
+        <input id="propEstate" name="location_estate" class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" placeholder="e.g. Westlands, Muthaiga" type="text" required/>
+      </div>
+    </div>
+    <div class="mt-md grid grid-cols-1 sm:grid-cols-2 gap-md">
+      <div class="space-y-xs">
+        <label class="text-label-md font-label-md block" for="propLat">Latitude</label>
+        <input id="propLat" name="latitude" class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" placeholder="-1.2921" type="text"/>
+      </div>
+      <div class="space-y-xs">
+        <label class="text-label-md font-label-md block" for="propLng">Longitude</label>
+        <input id="propLng" name="longitude" class="w-full border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-primary" placeholder="36.8219" type="text"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Media Manager -->
+  <section class="bg-surface-container-lowest p-md lg:p-lg rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant" id="media-section">
+    <div class="flex items-center justify-between mb-md flex-wrap gap-sm">
+      <div class="flex items-center gap-xs">
+        <span class="material-symbols-outlined text-primary">photo_library</span>
+        <h3 class="text-headline-md font-headline-md">Media Manager</h3>
+      </div>
+      <span class="text-label-sm text-outline" id="media-count">0 / 20 images</span>
+    </div>
+    <!-- Upload zone -->
+    <div class="upload-zone border-2 border-dashed border-outline-variant rounded-xl p-xl flex flex-col items-center justify-center gap-md hover:border-primary transition-colors cursor-pointer group mb-md" id="upload-zone">
+      <div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container transition-colors">
+        <span class="material-symbols-outlined text-primary" style="font-variation-settings:'opsz'40;">cloud_upload</span>
+      </div>
+      <div class="text-center">
+        <p class="text-body-lg font-semibold">Drag and drop images here</p>
+        <p class="text-body-md text-outline">or click to browse &bull; JPG, PNG, WebP &bull; Max 5MB each</p>
+      </div>
+      <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" multiple class="hidden"/>
+    </div>
+    <!-- Loading skeleton -->
+    <div id="upload-loader" class="hidden mb-md">
+      <div class="flex items-center gap-md p-sm bg-surface-container rounded-lg">
+        <div class="w-10 h-10 rounded-lg bg-outline-variant animate-pulse-slow flex-shrink-0"></div>
+        <div class="flex-grow min-w-0">
+          <div class="h-3 bg-outline-variant rounded animate-pulse-slow w-3/4 mb-1"></div>
+          <div class="h-2 bg-outline-variant/50 rounded animate-pulse-slow w-1/2"></div>
+        </div>
+        <div class="w-5 h-5 rounded-full border-2 border-secondary border-t-transparent animate-spin flex-shrink-0"></div>
+      </div>
+    </div>
+    <!-- Image grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-md" id="image-grid">
+      <!-- Empty state -->
+      <div class="col-span-full text-center py-md text-outline text-body-md" id="media-empty">No images uploaded yet</div>
+    </div>
+  </section>
+</div>
+
+<!-- Right Column -->
+<div class="space-y-lg">
+  <!-- Status & Visibility -->
+  <section class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant">
+    <div class="flex items-center gap-xs mb-md">
+      <span class="material-symbols-outlined text-primary">visibility</span>
+      <h3 class="text-label-md font-label-md uppercase tracking-wide">Status &amp; Visibility</h3>
+    </div>
+    <div class="space-y-md">
+      <div class="space-y-xs">
+        <label class="text-label-sm font-label-sm text-outline" for="propStatus">Listing Status</label>
+        <select id="propStatus" name="status" class="w-full border-outline-variant rounded-lg p-sm text-body-md focus:ring-2 focus:ring-primary">
+          <option value="For Sale">For Sale</option>
+          <option value="For Rent">For Rent</option>
+          <option value="Sold">Sold</option>
+          <option value="Pending">Pending</option>
+          <option value="Draft">Draft (Hidden)</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-sm">
+        <input id="propFeatured" type="checkbox" class="w-5 h-5 rounded border-outline-variant text-secondary focus:ring-secondary"/>
+        <label for="propFeatured" class="text-body-md cursor-pointer">Feature on homepage</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Amenities -->
+  <section class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant">
+    <div class="flex items-center gap-xs mb-md">
+      <span class="material-symbols-outlined text-primary">checklist</span>
+      <h3 class="text-label-md font-label-md uppercase tracking-wide">Amenities</h3>
+    </div>
+    <div class="space-y-md max-h-[400px] overflow-y-auto custom-scrollbar pr-1" id="amenities-container">
+      <!-- Outdoor -->
+      <div>
+        <p class="text-label-sm font-bold text-outline mb-2 uppercase text-[11px] tracking-wider">Outdoor &amp; Pool</p>
+        <div class="flex flex-wrap gap-1">
+          <label class="amenity-chip"><input type="checkbox" value="Infinity Pool" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">pool</span> Infinity Pool</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Swimming Pool" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">pool</span> Swimming Pool</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Jacuzzi" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">hot_tub</span> Jacuzzi</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Garden" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">park</span> Garden</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Rooftop Terrace" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">roofing</span> Rooftop Terrace</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Balcony" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">balcony</span> Balcony</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Outdoor Kitchen" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">outdoor_grill</span> Outdoor Kitchen</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Barbecue Area" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">outdoor_grill</span> Barbecue Area</span></label>
+        </div>
+      </div>
+      <!-- Security -->
+      <div>
+        <p class="text-label-sm font-bold text-outline mb-2 uppercase text-[11px] tracking-wider">Security</p>
+        <div class="flex flex-wrap gap-1">
+          <label class="amenity-chip"><input type="checkbox" value="24/7 Security" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">security</span> 24/7 Security</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="CCTV" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">videocam</span> CCTV</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Electric Fence" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">electric_bolt</span> Electric Fence</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Security Guard" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">guardian</span> Security Guard</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Gated Community" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">gate</span> Gated Community</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Smart Locks" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">lock</span> Smart Locks</span></label>
+        </div>
+      </div>
+      <!-- Interior -->
+      <div>
+        <p class="text-label-sm font-bold text-outline mb-2 uppercase text-[11px] tracking-wider">Interior &amp; Comfort</p>
+        <div class="flex flex-wrap gap-1">
+          <label class="amenity-chip"><input type="checkbox" value="Home Automation" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">smartphone</span> Home Automation</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Smart Lighting" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">light</span> Smart Lighting</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Central AC" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">ac_unit</span> Central A/C</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Underfloor Heating" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">heat</span> Underfloor Heating</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Fireplace" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">fireplace</span> Fireplace</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Walk-in Closet" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">closet</span> Walk-in Closet</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Maid's Quarters" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">cleaning</span> Maid's Quarters</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Guest House" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">house</span> Guest House</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Study/Office" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">desk</span> Study/Office</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Home Theater" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">theaters</span> Home Theater</span></label>
+        </div>
+      </div>
+      <!-- Kitchen & Dining -->
+      <div>
+        <p class="text-label-sm font-bold text-outline mb-2 uppercase text-[11px] tracking-wider">Kitchen &amp; Dining</p>
+        <div class="flex flex-wrap gap-1">
+          <label class="amenity-chip"><input type="checkbox" value="Modern Kitchen" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">kitchen</span> Modern Kitchen</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Wine Cellar" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">wine_bar</span> Wine Cellar</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Breakfast Bar" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">table_restaurant</span> Breakfast Bar</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Pantry" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">kitchen</span> Pantry</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Butler's Pantry" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">kitchen</span> Butler's Pantry</span></label>
+        </div>
+      </div>
+      <!-- Energy & Utilities -->
+      <div>
+        <p class="text-label-sm font-bold text-outline mb-2 uppercase text-[11px] tracking-wider">Energy &amp; Utilities</p>
+        <div class="flex flex-wrap gap-1">
+          <label class="amenity-chip"><input type="checkbox" value="Backup Generator" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">bolt</span> Backup Generator</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Solar Panels" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">solar_power</span> Solar Panels</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Borehole" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">water_drop</span> Borehole</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Water Tank" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">water</span> Water Tank</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Rainwater Harvesting" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">water</span> Rainwater Harvesting</span></label>
+        </div>
+      </div>
+      <!-- Fitness & Leisure -->
+      <div>
+        <p class="text-label-sm font-bold text-outline mb-2 uppercase text-[11px] tracking-wider">Fitness &amp; Leisure</p>
+        <div class="flex flex-wrap gap-1">
+          <label class="amenity-chip"><input type="checkbox" value="Private Gym" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">fitness_center</span> Private Gym</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Spa Room" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">spa</span> Spa Room</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Sauna" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">sauna</span> Sauna</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Tennis Court" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">sports_tennis</span> Tennis Court</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Basketball Court" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">sports_basketball</span> Basketball Court</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Children's Playground" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">playground</span> Playground</span></label>
+        </div>
+      </div>
+      <!-- Parking -->
+      <div>
+        <p class="text-label-sm font-bold text-outline mb-2 uppercase text-[11px] tracking-wider">Parking</p>
+        <div class="flex flex-wrap gap-1">
+          <label class="amenity-chip"><input type="checkbox" value="Parking" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">local_parking</span> Parking</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Garage" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">garage</span> Garage</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Carport" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">carport</span> Carport</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="EV Charging" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">ev_station</span> EV Charging Station</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Helipad" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">flight</span> Helipad</span></label>
+        </div>
+      </div>
+      <!-- Views & Location -->
+      <div>
+        <p class="text-label-sm font-bold text-outline mb-2 uppercase text-[11px] tracking-wider">Views &amp; Location</p>
+        <div class="flex flex-wrap gap-1">
+          <label class="amenity-chip"><input type="checkbox" value="City View" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">city</span> City View</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Ocean View" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">beach</span> Ocean View</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Mountain View" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">landscape</span> Mountain View</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Golf Course View" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">golf_course</span> Golf Course View</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Waterfront" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">water</span> Waterfront</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Near School" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">school</span> Near School</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Near Hospital" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">local_hospital</span> Near Hospital</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Near Mall" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">shopping_cart</span> Near Mall</span></label>
+        </div>
+      </div>
+      <!-- Additional -->
+      <div>
+        <p class="text-label-sm font-bold text-outline mb-2 uppercase text-[11px] tracking-wider">Additional</p>
+        <div class="flex flex-wrap gap-1">
+          <label class="amenity-chip"><input type="checkbox" value="Elevator" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">elevator</span> Elevator</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Pet Friendly" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">pets</span> Pet Friendly</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Serviced" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">cleaning</span> Serviced</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Furnished" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">chair</span> Furnished</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Wheelchair Access" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">accessible</span> Wheelchair Access</span></label>
+          <label class="amenity-chip"><input type="checkbox" value="Staff Quarters" class="hidden"/><span class="chip-label"><span class="material-symbols-outlined text-[16px]">group</span> Staff Quarters</span></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO Settings -->
+  <section class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant">
+    <div class="flex items-center gap-xs mb-md">
+      <span class="material-symbols-outlined text-primary">search_insights</span>
+      <h3 class="text-label-md font-label-md uppercase tracking-wide">SEO Settings</h3>
+    </div>
+    <div class="space-y-md">
+      <div class="space-y-xs">
+        <label class="text-label-sm font-label-sm text-outline">Meta Title</label>
+        <input id="propMetaTitle" class="w-full border-outline-variant rounded-lg p-sm text-body-md focus:ring-2 focus:ring-primary" placeholder="Luxury Villa Muthaiga | TobillionHomes" type="text"/>
+      </div>
+      <div class="space-y-xs">
+        <label class="text-label-sm font-label-sm text-outline">Meta Description</label>
+        <textarea id="propMetaDesc" class="w-full border-outline-variant rounded-lg p-sm text-body-md focus:ring-2 focus:ring-primary" placeholder="Discover the pinnacle of luxury living..." rows="3"></textarea>
+      </div>
+    </div>
+  </section>
+</div>
+</form>
+</div>
+<!-- Form Actions -->
+<div class="max-w-5xl mx-auto w-full mt-xl">
+  <div class="bg-surface/80 backdrop-blur-md border border-outline-variant rounded-xl p-md flex items-center justify-between">
+    <div class="hidden sm:flex items-center gap-sm text-label-sm text-outline">
+      <span class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">schedule</span>
+        <span id="save-indicator">Ready to publish</span>
+      </span>
+    </div>
+    <div class="flex items-center gap-md w-full sm:w-auto justify-end">
+      <button id="draft-btn" class="flex-1 sm:flex-none px-xl py-sm bg-surface text-primary border border-outline font-label-md rounded-lg hover:bg-surface-container-low transition-all active:scale-95">Save Draft</button>
+      <button id="publish-btn" class="flex-1 sm:flex-none px-xl py-sm bg-primary text-on-primary font-label-md rounded-lg shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-[20px]">publish</span>
+        Publish Property
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+</main>
+
+<script>
+function requireDB() {
+  if (typeof fetchMediaItems !== 'function') {
+    const grid = document.getElementById('mediaGrid');
+    if (grid) grid.innerHTML = '<div class="col-span-full text-center py-xl text-error"><span class="material-symbols-outlined text-3xl inline-block mb-sm">cloud_off</span><p class="text-label-md font-semibold">Failed to load database module</p><p class="text-label-sm text-on-surface-variant mt-xs">Check your internet connection or try refreshing. If the problem persists, contact support.</p></div>';
+    return false;
+  }
+  return true;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (!requireDB()) return;
+  function navTo(url) { window.location.href = url; }
+
+function showToastInline(msg, type) {
+  let c = document.getElementById('toast-container');
+  if (!c) {
+    c = document.createElement('div');
+    c.id = 'toast-container';
+    c.style.cssText = 'position:fixed; bottom:100px; right:24px; z-index:999999; display:flex; flex-direction:column; gap:8px;';
+    document.body.appendChild(c);
+  }
+  const t = document.createElement('div');
+  const bg = type === 'success' ? '#006c4e' : type === 'error' ? '#ba1a1a' : '#000613';
+  const icon = type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'info';
+  t.style.cssText = `background:${bg};color:#fff;padding:12px 20px;border-radius:8px;font-family:Inter,sans-serif;font-size:14px;font-weight:500;box-shadow:0 4px 12px rgba(0,6,19,0.15);opacity:0;transform:translateY(20px);transition:all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);display:flex;align-items:center;gap:8px;`;
+  t.innerHTML = `<span class="material-symbols-outlined text-[18px]">${icon}</span>${msg}`;
+  c.appendChild(t);
+  setTimeout(() => { t.style.opacity = '1'; t.style.transform = 'translateY(0)'; }, 50);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-20px)'; setTimeout(() => t.remove(), 300); }, 4000);
+}
+
+// ── File upload state ────────────────────────────────────────────────
+const uploadedImages = []; // { file, dataUrl, isHero }
+let isUploading = false;
+
+const fileInput = document.getElementById('file-input');
+const uploadZone = document.getElementById('upload-zone');
+const imageGrid = document.getElementById('image-grid');
+const mediaEmpty = document.getElementById('media-empty');
+const mediaCount = document.getElementById('media-count');
+const uploadLoader = document.getElementById('upload-loader');
+
+function updateMediaUI() {
+  const total = uploadedImages.length;
+  mediaCount.textContent = `${total} / 20 images`;
+  if (total === 0) {
+    imageGrid.innerHTML = `<div class="col-span-full text-center py-md text-outline text-body-md" id="media-empty">No images uploaded yet</div>`;
+    return;
+  }
+  const hasHero = uploadedImages.some(img => img.isHero);
+  imageGrid.innerHTML = uploadedImages.map((img, i) => `
+    <div class="relative group aspect-square rounded-lg overflow-hidden border-2 ${img.isHero ? 'border-secondary' : 'border-outline-variant'} ${img.loading ? 'img-placeholder-pulse' : ''}">
+      <img class="w-full h-full object-cover ${img.loading ? 'opacity-0' : 'opacity-100'}" src="${img.dataUrl}" alt="Upload ${i+1}" onload="this.classList.remove('opacity-0')"/>
+      ${img.isHero ? '<div class="absolute top-2 left-2 bg-secondary text-on-secondary px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Hero</div>' : ''}
+      <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+        ${!hasHero || img.isHero ? '' : `<button onclick="setHero(${i})" class="bg-surface-container-lowest px-2 py-1 rounded text-label-sm font-label-sm hover:bg-surface transition-colors">Set Hero</button>`}
+        ${hasHero && !img.isHero ? '' : `<button onclick="setHero(${i})" class="bg-surface-container-lowest px-2 py-1 rounded text-label-sm font-label-sm hover:bg-surface transition-colors">${hasHero ? 'Hero' : 'Set as Hero'}</button>`}
+        <button onclick="removeImage(${i})" class="bg-error text-on-error p-1 rounded-full hover:bg-error/90 transition-colors">
+          <span class="material-symbols-outlined text-sm">delete</span>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setHero(index) {
+  uploadedImages.forEach((img, i) => { img.isHero = i === index; });
+  updateMediaUI();
+}
+
+function removeImage(index) {
+  uploadedImages.splice(index, 1);
+  updateMediaUI();
+}
+
+function showUploadLoader(filename) {
+  uploadLoader.classList.remove('hidden');
+  uploadLoader.innerHTML = `
+    <div class="flex items-center gap-md p-sm bg-surface-container rounded-lg">
+      <div class="w-10 h-10 rounded-lg bg-outline-variant animate-pulse-slow flex-shrink-0"></div>
+      <div class="flex-grow min-w-0">
+        <div class="h-3 bg-outline-variant rounded animate-pulse-slow w-3/4 mb-1"></div>
+        <div class="h-2 bg-outline-variant/50 rounded animate-pulse-slow w-1/2"></div>
+      </div>
+      <div class="w-5 h-5 rounded-full border-2 border-secondary border-t-transparent animate-spin flex-shrink-0"></div>
+    </div>
+  `;
+}
+
+function hideUploadLoader() { uploadLoader.classList.add('hidden'); }
+
+function handleFiles(files) {
+  const remaining = 20 - uploadedImages.length;
+  const toAdd = Math.min(files.length, remaining);
+  let processed = 0;
+
+  for (let i = 0; i < toAdd; i++) {
+    const file = files[i];
+    if (file.size > 5 * 1024 * 1024) {
+      showToastInline(`${file.name} exceeds 5MB limit`, 'error');
+      continue;
+    }
+    const reader = new FileReader();
+    const placeholder = { file, dataUrl: '', isHero: uploadedImages.length === 0 && processed === 0, loading: true };
+    uploadedImages.push(placeholder);
+    processed++;
+    if (processed === 1) showUploadLoader(file.name);
+
+    reader.onload = (e) => {
+      placeholder.dataUrl = e.target.result;
+      placeholder.loading = false;
+      updateMediaUI();
+      hideUploadLoader();
+    };
+    reader.readAsDataURL(file);
+  }
+  updateMediaUI();
+  if (processed === 0) hideUploadLoader();
+}
+
+uploadZone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', (e) => { if (e.target.files.length) handleFiles(e.target.files); e.target.value = ''; });
+
+uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => { uploadZone.classList.remove('drag-over'); });
+uploadZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadZone.classList.remove('drag-over');
+  if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+});
+
+// ── Form data gathering ──────────────────────────────────────────────
+function getSelectedAmenities() {
+  return Array.from(document.querySelectorAll('#amenities-container input[type="checkbox"]:checked')).map(cb => cb.value);
+}
+
+function getPropertyData(status) {
+  const hero = uploadedImages.find(img => img.isHero);
+  return {
+    title: document.getElementById('propTitle').value.trim(),
+    type: document.getElementById('propType').value,
+    price: parseInt(document.getElementById('propPrice').value) || 0,
+    bedrooms: parseInt(document.getElementById('propBedrooms').value) || 0,
+    bathrooms: parseInt(document.getElementById('propBathrooms').value) || 0,
+    area_sqft: parseInt(document.getElementById('propSqft').value) || 0,
+    description: document.getElementById('propDescription').value.trim(),
+    location_county: document.getElementById('propCounty').value,
+    location_estate: document.getElementById('propEstate').value.trim(),
+    latitude: document.getElementById('propLat').value || null,
+    longitude: document.getElementById('propLng').value || null,
+    features: getSelectedAmenities(),
+    status: status || document.getElementById('propStatus').value,
+    image_url: hero ? hero.dataUrl : (uploadedImages.length ? uploadedImages[0].dataUrl : ''),
+    images: uploadedImages.map(img => img.dataUrl),
+    featured: document.getElementById('propFeatured').checked,
+    meta_title: document.getElementById('propMetaTitle').value || null,
+    meta_description: document.getElementById('propMetaDesc').value || null
+  };
+}
+
+// ── Publish ──────────────────────────────────────────────────────────
+document.getElementById('publish-btn').addEventListener('click', async (e) => {
+  e.preventDefault();
+  const form = document.getElementById('addPropertyForm');
+  if (!form.checkValidity()) { form.reportValidity(); return; }
+  if (uploadedImages.length === 0) { showToastInline('Please upload at least one image', 'error'); return; }
+
+  const btn = e.currentTarget;
+  btn.disabled = true;
+  btn.innerHTML = '<div class="w-5 h-5 rounded-full border-2 border-on-primary border-t-transparent animate-spin"></div> Publishing...';
+
+  const data = getPropertyData();
+  // Only send known columns to avoid schema mismatch errors
+  const allowed = ['title','type','price','bedrooms','bathrooms','area_sqft','description','location_county','location_estate','latitude','longitude','features','status','image_url','images','featured','meta_title','meta_description'];
+  const cleanData = Object.fromEntries(allowed.filter(k => k in data).map(k => [k, data[k]]));
+  const result = await addProperty(cleanData);
+
+  if (result.error) {
+    showToastInline('Failed: ' + (result.error.message || result.error), 'error');
+    btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">publish</span> Publish Property';
+    btn.disabled = false;
+  } else {
+    showToastInline('Property published! It will appear on the site.', 'success');
+    btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span> Published!';
+    form.reset();
+    uploadedImages.length = 0;
+    updateMediaUI();
+    document.getElementById('save-indicator').textContent = 'Published successfully';
+    setTimeout(() => {
+      btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">publish</span> Publish Property';
+      btn.disabled = false;
+      document.getElementById('save-indicator').textContent = 'Ready to publish';
+    }, 2000);
+  }
+});
+
+// ── Save Draft ───────────────────────────────────────────────────────
+document.getElementById('draft-btn').addEventListener('click', async (e) => {
+  e.preventDefault();
+  const btn = e.currentTarget;
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  const data = getPropertyData('Draft');
+  // Only use columns that exist in the current DB schema
+  const allowed = ['title','type','price','bedrooms','bathrooms','area_sqft','description','location_county','location_estate','features','status','image_url','images'];
+  const cleanData = Object.fromEntries(allowed.filter(k => k in data).map(k => [k, data[k]]));
+  const result = await addProperty(cleanData);
+
+  if (result.error) {
+    showToastInline('Failed to save draft.', 'error');
+    btn.textContent = 'Save Draft';
+  } else {
+    showToastInline('Draft saved!', 'success');
+    btn.textContent = 'Draft Saved!';
+    document.getElementById('save-indicator').textContent = 'Draft saved';
+  }
+  btn.disabled = false;
+  setTimeout(() => { btn.textContent = 'Save Draft'; }, 2000);
+});
+
+// ── Header actions ───────────────────────────────────────────────────
+document.getElementById('notif-btn')?.addEventListener('click', () => showToastInline('No new notifications', 'info'));
+document.getElementById('settings-btn')?.addEventListener('click', () => navTo('admin-content.html'));
+
+// ── Label focus effect ───────────────────────────────────────────────
+document.querySelectorAll('input, textarea, select').forEach(input => {
+  input.addEventListener('focus', () => input.closest('.space-y-xs')?.querySelector('label')?.classList.add('text-primary'));
+  input.addEventListener('blur', () => input.closest('.space-y-xs')?.querySelector('label')?.classList.remove('text-primary'));
+});
+});
+</script>
+<script src="admin-nav.js"></script>
+</body>
+</html>
