@@ -1,20 +1,25 @@
 // db.js - Supabase integration layer for TobillionHomes
 
-// Global Supabase client instance
+// Global Supabase client instance (lazy init)
 let supabaseClient = null;
 let supabaseAvailable = false;
-try {
-  var cfgUrl = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url) || '';
-  var cfgKey = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.anonKey) || '';
-  if (cfgUrl && cfgKey && typeof window.supabase?.createClient === 'function') {
-    supabaseClient = window.supabase.createClient(cfgUrl, cfgKey);
-    supabaseAvailable = true;
+
+function ensureClient() {
+  if (supabaseClient) return;
+  try {
+    var cfgUrl = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url) || '';
+    var cfgKey = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.anonKey) || '';
+    if (cfgUrl && cfgKey && typeof window.supabase?.createClient === 'function') {
+      supabaseClient = window.supabase.createClient(cfgUrl, cfgKey);
+      supabaseAvailable = true;
+    }
+  } catch (e) {
+    console.warn("Supabase client init failed:", e.message);
   }
-} catch (e) {
-  console.warn("Supabase client init failed:", e.message);
 }
 
 async function checkSupabaseHealth() {
+  ensureClient();
   if (!supabaseClient) return false;
   try {
     const controller = new AbortController();
@@ -36,8 +41,8 @@ async function checkSupabaseHealth() {
 // DATABASE ACCESS METHODS
 // ----------------------------------------------------
 
-// Fetch all properties, ordered by newest first
 async function fetchProperties() {
+  ensureClient();
   if (!supabaseClient) return [];
   const { data, error } = await supabaseClient
     .from('properties')
@@ -50,8 +55,8 @@ async function fetchProperties() {
   return data;
 }
 
-// Fetch a single property details by uuid
 async function fetchPropertyById(id) {
+  ensureClient();
   if (!supabaseClient) return null;
   const { data, error } = await supabaseClient
     .from('properties')
@@ -65,18 +70,16 @@ async function fetchPropertyById(id) {
   return data;
 }
 
-// Search and filter properties dynamically
 async function searchProperties({ county, estate, type, minPrice, maxPrice, status }) {
+  ensureClient();
   if (!supabaseClient) return [];
   let query = supabaseClient.from('properties').select('*');
-
   if (county) query = query.ilike('location_county', `%${county}%`);
   if (estate) query = query.ilike('location_estate', `%${estate}%`);
   if (type && type !== 'Property Type') query = query.eq('type', type);
   if (status) query = query.eq('status', status);
   if (minPrice) query = query.gte('price', minPrice);
   if (maxPrice) query = query.lte('price', maxPrice);
-
   const { data, error } = await query.order('created_at', { ascending: false });
   if (error) {
     console.error("Search error: ", error);
@@ -85,19 +88,18 @@ async function searchProperties({ county, estate, type, minPrice, maxPrice, stat
   return data;
 }
 
-// Create Inquiry (Lead submit)
 async function createInquiry({ propertyId, name, email, phone, message }) {
+  ensureClient();
   if (!supabaseClient) return { data: null, error: { message: "Database not connected." } };
   const { data, error } = await supabaseClient
     .from('inquiries')
-    .insert([
-      { property_id: propertyId || null, name, email, phone, message }
-    ]);
+    .insert([{ property_id: propertyId || null, name, email, phone, message }]);
   return { data, error };
 }
 
-// Manage Saved Listings (Favorites)
 async function saveListing(propertyId) {
+  ensureClient();
+  if (!supabaseClient) { showToast("Database not connected", "error"); return false; }
   const user = await getCurrentUser();
   if (!user) {
     showToast("Please log in to save properties", "error");
@@ -115,6 +117,8 @@ async function saveListing(propertyId) {
 }
 
 async function unsaveListing(propertyId) {
+  ensureClient();
+  if (!supabaseClient) return false;
   const user = await getCurrentUser();
   if (!user) return false;
   const { error } = await supabaseClient
@@ -131,6 +135,8 @@ async function unsaveListing(propertyId) {
 }
 
 async function fetchSavedListings() {
+  ensureClient();
+  if (!supabaseClient) return [];
   const user = await getCurrentUser();
   if (!user) return [];
   const { data, error } = await supabaseClient
@@ -145,6 +151,8 @@ async function fetchSavedListings() {
 }
 
 async function isListingSaved(propertyId) {
+  ensureClient();
+  if (!supabaseClient) return false;
   const user = await getCurrentUser();
   if (!user) return false;
   const { data, error } = await supabaseClient
@@ -160,16 +168,18 @@ async function isListingSaved(propertyId) {
 // AUTHENTICATION & PROFILES
 // ----------------------------------------------------
 async function getCurrentUser() {
+  ensureClient();
   if (!supabaseClient) return null;
   const { data: { session } } = await supabaseClient.auth.getSession();
   return session ? session.user : null;
 }
 
 async function getUserProfile() {
+  ensureClient();
+  if (!supabaseClient) return null;
   try {
     const user = await getCurrentUser();
     if (!user) return null;
-    if (!supabaseClient) return null;
     const { data, error } = await supabaseClient
       .from('profiles')
       .select('*')
@@ -187,6 +197,7 @@ async function getUserProfile() {
 }
 
 async function loginUser(email, password) {
+  ensureClient();
   if (!supabaseClient) {
     return { data: null, error: { message: "Supabase not connected. Please configure your Supabase URL and Anon Key in config.js." } };
   }
@@ -195,16 +206,11 @@ async function loginUser(email, password) {
 }
 
 async function registerUser(email, password, fullName, role = 'user') {
+  ensureClient();
   if (!supabaseClient) return { data: null, error: { message: "Supabase connection required for user registration." } };
   const { data, error } = await supabaseClient.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        full_name: fullName,
-        role: role
-      }
-    }
+    email, password,
+    options: { data: { full_name: fullName, role: role } }
   });
   return { data, error };
 }
@@ -229,9 +235,7 @@ async function checkAdminOrRedirect() {
     const profile = await getUserProfile();
     if (!profile || profile.role !== 'admin') {
       showToast("Access Denied: Admin authorization required.", "error");
-      setTimeout(() => {
-        window.location.href = 'index.html';
-      }, 2000);
+      setTimeout(() => { window.location.href = 'index.html'; }, 2000);
       return false;
     }
     return true;
@@ -242,6 +246,7 @@ async function checkAdminOrRedirect() {
 }
 
 async function fetchLeads() {
+  ensureClient();
   if (!supabaseClient) return [];
   const { data, error } = await supabaseClient
     .from('inquiries')
@@ -255,6 +260,7 @@ async function fetchLeads() {
 }
 
 async function updateLeadStatus(id, status) {
+  ensureClient();
   if (!supabaseClient) return true;
   const { error } = await supabaseClient
     .from('inquiries')
@@ -268,6 +274,7 @@ async function updateLeadStatus(id, status) {
 }
 
 async function deleteLead(id) {
+  ensureClient();
   if (!supabaseClient) return true;
   const { error } = await supabaseClient.from('inquiries').delete().eq('id', id);
   if (error) { console.error("Error deleting lead: ", error); return false; }
@@ -275,36 +282,31 @@ async function deleteLead(id) {
 }
 
 async function addProperty(propertyData) {
+  ensureClient();
   if (!supabaseClient) return { data: null, error: { message: "Supabase connection required." } };
-  const { data, error } = await supabaseClient
-    .from('properties')
-    .insert([propertyData])
-    .select();
+  const { data, error } = await supabaseClient.from('properties').insert([propertyData]).select();
   return { data, error };
 }
 
 async function deleteProperty(id) {
+  ensureClient();
   if (!supabaseClient) return true;
-  const { error } = await supabaseClient
-    .from('properties')
-    .delete()
-    .eq('id', id);
-  if (error) {
-    console.error("Error deleting property: ", error);
-    return false;
-  }
+  const { error } = await supabaseClient.from('properties').delete().eq('id', id);
+  if (error) { console.error("Error deleting property: ", error); return false; }
   return true;
 }
 
 const MEDIA_BUCKET = 'property-media';
 
 async function getMediaBucket() {
+  ensureClient();
   if (!supabaseClient) return null;
   supabaseClient.storage.createBucket(MEDIA_BUCKET, { public: true }).catch(() => { });
   return supabaseClient.storage.from(MEDIA_BUCKET);
 }
 
 async function fetchMediaItems() {
+  ensureClient();
   if (!supabaseClient) return [];
   try {
     const bucket = supabaseClient.storage.from(MEDIA_BUCKET);
@@ -326,14 +328,13 @@ async function fetchMediaItems() {
 }
 
 async function uploadMediaItem(file, onProgress) {
+  ensureClient();
   if (!supabaseClient) return { error: { message: "Supabase not connected" } };
   try {
     const bucket = supabaseClient.storage.from(MEDIA_BUCKET);
     const path = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
     const { data, error } = await bucket.upload(path, file, {
-      cacheControl: '3600',
-      upsert: false,
-      contentType: file.type
+      cacheControl: '3600', upsert: false, contentType: file.type
     });
     if (error) {
       if (error.message && (error.message.includes('Bucket not found') || error.message.includes('bucket'))) {
@@ -341,12 +342,12 @@ async function uploadMediaItem(file, onProgress) {
         const { data: d2, error: e2 } = await bucket.upload(path, file, {
           cacheControl: '3600', upsert: false, contentType: file.type
         });
-        if (e2) return { error: new Error("Storage bucket 'property-media' not found or no permission. Create the bucket + RLS policies in Supabase Dashboard → Storage (public bucket, name: property-media), or run the SQL migration in supabase-schema.sql.") };
+        if (e2) return { error: new Error("Storage bucket 'property-media' not found or no permission.") };
         const { data: { publicUrl } } = supabaseClient.storage.from(MEDIA_BUCKET).getPublicUrl(path);
         return { data: { path, url: publicUrl, name: file.name, size: file.size, type: file.type } };
       }
       if (error.message && error.message.includes('row-level security')) {
-        return { error: new Error("Upload blocked by Row-Level Security. Run the storage RLS policies from supabase-schema.sql in Supabase SQL Editor.") };
+        return { error: new Error("Upload blocked by Row-Level Security. Run the storage RLS policies.") };
       }
       return { error };
     }
@@ -356,6 +357,7 @@ async function uploadMediaItem(file, onProgress) {
 }
 
 async function deleteMediaItem(path) {
+  ensureClient();
   if (!supabaseClient) return true;
   const { error } = await supabaseClient.storage.from(MEDIA_BUCKET).remove([path]);
   if (error) { console.error("Error deleting media:", error); return false; }
@@ -363,6 +365,7 @@ async function deleteMediaItem(path) {
 }
 
 async function deleteMediaItems(paths) {
+  ensureClient();
   if (!supabaseClient || !paths.length) return true;
   const { error } = await supabaseClient.storage.from(MEDIA_BUCKET).remove(paths);
   if (error) { console.error("Error deleting media:", error); return false; }
@@ -370,12 +373,14 @@ async function deleteMediaItems(paths) {
 }
 
 async function getMediaPublicUrl(path) {
+  ensureClient();
   if (!supabaseClient) return path;
   const { data } = supabaseClient.storage.from(MEDIA_BUCKET).getPublicUrl(path);
   return data?.publicUrl || path;
 }
 
 async function fetchSiteContent(key) {
+  ensureClient();
   if (!supabaseClient) return null;
   const { data, error } = await supabaseClient
     .from('site_content')
@@ -387,6 +392,7 @@ async function fetchSiteContent(key) {
 }
 
 async function saveSiteContent(key, value) {
+  ensureClient();
   if (!supabaseClient) {
     console.error("Cannot save site content: Supabase not connected");
     return false;
@@ -405,7 +411,6 @@ async function saveSiteContent(key, value) {
 // UI UTILITIES: Toast Notifications
 // ----------------------------------------------------
 function showToast(message, type = 'success') {
-  // Check if container exists
   let container = document.getElementById('toast-container');
   if (!container) {
     container = document.createElement('div');
@@ -413,7 +418,6 @@ function showToast(message, type = 'success') {
     container.style.cssText = 'position:fixed; bottom:24px; right:24px; z-index:999999; display:flex; flex-direction:column; gap:8px;';
     document.body.appendChild(container);
   }
-
   const toast = document.createElement('div');
   const bgColor = type === 'success' ? '#006c4e' : type === 'error' ? '#ba1a1a' : '#000613';
   toast.style.cssText = `
@@ -431,21 +435,10 @@ function showToast(message, type = 'success') {
   `;
   toast.innerText = message;
   container.appendChild(toast);
-
-  // Trigger animation
-  setTimeout(() => {
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateY(0)';
-  }, 50);
-
-  // Auto remove
+  setTimeout(() => { toast.style.opacity = '1'; toast.style.transform = 'translateY(0)'; }, 50);
   setTimeout(() => {
     toast.style.opacity = '0';
     toast.style.transform = 'translateY(-20px)';
-    setTimeout(() => {
-      toast.remove();
-    }, 300);
+    setTimeout(() => { toast.remove(); }, 300);
   }, 3500);
 }
-
-
