@@ -3,6 +3,7 @@
 // Global Supabase client instance (lazy init)
 let supabaseClient = null;
 let supabaseAvailable = false;
+let lastDbError = null;
 
 function ensureClient() {
   if (supabaseClient) return;
@@ -10,10 +11,15 @@ function ensureClient() {
     var cfgUrl = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url) || '';
     var cfgKey = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.anonKey) || '';
     if (cfgUrl && cfgKey && typeof window.supabase?.createClient === 'function') {
-      supabaseClient = window.supabase.createClient(cfgUrl, cfgKey);
+      supabaseClient = window.supabase.createClient(cfgUrl, cfgKey, { auth: { persistSession: true, autoRefreshToken: true } });
+      // Restore auth session from localStorage so admin queries use the user's JWT
+      supabaseClient.auth.getSession().catch(function(){});
       supabaseAvailable = true;
+    } else {
+      lastDbError = cfgUrl ? 'Supabase JS library not loaded' : 'Supabase URL or key missing';
     }
   } catch (e) {
+    lastDbError = e.message || 'Supabase client init failed';
     console.warn("Supabase client init failed:", e.message);
   }
 }
@@ -22,9 +28,9 @@ async function checkSupabaseHealth() {
   ensureClient();
   if (!supabaseClient) return false;
   try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
-    const { error } = await supabaseClient.from('properties').select('id', { count: 'exact', head: true }).limit(1).abortSignal(controller.signal);
+    var controller = new AbortController();
+    var timeout = setTimeout(function(){ controller.abort(); }, 15000);
+    var { error } = await supabaseClient.from('properties').select('id', { head: true }).limit(1).abortSignal(controller.signal);
     clearTimeout(timeout);
     if (error) {
       console.warn("Supabase health check failed:", error.message);
@@ -41,18 +47,72 @@ async function checkSupabaseHealth() {
 // DATABASE ACCESS METHODS
 // ----------------------------------------------------
 
-async function fetchProperties() {
+var propertiesCache = null;
+var propertiesCacheTime = 0;
+var CACHE_TTL = 60000; // 60 seconds
+
+async function fetchProperties({ limit = 500, page = 1, force = false, retryCount = 0 } = {}) {
   ensureClient();
   if (!supabaseClient) return [];
-  const { data, error } = await supabaseClient
-    .from('properties')
-    .select('*')
-    .order('created_at', { ascending: false });
-  if (error) {
-    console.error("Error fetching properties: ", error);
+  var now = Date.now();
+  if (propertiesCache && !force && (now - propertiesCacheTime) < CACHE_TTL) return propertiesCache;
+  if (propertiesCache && !force && page === 1) return propertiesCache;
+
+  try {
+    var controller = new AbortController();
+    var timeout = setTimeout(function(){ controller.abort(); }, 12000);
+    var start = (page - 1) * limit;
+    var { data, error } = await supabaseClient
+      .from('properties')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .range(start, start + limit - 1)
+      .abortSignal(controller.signal);
+
+    clearTimeout(timeout);
+    if (error) {
+      lastDbError = error.message || 'Unknown error';
+      if (error.message && error.message.indexOf('permission denied') !== -1) {
+        lastDbError = 'The properties table has restricted access. Run the RLS policy SQL in Supabase.';
+        console.error("RLS error:", error.message);
+        return [];
+      }
+      if (error.message && error.message.indexOf('AbortError') !== -1) {
+        if (retryCount < 1) {
+          console.warn("Properties fetch timed out, retrying once (DB may be waking from sleep)...");
+          clearTimeout(timeout);
+          await new Promise(function(r){ setTimeout(r, 2000); });
+          return fetchProperties({ limit: limit, page: page, force: force, retryCount: retryCount + 1 });
+        }
+        lastDbError = 'Database query timed out. The properties table may have restricted access or the database may be paused.';
+        console.error("Properties fetch timed out even after retry");
+        return [];
+      }
+      console.error("Error fetching properties: ", error);
+      return [];
+    }
+    lastDbError = null;
+
+    if (page === 1) {
+      propertiesCache = data || [];
+      propertiesCacheTime = now;
+    }
+    return data || [];
+  } catch (e) {
+    if (e.name === 'AbortError') {
+      if (retryCount < 1) {
+        console.warn("Properties fetch aborted, retrying once (DB may be waking from sleep)...");
+        await new Promise(function(r){ setTimeout(r, 2000); });
+        return fetchProperties({ limit: limit, page: page, force: force, retryCount: retryCount + 1 });
+      }
+      lastDbError = 'Database query timed out. The properties table may have restricted access or the database may be paused.';
+      console.warn("Properties fetch aborted even after retry");
+      return [];
+    }
+    if (propertiesCache) { console.warn("Properties fetch error, using cache:", e.message); return propertiesCache; }
+    console.error("Error fetching properties: ", e.message);
     return [];
   }
-  return data;
 }
 
 async function fetchPropertyById(id) {
@@ -70,22 +130,39 @@ async function fetchPropertyById(id) {
   return data;
 }
 
-async function searchProperties({ county, estate, type, minPrice, maxPrice, status }) {
+function sanitizeInput(str) {
+  if (typeof str !== 'string') return str;
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
+async function searchProperties({ county, estate, type, minPrice, maxPrice, status } = {}) {
   ensureClient();
   if (!supabaseClient) return [];
-  let query = supabaseClient.from('properties').select('*');
-  if (county) query = query.ilike('location_county', `%${county}%`);
-  if (estate) query = query.ilike('location_estate', `%${estate}%`);
-  if (type && type !== 'Property Type') query = query.eq('type', type);
-  if (status) query = query.eq('status', status);
-  if (minPrice) query = query.gte('price', minPrice);
-  if (maxPrice) query = query.lte('price', maxPrice);
-  const { data, error } = await query.order('created_at', { ascending: false });
-  if (error) {
-    console.error("Search error: ", error);
+  var controller = new AbortController();
+  var timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    var query = supabaseClient.from('properties').select('*');
+    if (county) query = query.ilike('location_county', `%${sanitizeInput(county)}%`);
+    if (estate) query = query.ilike('location_estate', `%${sanitizeInput(estate)}%`);
+    if (type && type !== 'Property Type') query = query.eq('type', sanitizeInput(type));
+    if (status) query = query.eq('status', sanitizeInput(status));
+    if (minPrice) query = query.gte('price', Number(minPrice));
+    if (maxPrice) query = query.lte('price', Number(maxPrice));
+    var { data, error } = await query.order('created_at', { ascending: false }).abortSignal(controller.signal);
+    clearTimeout(timeout);
+    if (error) {
+      console.error("Search error: ", error);
+      return [];
+    }
+    return data;
+  } catch (e) {
+    clearTimeout(timeout);
+    if (e.name === 'AbortError') { console.warn("Search timed out"); return []; }
+    console.error("Search error: ", e.message);
     return [];
   }
-  return data;
 }
 
 async function createInquiry({ propertyId, name, email, phone, message }) {
@@ -245,13 +322,27 @@ async function checkAdminOrRedirect() {
   }
 }
 
+async function requireAdmin() {
+  var profile = await getUserProfile();
+  if (!profile || profile.role !== 'admin') {
+    return false;
+  }
+  return true;
+}
+
 async function fetchLeads() {
   ensureClient();
   if (!supabaseClient) return [];
-  const { data, error } = await supabaseClient
+  var isAdmin = await requireAdmin();
+  if (!isAdmin) { console.warn("Unauthorized: fetchLeads requires admin"); return []; }
+  var controller = new AbortController();
+  var timeout = setTimeout(() => controller.abort(), 10000);
+  var { data, error } = await supabaseClient
     .from('inquiries')
     .select('*, properties(title)')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .abortSignal(controller.signal);
+  clearTimeout(timeout);
   if (error) {
     console.error("Error fetching leads: ", error);
     return [];
@@ -262,7 +353,9 @@ async function fetchLeads() {
 async function updateLeadStatus(id, status) {
   ensureClient();
   if (!supabaseClient) return true;
-  const { error } = await supabaseClient
+  var isAdmin = await requireAdmin();
+  if (!isAdmin) { console.warn("Unauthorized: updateLeadStatus requires admin"); return false; }
+  var { error } = await supabaseClient
     .from('inquiries')
     .update({ status })
     .eq('id', id);
@@ -276,7 +369,12 @@ async function updateLeadStatus(id, status) {
 async function deleteLead(id) {
   ensureClient();
   if (!supabaseClient) return true;
-  const { error } = await supabaseClient.from('inquiries').delete().eq('id', id);
+  var isAdmin = await requireAdmin();
+  if (!isAdmin) { console.warn("Unauthorized: deleteLead requires admin"); return false; }
+  var controller = new AbortController();
+  var timeout = setTimeout(() => controller.abort(), 5000);
+  var { error } = await supabaseClient.from('inquiries').delete().eq('id', id).abortSignal(controller.signal);
+  clearTimeout(timeout);
   if (error) { console.error("Error deleting lead: ", error); return false; }
   return true;
 }
@@ -284,14 +382,24 @@ async function deleteLead(id) {
 async function addProperty(propertyData) {
   ensureClient();
   if (!supabaseClient) return { data: null, error: { message: "Supabase connection required." } };
-  const { data, error } = await supabaseClient.from('properties').insert([propertyData]).select();
+  var isAdmin = await requireAdmin();
+  if (!isAdmin) return { data: null, error: { message: "Admin authorization required." } };
+  var controller = new AbortController();
+  var timeout = setTimeout(() => controller.abort(), 15000);
+  var { data, error } = await supabaseClient.from('properties').insert([propertyData]).select().abortSignal(controller.signal);
+  clearTimeout(timeout);
   return { data, error };
 }
 
 async function deleteProperty(id) {
   ensureClient();
   if (!supabaseClient) return true;
-  const { error } = await supabaseClient.from('properties').delete().eq('id', id);
+  var isAdmin = await requireAdmin();
+  if (!isAdmin) { console.warn("Unauthorized: deleteProperty requires admin"); return false; }
+  var controller = new AbortController();
+  var timeout = setTimeout(() => controller.abort(), 10000);
+  var { error } = await supabaseClient.from('properties').delete().eq('id', id).abortSignal(controller.signal);
+  clearTimeout(timeout);
   if (error) { console.error("Error deleting property: ", error); return false; }
   return true;
 }
@@ -382,13 +490,21 @@ async function getMediaPublicUrl(path) {
 async function fetchSiteContent(key) {
   ensureClient();
   if (!supabaseClient) return null;
-  const { data, error } = await supabaseClient
-    .from('site_content')
-    .select('value')
-    .eq('key', key)
-    .single();
-  if (error) return null;
-  return data.value;
+  try {
+    var { data, error } = await supabaseClient
+      .from('site_content')
+      .select('value')
+      .eq('key', key)
+      .limit(1);
+    if (error) {
+      console.warn("fetchSiteContent(" + key + "):", error.message || error);
+      return null;
+    }
+    return data && data.length > 0 ? data[0].value : null;
+  } catch (e) {
+    console.warn("fetchSiteContent(" + key + "):", e.message || e);
+    return null;
+  }
 }
 
 async function saveSiteContent(key, value) {
@@ -397,9 +513,15 @@ async function saveSiteContent(key, value) {
     console.error("Cannot save site content: Supabase not connected");
     return false;
   }
-  const { error } = await supabaseClient
+  var isAdmin = await requireAdmin();
+  if (!isAdmin) { console.warn("Unauthorized: saveSiteContent requires admin"); return false; }
+  var controller = new AbortController();
+  var timeout = setTimeout(() => controller.abort(), 10000);
+  var { error } = await supabaseClient
     .from('site_content')
-    .upsert({ key, value, updated_at: new Date() });
+    .upsert({ key, value, updated_at: new Date() })
+    .abortSignal(controller.signal);
+  clearTimeout(timeout);
   if (error) {
     console.error("Error saving site content:", error);
     return false;
@@ -425,7 +547,7 @@ function showToast(message, type = 'success') {
     color: #ffffff;
     padding: 16px 24px;
     border-radius: 8px;
-    font-family: 'Inter', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-size: 14px;
     font-weight: 500;
     box-shadow: 0 4px 12px rgba(0,6,19,0.15);

@@ -1,28 +1,20 @@
 /* vegence-ui.css - Core animations, shapes, and floating navigation rules */
 
-/* ── Premium Font Import (Outfit + DM Sans) ──────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
-
-/* ── Global Font Override ─────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 html, body {
-  font-family: 'DM Sans', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6,
-.font-headline-lg, .font-headline-md, .font-display-lg,
-[class*="font-headline"], [class*="font-display"] {
-  font-family: 'Outfit', sans-serif !important;
-  letter-spacing: -0.02em;
+/* ── Property card hover effect ──────────────────────────────────────────── */
+.listing-card:hover .property-image {
+  transform: scale(1.05);
 }
 
-.font-body-md, .font-body-lg, .font-label-md, .font-label-sm,
-[class*="font-body"], [class*="font-label"] {
-  font-family: 'DM Sans', sans-serif !important;
-}
+
 
 /* ── Global Styles ────────────────────────────────────────────────────────── */
 :root {
@@ -199,7 +191,7 @@ h1, h2, h3, h4, h5, h6,
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   backdrop-filter: blur(4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .dock-item:hover::before {
@@ -328,7 +320,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .kinetic-text {
-  font-family: 'Outfit', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -459,7 +451,7 @@ h1, h2, h3, h4, h5, h6,
   opacity: 0.4;
   transform: translateX(-10px);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .auth-step-row.active {
@@ -891,7 +883,7 @@ body {
   border: 1px solid var(--glass-border);
   border-radius: 12px;
   cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: #191c1d;
@@ -960,7 +952,7 @@ body {
   padding: 10px 14px;
   cursor: pointer;
   border-radius: 10px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: #191c1d;
@@ -1625,6 +1617,24 @@ section.transition-all.duration-700 {
    SECTION 6 — MOBILE RESPONSIVE FIXES
    =================================================================== */
 
+/* ── Loading skeleton pulse animation ────────────────────────────────── */
+@keyframes skeleton-pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.stat-value:empty::before,
+.stat-value:has(span:empty)::before {
+  content: "\2014";
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  color: var(--md-sys-color-outline-variant, #c4c6cf);
+}
+
+.loading-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
 /* ── Undefined text-label-sm-mobile class used across all pages ──── */
 .text-label-sm-mobile {
   font-size: 11px !important;
@@ -1796,7 +1806,7 @@ section.transition-all.duration-700 {
 }
 
 .mobile-drawer-header span {
-  font-family: 'Outfit', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 1.1rem;
   font-weight: 800;
   color: #000613;
@@ -1817,7 +1827,7 @@ section.transition-all.duration-700 {
   gap: 12px;
   padding: 12px 8px;
   border-radius: 12px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 15px;
   font-weight: 500;
   color: #191c1d;
@@ -2174,6 +2184,412 @@ body {
 @media (max-width: 640px) {
   body {
     padding-bottom: 80px !important;
+  }
+}
+
+/* ── Page Loading Spinner ────────────────────────────────────────────── */
+#page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  transition: opacity 0.25s ease;
+}
+
+.loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--md-sys-color-outline-variant, #c4c6cf);
+  border-top-color: var(--md-sys-color-primary, #000613);
+  border-radius: 50%;
+  animation: loader-spin 0.7s linear infinite;
+}
+
+@keyframes loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===================================================================
+   SECTION 7 — COMPREHENSIVE MOBILE RESPONSIVE (JUL 2026)
+   =================================================================== */
+
+/* ── Touch target sizing (min 44px) ──────────────────────────────────── */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Ensure all interactive elements have adequate touch targets */
+@media (max-width: 768px) {
+  button, 
+  a:not(.inline-block),
+  input:not([type="hidden"]),
+  select,
+  textarea {
+    min-height: 44px;
+  }
+
+  .admin-header-search input {
+    min-height: 44px;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+}
+
+/* ── Admin Content Tab Panel: vertical → horizontal on mobile ────────── */
+@media (max-width: 768px) {
+  body.admin-content-page .flex.flex-1.overflow-hidden {
+    flex-direction: column !important;
+  }
+
+  body.admin-content-page div.w-64,
+  body.admin-content-page div.lg\:w-72 {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant, #c4c6cf);
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 8px !important;
+    gap: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  body.admin-content-page div.w-64::-webkit-scrollbar,
+  body.admin-content-page div.lg\:w-72::-webkit-scrollbar {
+    display: none;
+  }
+
+  body.admin-content-page div.w-64 .px-sm.py-md,
+  body.admin-content-page div.lg\:w-72 .px-sm.py-md {
+    display: none !important;
+  }
+
+  body.admin-content-page .content-tab {
+    flex-shrink: 0 !important;
+    width: auto !important;
+    white-space: nowrap !important;
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+  }
+}
+
+/* ── Admin table pagination: larger touch targets ────────────────────── */
+@media (max-width: 768px) {
+  .admin-pagination button {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .admin-table-action-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 10px 12px !important;
+  }
+}
+
+/* ── Admin button rows: wrap on small screens ────────────────────────── */
+@media (max-width: 640px) {
+  .admin-btn-row {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  .admin-btn-row > * {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+}
+
+/* ── Admin page header: stack on mobile ──────────────────────────────── */
+@media (max-width: 640px) {
+  .admin-page-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .admin-page-header .flex.gap-xs {
+    width: 100% !important;
+  }
+
+  .admin-page-header .flex.gap-xs > * {
+    flex: 1 !important;
+  }
+}
+
+/* ── Form inputs: ensure 44px min height on mobile ───────────────────── */
+@media (max-width: 768px) {
+  input, select, textarea, button:not(.content-tab) {
+    min-height: 44px !important;
+  }
+
+  select {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  /* Restore content-tab buttons to auto height */
+  .content-tab {
+    min-height: auto !important;
+  }
+}
+
+/* ── Public pages: responsive font sizing ────────────────────────────── */
+@media (max-width: 480px) {
+  .text-display-lg {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+
+  .text-headline-lg {
+    font-size: 24px !important;
+    line-height: 1.3 !important;
+  }
+
+  .text-headline-md {
+    font-size: 20px !important;
+    line-height: 1.3 !important;
+  }
+
+  .text-body-lg {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+}
+
+/* ── Property cards: responsive on mobile ────────────────────────────── */
+@media (max-width: 640px) {
+  .property-card-shadow .p-md {
+    padding: 12px !important;
+  }
+
+  .property-card-shadow .text-headline-md {
+    font-size: 18px !important;
+  }
+
+  .property-card-shadow .gap-md {
+    gap: 8px !important;
+    flex-wrap: wrap;
+  }
+}
+
+/* ── Hero section responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  section.h-\[85vh\] {
+    min-height: 70vh !important;
+    padding-top: 60px !important;
+  }
+
+  section.h-\[85vh\] .text-display-lg {
+    font-size: 26px !important;
+  }
+
+  section.h-\[85vh\] .text-body-lg {
+    font-size: 15px !important;
+  }
+}
+
+/* ── Responsive grid helpers ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .responsive-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .responsive-grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .responsive-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ── Image responsiveness ────────────────────────────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Table horizontal scroll on mobile ───────────────────────────────── */
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-responsive table {
+    min-width: 600px;
+  }
+}
+
+/* ── CTA section mobile padding ──────────────────────────────────────── */
+@media (max-width: 640px) {
+  .cta-section {
+    padding: 32px 16px !important;
+  }
+
+  .cta-section .text-display-lg {
+    font-size: 24px !important;
+  }
+}
+
+/* ── Agent cards: stack on mobile ────────────────────────────────────── */
+@media (max-width: 640px) {
+  .agents-grid .grid-cols-3,
+  .agents-grid .md\:grid-cols-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .agents-grid .lg\:col-span-2 {
+    grid-column: span 1 !important;
+  }
+}
+
+/* ── Property detail page: stack sections on mobile ──────────────────── */
+@media (max-width: 768px) {
+  .detail-sidebar {
+    position: static !important;
+    width: 100% !important;
+    margin-top: 24px !important;
+  }
+
+  .detail-gallery-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .detail-features-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+}
+
+/* ── Compare page mobile ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .compare-grid {
+    flex-direction: column !important;
+    overflow-x: visible !important;
+  }
+
+  .compare-column {
+    width: 100% !important;
+    margin-bottom: 16px !important;
+  }
+
+  .compare-columns-wrapper {
+    overflow-x: visible !important;
+  }
+}
+
+/* ── Login page mobile ───────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .login-two-panel {
+    flex-direction: column !important;
+  }
+
+  .login-two-panel > div:first-child {
+    display: none !important;
+  }
+
+  .login-two-panel > div:last-child {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .login-2fa-row {
+    gap: 6px !important;
+  }
+
+  .login-2fa-row input {
+    width: 42px !important;
+    height: 50px !important;
+  }
+}
+
+/* ── Fix body overflow on admin pages ────────────────────────────────── */
+body.has-admin-sidebar {
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  body.has-admin-sidebar {
+    overflow-x: hidden;
+  }
+}
+
+/* ── Contact form mobile ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .contact-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-info-cards {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Footer responsive ───────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .footer-grid .md\:col-span-2 {
+    grid-column: span 1 !important;
+  }
+}
+
+/* ── News/insights responsive ────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .news-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .news-featured-card {
+    flex-direction: column !important;
+  }
+}
+
+/* ── Admin dashboard metric cards ────────────────────────────────────── */
+@media (max-width: 480px) {
+  .metric-card .text-headline-lg {
+    font-size: 22px !important;
+  }
+
+  .metric-card {
+    padding: 16px !important;
+  }
+}
+
+/* ── Admin leads drawer ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .leads-drawer {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* ── About page responsive ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .about-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .about-hero-content {
+    padding: 40px 16px !important;
   }
 }
 

@@ -8,13 +8,12 @@
 <meta name="description" content="Manage all property listings on TobillionHomes. Edit, update status, and organize your real estate inventory." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
 <title>Property Management | Luxury Kenyan Estates Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+<script>var _w=console.warn;console.warn=function(m){if(typeof m==="string"&&m.indexOf("cdn.tailwindcss")>-1)return;_w.apply(console,arguments)}</script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -95,16 +94,16 @@
                     "headline-md": ["Montserrat"],
                     "display-lg": ["Montserrat"]
             },
-            "fontSize": {
-                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
-                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
-                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
-                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-            }
+                          "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
           },
         },
       }
@@ -131,9 +130,10 @@
         }
     </style>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/api/config"></script>
 <script defer src="config.js"></script>
-<script defer src="db.js"></script>
-</head>
+<script defer src="db.js?v=2"></script>
+  <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body class="bg-background text-on-surface flex min-h-screen overflow-x-hidden">
 <!-- Sidebar Overlay (mobile only) -->
 <div class="admin-sidebar-overlay" id="sidebar-overlay"></div>
@@ -223,7 +223,7 @@
 <span class="material-symbols-outlined">help</span>
 </button>
 <div class="w-8 h-8 rounded-full overflow-hidden ml-xs border border-outline-variant cursor-pointer">
-<img class="w-full h-full object-cover" data-alt="..." src="..."/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="..." src="..."/>
 </div>
 </div>
 </div>
@@ -324,7 +324,7 @@
 </div>
 <!-- Footer -->
 <footer class="w-full py-sm mt-auto bg-surface border-t border-outline-variant flex justify-between items-center px-xl">
-<p class="text-label-sm font-label-sm text-outline">© 2024 Kenyan Luxury Estates Management. All Rights Reserved.</p>
+<p class="text-label-sm font-label-sm text-outline">&copy; 2024 Kenyan Luxury Estates Management. All Rights Reserved.</p>
 <div class="flex items-center gap-md">
 <a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="privacy.html">Privacy Policy</a>
 <a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="privacy.html">Terms of Service</a>
@@ -505,9 +505,18 @@
             const tbody = document.getElementById('propertiesTableBody');
             tbody.innerHTML = '<tr><td colspan="6" class="text-center py-xl text-on-surface-variant"><span class="material-symbols-outlined animate-spin inline-block">sync</span> Loading properties...</td></tr>';
 
+            // Wait for auth session to restore before querying
+            if (typeof supabaseClient?.auth?.getSession === 'function') {
+                try { await supabaseClient.auth.getSession(); } catch(e) {}
+            }
+
             allProperties = await fetchProperties();
             if (!allProperties || allProperties.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-xl text-on-surface-variant">No properties found. Add your first property!</td></tr>';
+                if (lastDbError) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-xl text-error"><span class="material-symbols-outlined text-3xl inline-block mb-sm">cloud_off</span><p class="font-label-md font-semibold">Database error</p><p class="text-label-sm mt-xs text-on-surface-variant">' + lastDbError.replace(/</g,'&lt;') + '</p><p class="text-label-sm mt-xs text-on-surface-variant">Try refreshing or check the Supabase RLS policies for the properties table.</p><button onclick="loadProperties()" class="mt-sm inline-flex items-center gap-1 px-md py-xs rounded-lg bg-primary text-on-primary text-label-sm font-semibold hover:opacity-90 transition-opacity"><span class="material-symbols-outlined text-[16px]">refresh</span> Retry</button></td></tr>';
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-xl text-on-surface-variant">No properties found. Add your first property!</td></tr>';
+                }
                 document.getElementById('propCount').textContent = '0';
                 document.getElementById('paginationInfo').textContent = 'Showing 0 properties';
                 return;
@@ -532,7 +541,7 @@
                     btn.disabled = true;
                     btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">sync</span>';
                     const id = btn.dataset.id;
-                    const ok = await deleteProperty(id);
+                    ok = await deleteProperty(id);
                     if (ok) {
                         showToast('Property deleted!', 'success');
                         allProperties = allProperties.filter(p => p.id !== id);
@@ -573,8 +582,8 @@
 
         function requireDB() {
           if (typeof fetchMediaItems !== 'function') {
-            const grid = document.getElementById('mediaGrid');
-            if (grid) grid.innerHTML = '<div class="col-span-full text-center py-xl text-error"><span class="material-symbols-outlined text-3xl inline-block mb-sm">cloud_off</span><p class="text-label-md font-semibold">Failed to load database module</p><p class="text-label-sm text-on-surface-variant mt-xs">Check your internet connection or try refreshing. If the problem persists, contact support.</p></div>';
+            const tbody = document.getElementById('propertiesTableBody');
+            if (tbody) tbody.innerHTML = '<tr><td colspan="6" class="text-center py-xl text-error"><span class="material-symbols-outlined text-3xl inline-block mb-sm">cloud_off</span><p class="font-label-md font-semibold">Database module failed to load</p><p class="text-label-sm mt-xs text-on-surface-variant">Check your internet connection or try refreshing.</p></tr>';
             return false;
           }
           return true;
@@ -614,9 +623,19 @@
                 showToast('Filters cleared', 'info');
             });
 
-            // Search input
+            // Search input with debounce
             const searchInput = document.querySelector('.admin-header-search input');
-            if (searchInput) searchInput.addEventListener('input', () => { currentPage = 1; renderCurrentView(); bindActionButtons(); });
+            if (searchInput) {
+                var searchTimer;
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(searchTimer);
+                    searchTimer = setTimeout(function() {
+                        currentPage = 1;
+                        renderCurrentView();
+                        bindActionButtons();
+                    }, 300);
+                });
+            }
 
             // Export CSV
             document.getElementById('exportCsvBtn').addEventListener('click', exportCSV);

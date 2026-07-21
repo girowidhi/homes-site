@@ -8,13 +8,12 @@
 <meta name="description" content="Meet our elite real estate agents at TobillionHomes. Expert property consultants serving Nairobi, Mombasa, and across Kenya." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
 <title>Our Elite Agents | TobillionHomes</title>
+<script>var _w=console.warn;console.warn=function(m){if(typeof m==="string"&&m.indexOf("cdn.tailwindcss")>-1)return;_w.apply(console,arguments)}</script>
 <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -95,16 +94,16 @@
                     "display-lg": ["Montserrat"],
                     "body-md": ["Inter"]
             },
-            "fontSize": {
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
-                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
-                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
-                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
-            }
+                          "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
           },
         },
       }
@@ -121,9 +120,10 @@
         }
     </style>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/api/config"></script>
 <script defer src="config.js"></script>
-<script defer src="db.js"></script>
-</head>
+<script defer src="db.js?v=2"></script>
+  <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body class="bg-background text-on-background font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
 <!-- TopNavBar -->
 <header class="bg-surface-container-lowest dark:bg-surface border-b border-outline-variant dark:border-on-surface-variant shadow-sm docked full-width top-0 z-50 sticky">
@@ -204,7 +204,7 @@
 <div class="lg:col-span-2 group relative overflow-hidden rounded-xl bg-surface-container-lowest custom-shadow border border-outline-variant/30 agent-card card-dual-glow">
 <div class="flex flex-col md:flex-row h-full">
 <div class="md:w-1/2 h-80 md:h-auto relative overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 agent-img" data-alt="A professional portrait of a senior real estate executive, a Kenyan woman in her 40s wearing a charcoal grey tailored blazer. She is standing in a high-end, minimalist architectural space with floor-to-ceiling windows showing a soft-focus Nairobi skyline at dusk. The lighting is soft, cinematic, and professional, maintaining the corporate modern aesthetic of the brand with high-contrast shadows and emerald green accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9rmgzHa75L916-X5K8GOWj39flSFryCPXZszuIV5Wkj-C-dWSk7FtdC43AP4ngL3Vj08A7xgztH6ruvvJ6eUP6v28ke2w_T02dJ45Gpn5cb88BTt5bQoR4z8obnWBji_TGRsb9jyd6cQTYn-p1gjlEJTAr340wBPsDu4IAf-BBejB7ClzK6Sgf5mw9V_KkZzIE4T5wtHjU5nfUzqtp28skTxzLAWaEcpX4LCZAJAYzVrU_Myp-OMmrN4t2pF4JQwjzJYs-59WzYw"/>
+<img loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 agent-img" data-alt="A professional portrait of a senior real estate executive, a Kenyan woman in her 40s wearing a charcoal grey tailored blazer. She is standing in a high-end, minimalist architectural space with floor-to-ceiling windows showing a soft-focus Nairobi skyline at dusk. The lighting is soft, cinematic, and professional, maintaining the corporate modern aesthetic of the brand with high-contrast shadows and emerald green accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9rmgzHa75L916-X5K8GOWj39flSFryCPXZszuIV5Wkj-C-dWSk7FtdC43AP4ngL3Vj08A7xgztH6ruvvJ6eUP6v28ke2w_T02dJ45Gpn5cb88BTt5bQoR4z8obnWBji_TGRsb9jyd6cQTYn-p1gjlEJTAr340wBPsDu4IAf-BBejB7ClzK6Sgf5mw9V_KkZzIE4T5wtHjU5nfUzqtp28skTxzLAWaEcpX4LCZAJAYzVrU_Myp-OMmrN4t2pF4JQwjzJYs-59WzYw"/>
 <div class="absolute top-md left-md">
 <span class="bg-primary text-on-primary px-sm py-base rounded-lg font-label-sm text-label-sm uppercase tracking-wider">Premium Partner</span>
 </div>
@@ -242,7 +242,7 @@
 <!-- Agent Card 2 -->
 <div class="group bg-surface-container-lowest rounded-xl overflow-hidden custom-shadow border border-outline-variant/30 flex flex-col agent-card card-shine">
 <div class="h-64 relative overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 agent-img" data-alt="A medium shot of a male real estate agent in his early 30s, looking confident in a navy blue suit and crisp white shirt. He is leaning against a glass balcony overlooking a lush green suburban development in Nairobi. The lighting is bright morning sun, creating sharp, clean shadows and a vibrant, professional feel. High-resolution editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQilK1CjSnNQS03DNnIwU-8mqLlb6mp8fVNRYA7Te7HIKAFQYhOXiE3Tbi64xsDS6zBn7ixTC589E8ySRS2ZiATfKd_TscET6aCKFDILFCcs4CWqAugqn4PfrtR0wj1TuVCS4ovnrJH_GpxTfKOJZQWYirjeKLTysEGlyRh7x-ie-uydYhwAv1dqEiHZ4Hx8a8jDpnmzmcNrKdxGeN4pjwBypBfVuo730ykiMZZOQ6OyvIzh-BGOQ2_d57WX7BlpKVio0xkyjzso4"/>
+<img loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 agent-img" data-alt="A medium shot of a male real estate agent in his early 30s, looking confident in a navy blue suit and crisp white shirt. He is leaning against a glass balcony overlooking a lush green suburban development in Nairobi. The lighting is bright morning sun, creating sharp, clean shadows and a vibrant, professional feel. High-resolution editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQilK1CjSnNQS03DNnIwU-8mqLlb6mp8fVNRYA7Te7HIKAFQYhOXiE3Tbi64xsDS6zBn7ixTC589E8ySRS2ZiATfKd_TscET6aCKFDILFCcs4CWqAugqn4PfrtR0wj1TuVCS4ovnrJH_GpxTfKOJZQWYirjeKLTysEGlyRh7x-ie-uydYhwAv1dqEiHZ4Hx8a8jDpnmzmcNrKdxGeN4pjwBypBfVuo730ykiMZZOQ6OyvIzh-BGOQ2_d57WX7BlpKVio0xkyjzso4"/>
 <div class="absolute bottom-md left-md">
 <span class="bg-secondary-fixed text-on-secondary-fixed px-sm py-base rounded-full font-label-sm text-label-sm">New Construction Specialist</span>
 </div>
@@ -265,7 +265,7 @@
 <!-- Agent Card 3 -->
 <div class="group bg-surface-container-lowest rounded-xl overflow-hidden custom-shadow border border-outline-variant/30 flex flex-col agent-card card-shine">
 <div class="h-64 relative overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 agent-img" data-alt="A professional female real estate agent in high-fashion business attire, posing in a brightly lit, modern office lobby with marble floors and emerald green accents. She is smiling warmly at the camera. The background is softly blurred to emphasize her professional and approachable demeanor. Sunlight streams in from large windows, creating a premium 'Quiet Confidence' atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2OS6at5RAgasffoo6s_JNNV-b7FDR42oi1Kpcs0t8uGt-iOghFev_ugVSNpy-Sj9D2ia7QsVObU_5pyJOXGYKqS_ehTOG1e2PiiFb6jjjIr9DcwzNpdUvZkii6VA9HBK4VsQU1vxjNFrghvX-ip-tIBHILx45Icv53IDgIrh6SoSA1A3y-2vq76MsLp6I_a2dNkbp2TUBOFCEOacfVbBXL0hvuiItR2YMIn5Niv3jN7ioCyvQvNJAGP_43gEkci9wXEajAaKmP5g"/>
+<img loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 agent-img" data-alt="A professional female real estate agent in high-fashion business attire, posing in a brightly lit, modern office lobby with marble floors and emerald green accents. She is smiling warmly at the camera. The background is softly blurred to emphasize her professional and approachable demeanor. Sunlight streams in from large windows, creating a premium 'Quiet Confidence' atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2OS6at5RAgasffoo6s_JNNV-b7FDR42oi1Kpcs0t8uGt-iOghFev_ugVSNpy-Sj9D2ia7QsVObU_5pyJOXGYKqS_ehTOG1e2PiiFb6jjjIr9DcwzNpdUvZkii6VA9HBK4VsQU1vxjNFrghvX-ip-tIBHILx45Icv53IDgIrh6SoSA1A3y-2vq76MsLp6I_a2dNkbp2TUBOFCEOacfVbBXL0hvuiItR2YMIn5Niv3jN7ioCyvQvNJAGP_43gEkci9wXEajAaKmP5g"/>
 </div>
 <div class="p-md flex flex-grow flex-col">
 <h3 class="font-headline-md text-headline-md text-primary mb-base">Zahra Hassan</h3>
@@ -306,14 +306,14 @@
 </div>
 </div>
 <div class="md:w-1/2 h-80 md:h-auto bg-primary-container relative">
-<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 agent-img" data-alt="A portrait of a male real estate specialist in a tailored dark grey suit, sitting in a leather chair in a sophisticated wood-paneled library. He is looking off-camera with a serious, thoughtful expression. The lighting is warm and directional, emphasizing textures of wood and leather. The image conveys 'Quiet Confidence' and high-level corporate expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkOo0SZwUYimCAahVRmg5GTL3Yh1X1cahFWJunGtRLIQ8OHUrhKX0-rvCSCML3Fb1lJK6LJg1s3RvNFw-qkruKgS4vcK-8dIPe4wmgdjHTW7indZ8viNx9gzM-gRp5RBv_cZEEg_6asiZjDC6NZlquFVo6MqicSNGf_vI7rWdzOSuvhKEUFpa3uYGZj6yYGqmhYnBVdNyHJI2Lh5zGi-1eVOUovYDfyy1J3PJ2Sf1Zuk4rlee0rI3WNBhtPeXpDDDeRI5ZSsRQ6b0"/>
+<img loading="lazy" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 agent-img" data-alt="A portrait of a male real estate specialist in a tailored dark grey suit, sitting in a leather chair in a sophisticated wood-paneled library. He is looking off-camera with a serious, thoughtful expression. The lighting is warm and directional, emphasizing textures of wood and leather. The image conveys 'Quiet Confidence' and high-level corporate expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkOo0SZwUYimCAahVRmg5GTL3Yh1X1cahFWJunGtRLIQ8OHUrhKX0-rvCSCML3Fb1lJK6LJg1s3RvNFw-qkruKgS4vcK-8dIPe4wmgdjHTW7indZ8viNx9gzM-gRp5RBv_cZEEg_6asiZjDC6NZlquFVo6MqicSNGf_vI7rWdzOSuvhKEUFpa3uYGZj6yYGqmhYnBVdNyHJI2Lh5zGi-1eVOUovYDfyy1J3PJ2Sf1Zuk4rlee0rI3WNBhtPeXpDDDeRI5ZSsRQ6b0"/>
 </div>
 </div>
 </div>
 <!-- Agent Card 5 -->
 <div class="group bg-surface-container-lowest rounded-xl overflow-hidden custom-shadow border border-outline-variant/30 flex flex-col agent-card card-shine">
 <div class="h-64 relative overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 agent-img" data-alt="A close-up professional headshot of a younger female agent with a bright, energetic smile. She is wearing a modern emerald green silk blouse that matches the brand's accent colors. The background is a blurred architectural garden with tropical plants. Bright, airy, and high-key lighting for a minimalist editorial look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ5LFEpx1v95YOvK8MEd7vz6sh9CM-DhkdD1Ss6JbuSRXTIQkb5wdvG2NZDBsu6eieUBFdFS_6ExTskmTcdwwXnxWQdopZBaoHpdZfGlxSJo8zeB9eM3-q8M34Kcqn53KpYDsB1t0F88cG0KCenI8aoY8XvOoh5hwDOChqoYZSQWBxfaDIfdpQ88f7PCZSBlZCbmHLsm7BgO0ER8oLJYVIXDgSwGFdk3e6gaGw6nZVoHWIJ8zz3Y51xZp_cf1v6dbKARmcW7x71sg"/>
+<img loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 agent-img" data-alt="A close-up professional headshot of a younger female agent with a bright, energetic smile. She is wearing a modern emerald green silk blouse that matches the brand's accent colors. The background is a blurred architectural garden with tropical plants. Bright, airy, and high-key lighting for a minimalist editorial look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ5LFEpx1v95YOvK8MEd7vz6sh9CM-DhkdD1Ss6JbuSRXTIQkb5wdvG2NZDBsu6eieUBFdFS_6ExTskmTcdwwXnxWQdopZBaoHpdZfGlxSJo8zeB9eM3-q8M34Kcqn53KpYDsB1t0F88cG0KCenI8aoY8XvOoh5hwDOChqoYZSQWBxfaDIfdpQ88f7PCZSBlZCbmHLsm7BgO0ER8oLJYVIXDgSwGFdk3e6gaGw6nZVoHWIJ8zz3Y51xZp_cf1v6dbKARmcW7x71sg"/>
 </div>
 <div class="p-md flex flex-grow flex-col">
 <h3 class="font-headline-md text-headline-md text-primary mb-base">Lisa Mwangi</h3>
@@ -441,4 +441,5 @@
     </script>
 <script src="public-nav.js"></script>
 <script src="brand-loader.js?v=1"></script>
+<script src="seo-loader.js?v=1"></script>
 </body></html>

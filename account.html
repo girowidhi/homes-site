@@ -8,13 +8,12 @@
 <meta name="description" content="Manage your TobillionHomes account, saved listings, and property preferences. Your personal dashboard for the Kenyan real estate market." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
 <title>TobillionHomes | User Dashboard</title>
+<script>var _w=console.warn;console.warn=function(m){if(typeof m==="string"&&m.indexOf("cdn.tailwindcss")>-1)return;_w.apply(console,arguments)}</script>
 <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -95,16 +94,16 @@
                     "display-lg": ["Montserrat"],
                     "body-md": ["Inter"]
             },
-            "fontSize": {
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
-                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
-                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
-                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
-            }
+                          "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
           },
         },
       }
@@ -129,9 +128,10 @@
         }
     </style>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/api/config"></script>
 <script defer src="config.js"></script>
-<script defer src="db.js"></script>
-</head>
+<script defer src="db.js?v=2"></script>
+  <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body class="bg-background text-on-surface font-body-md overflow-x-hidden">
 <!-- Top Navigation Bar -->
 <header class="bg-surface-container-lowest dark:bg-surface border-b border-outline-variant dark:border-on-surface-variant shadow-sm sticky top-0 z-50 h-20">
@@ -150,7 +150,7 @@
 <div class="flex items-center gap-sm">
 <span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary duration-200">favorite</span>
 <div class="w-10 h-10 rounded-full border-2 border-secondary flex items-center justify-center bg-surface-container-high overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a successful modern real estate investor in Kenya, wearing high-end business casual attire. The lighting is soft and flattering, emphasizing a mood of approachable prestige and quiet confidence. The background is a minimalist, softly blurred luxury interior in warm beige and deep navy tones, consistent with a high-end corporate modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWACeWgXip4cG5U0sF8dsTQOL_ClwyLLJjJLCWP0R2BVHkp5Rb-ZuVayrt_cltCjRrHUjl_cvlkf7BL-3SdXKEBL8HZt-gacBo1TkAHnDf6mL8gtt0orOFT4bEa3RvTWWhVPGJv_EAm6jj3J51KcxJzYsbonQWOGLLP3bqFQT11OlePXWvnPQKNXnuQD6sF2ihtqH9wpE_83sSfVf_45c7Tdi261JePzMHHDcPS7AFx3MLbb2rBzRYoc875wj1M1u9JKKKOmVGx5s"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="A professional studio portrait of a successful modern real estate investor in Kenya, wearing high-end business casual attire. The lighting is soft and flattering, emphasizing a mood of approachable prestige and quiet confidence. The background is a minimalist, softly blurred luxury interior in warm beige and deep navy tones, consistent with a high-end corporate modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWACeWgXip4cG5U0sF8dsTQOL_ClwyLLJjJLCWP0R2BVHkp5Rb-ZuVayrt_cltCjRrHUjl_cvlkf7BL-3SdXKEBL8HZt-gacBo1TkAHnDf6mL8gtt0orOFT4bEa3RvTWWhVPGJv_EAm6jj3J51KcxJzYsbonQWOGLLP3bqFQT11OlePXWvnPQKNXnuQD6sF2ihtqH9wpE_83sSfVf_45c7Tdi261JePzMHHDcPS7AFx3MLbb2rBzRYoc875wj1M1u9JKKKOmVGx5s"/>
 </div>
 </div>
 </div>
@@ -176,7 +176,7 @@
 <div class="md:col-span-4 bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,31,63,0.05)] p-lg border border-outline-variant flex flex-col items-center text-center">
 <div class="relative mb-md">
 <div class="w-32 h-32 rounded-full border-4 border-secondary-container overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="A high-resolution close-up of a sophisticated male professional in a minimalist white and navy environment. The image uses high-key lighting to evoke a clean, modern Light Mode aesthetic. The subject exudes quiet confidence, typical of a high-end Kenyan real estate market participant. Soft, diffused lighting creates an editorial, high-end feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_5s4gEAn9ImLDcOuTa3GWM1m4poVSpp7YEYgRzRTYNHwtbEpj2hCZPI83xobZbR6iX-gLAA7GHSgWU-PtpZvWZSf9a6_Su0WbQsbeLxOcafA44AgCKF-7rmaVePJEQbVO7uYZcmFBmtdepxxCvrRMcpId8DgPm-GJ_f9r0iDsYd4K1sKjq_d4fFv4OAz347K9NDS2kx7ouQQScphsWhXF7KxvpxFMBp3F-kDMaczpqRaEYLxbEM37XeegkPUnTcCp3NKeniKPdrQ"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="A high-resolution close-up of a sophisticated male professional in a minimalist white and navy environment. The image uses high-key lighting to evoke a clean, modern Light Mode aesthetic. The subject exudes quiet confidence, typical of a high-end Kenyan real estate market participant. Soft, diffused lighting creates an editorial, high-end feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_5s4gEAn9ImLDcOuTa3GWM1m4poVSpp7YEYgRzRTYNHwtbEpj2hCZPI83xobZbR6iX-gLAA7GHSgWU-PtpZvWZSf9a6_Su0WbQsbeLxOcafA44AgCKF-7rmaVePJEQbVO7uYZcmFBmtdepxxCvrRMcpId8DgPm-GJ_f9r0iDsYd4K1sKjq_d4fFv4OAz347K9NDS2kx7ouQQScphsWhXF7KxvpxFMBp3F-kDMaczpqRaEYLxbEM37XeegkPUnTcCp3NKeniKPdrQ"/>
 </div>
 <button class="absolute bottom-1 right-1 bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center border-2 border-white">
 <span class="material-symbols-outlined text-[18px]">edit</span>
@@ -232,7 +232,7 @@
 <!-- Property Item 1 -->
 <div class="flex flex-col sm:flex-row gap-md p-sm hover:bg-surface-container-low transition-colors rounded-lg group">
 <div class="w-full sm:w-40 h-28 rounded-lg overflow-hidden relative flex-shrink-0">
-<img class="w-full h-full object-cover" data-alt="A wide-angle professional photograph of a modern, ultra-luxury villa in Muthaiga, Nairobi. The architecture features clean horizontal lines, expansive floor-to-ceiling glass walls, and high-end natural stone finishes. The scene is captured at dusk with warm interior lights glowing against a deep navy sky, creating a premium and aspirational atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhbsmUnFLXnhDF1xPItMu9H0zam9r0_wNPjpD8YebQOH-NsbzmQQ59Nzv7YcpexsUiDKBcZi7nQkIlE-V-Qg2ZP5xztkK-vhy4RQ3b83RTNZhiR3QWyR5dDqLspGd0SLa9bUIkuKEuVW3nKOrwjLxGj6TT09EvGNJuMGWrDVmFC5H4Ng_SQEIdfX0ETFq0rmObzcAQPNBdy9aLusUKwETADq9NzNaNaOgAYElyshU3q7Y6MZ5qXhk7pb9PODsRjbcSBMlI6Pc_EKU"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="A wide-angle professional photograph of a modern, ultra-luxury villa in Muthaiga, Nairobi. The architecture features clean horizontal lines, expansive floor-to-ceiling glass walls, and high-end natural stone finishes. The scene is captured at dusk with warm interior lights glowing against a deep navy sky, creating a premium and aspirational atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhbsmUnFLXnhDF1xPItMu9H0zam9r0_wNPjpD8YebQOH-NsbzmQQ59Nzv7YcpexsUiDKBcZi7nQkIlE-V-Qg2ZP5xztkK-vhy4RQ3b83RTNZhiR3QWyR5dDqLspGd0SLa9bUIkuKEuVW3nKOrwjLxGj6TT09EvGNJuMGWrDVmFC5H4Ng_SQEIdfX0ETFq0rmObzcAQPNBdy9aLusUKwETADq9NzNaNaOgAYElyshU3q7Y6MZ5qXhk7pb9PODsRjbcSBMlI6Pc_EKU"/>
 <div class="absolute top-2 left-2 bg-secondary text-on-secondary text-[10px] px-2 py-0.5 rounded-full font-bold">PREMIUM</div>
 </div>
 <div class="flex-grow flex flex-col justify-between">
@@ -267,7 +267,7 @@
 <!-- Property Item 2 -->
 <div class="flex flex-col sm:flex-row gap-md p-sm hover:bg-surface-container-low transition-colors rounded-lg group">
 <div class="w-full sm:w-40 h-28 rounded-lg overflow-hidden relative flex-shrink-0">
-<img class="w-full h-full object-cover" data-alt="High-resolution architectural photography of a contemporary apartment complex in Kileleshwa. The building features minimalist white facades, tropical wood accents on balconies, and lush vertical gardens. Bright daylight illuminates the scene, highlighting the clean textures and high-end construction quality, evoking a sense of corporate modern elegance and stability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-k4JhKZfBo3Wv-K_sYKwgnO55YIs8UQPT0jGbro8MIuecjgB1oBRGEFlKNYp2Cq4FwDDBSG0dbJMBod-EDFiJWSrKT6HlKOPgZ-qjaWYwTuuvWpFSHAsLVU00KWrUhHhb7HKJHsa_KEpAgCQvNxLzQGqMT-jv4o_gAhnram9fNc_DgWO0vQNMPmrwJuWG9QLNIUXOZUFiTNaKA6CUOUsRm0HcR7i30O7X-4oaemkQLbnQPHNS8fX-gmSjkgkA0P5MKIyQYu5J-pA"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="High-resolution architectural photography of a contemporary apartment complex in Kileleshwa. The building features minimalist white facades, tropical wood accents on balconies, and lush vertical gardens. Bright daylight illuminates the scene, highlighting the clean textures and high-end construction quality, evoking a sense of corporate modern elegance and stability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-k4JhKZfBo3Wv-K_sYKwgnO55YIs8UQPT0jGbro8MIuecjgB1oBRGEFlKNYp2Cq4FwDDBSG0dbJMBod-EDFiJWSrKT6HlKOPgZ-qjaWYwTuuvWpFSHAsLVU00KWrUhHhb7HKJHsa_KEpAgCQvNxLzQGqMT-jv4o_gAhnram9fNc_DgWO0vQNMPmrwJuWG9QLNIUXOZUFiTNaKA6CUOUsRm0HcR7i30O7X-4oaemkQLbnQPHNS8fX-gmSjkgkA0P5MKIyQYu5J-pA"/>
 <div class="absolute top-2 left-2 bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded-full font-bold">NEW</div>
 </div>
 <div class="flex-grow flex flex-col justify-between">
@@ -511,7 +511,7 @@
                         listContainer.innerHTML = savedListings.map(p => `
                             <div class="flex flex-col sm:flex-row gap-md p-sm hover:bg-surface-container-low transition-colors rounded-lg group">
                                 <div class="w-full sm:w-40 h-28 rounded-lg overflow-hidden relative flex-shrink-0 cursor-pointer" onclick="window.location.href='detail.html?id=${p.id}'">
-                                    <img class="w-full h-full object-cover" src="${p.image_url || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80'}" />
+                                    <img loading="lazy" class="w-full h-full object-cover" src="${p.image_url || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80'}" />
                                     <div class="absolute top-2 left-2 bg-secondary text-on-secondary text-[10px] px-2 py-0.5 rounded-full font-bold">${p.status}</div>
                                 </div>
                                 <div class="flex-grow flex flex-col justify-between">
@@ -563,4 +563,5 @@
     </script>
 <script src="public-nav.js"></script>
 <script src="brand-loader.js?v=1"></script>
+<script src="seo-loader.js?v=1"></script>
 </body></html>

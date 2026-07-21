@@ -8,13 +8,12 @@
 <meta name="description" content="Latest real estate news, market insights, and property trends in Kenya. Stay informed with TobillionHomes." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
 <title>News &amp; Insights | TobillionHomes</title>
+<script>var _w=console.warn;console.warn=function(m){if(typeof m==="string"&&m.indexOf("cdn.tailwindcss")>-1)return;_w.apply(console,arguments)}</script>
 <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -111,24 +110,25 @@
                         "display-lg": ["Montserrat"],
                         "body-md": ["Inter"]
                     },
-                    "fontSize": {
-                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
-                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
-                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
-                    }
+                                  "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
                 },
             },
         }
     </script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/api/config"></script>
 <script defer src="config.js"></script>
-<script defer src="db.js"></script>
-</head>
+<script defer src="db.js?v=2"></script>
+  <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body class="bg-background text-on-background font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
 <!-- TopNavBar -->
 <header class="bg-surface-container-lowest dark:bg-surface border-b border-outline-variant dark:border-on-surface-variant shadow-sm docked full-width top-0 z-50 sticky transition-all duration-300 ease-in-out">
@@ -160,7 +160,7 @@
 <section class="relative w-full h-[716px] flex items-end overflow-hidden group">
 <div class="absolute inset-0 z-0 scale-105 group-hover:scale-100 transition-transform duration-1000 ease-out">
 <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent z-10"></div>
-<img class="w-full h-full object-cover" data-alt="A wide-angle professional photograph of a luxury high-rise development in Nairobi's Westlands district during the golden hour. The sky is a warm palette of oranges and purples, reflecting off the building's glass facade. The aesthetic is corporate yet editorial, emphasizing high-end real estate and modern urban development. The lighting is dramatic and warm, creating a sense of premium investment opportunity and architectural excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPi_v-abQ1KObbnKw2tc8aO5GP-v_X37R2sy2sdMsX1p8b6DKV45-nFXGnn0xXGqeN3jXoi77tTaA9gkbXoZaCuoKDocaZ1XMXSpbz7z_zxnoU3nVk_LVTPwPiSgetE3SVCaJER5l0KZaqRo1i3NvBuOzvEElexd9iq26Ss-1buyn0AFsXnw3xjxvuKfLUB0NkcjOT4zRQfQLiOxRHnV6t60ThQtXFI8LRa_r87YvBD_RXtygvNADDRHtpW55r46ePdR6O18Enpo0"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="A wide-angle professional photograph of a luxury high-rise development in Nairobi's Westlands district during the golden hour. The sky is a warm palette of oranges and purples, reflecting off the building's glass facade. The aesthetic is corporate yet editorial, emphasizing high-end real estate and modern urban development. The lighting is dramatic and warm, creating a sense of premium investment opportunity and architectural excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPi_v-abQ1KObbnKw2tc8aO5GP-v_X37R2sy2sdMsX1p8b6DKV45-nFXGnn0xXGqeN3jXoi77tTaA9gkbXoZaCuoKDocaZ1XMXSpbz7z_zxnoU3nVk_LVTPwPiSgetE3SVCaJER5l0KZaqRo1i3NvBuOzvEElexd9iq26Ss-1buyn0AFsXnw3xjxvuKfLUB0NkcjOT4zRQfQLiOxRHnV6t60ThQtXFI8LRa_r87YvBD_RXtygvNADDRHtpW55r46ePdR6O18Enpo0"/>
 </div>
 <div class="relative z-20 max-w-container-max mx-auto px-gutter pb-xl w-full">
 <div class="max-w-3xl">
@@ -197,7 +197,7 @@
 <!-- Main Featured Post -->
 <article class="md:col-span-8 md:row-span-2 bento-hover bg-white rounded-xl shadow-[0_4px_20px_rgba(0,31,63,0.05)] overflow-hidden flex flex-col group cursor-pointer">
 <div class="relative h-96 overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="An interior shot of a minimalist luxury penthouse featuring floor-to-ceiling windows overlooking the Nairobi skyline. The room is filled with soft, natural morning light, illuminating modern furniture with clean lines. The color palette is composed of warm beiges, soft creams, and rich wooden textures. The mood is serene and sophisticated, highlighting the premium lifestyle offered by TobillionHomes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAEGBBizeRwI9yCqDW6mkSNS7Lco0uR9_O-45QT9dPfv2VU8Uj4YOT3t_eQfYgX2tK5kflH2Omgdv8PN4FKXf7yQ4U1EZ6J0fTEE84Fo11snN-ZXy64ewAoOMb1NohDp3JORjcq6VvxLFJ_3pnpvLHBJsyuRNtfa-aHHcguig7-r9_gTyfHIByXuAcZK_KnZj8C-djeFDJABGDhpHGKN67WqWqys-RtuiG3bvX3-5dOAqOvvMqM0PoafOBFytJYgOUOnAr_o3Gn0M"/>
+<img loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="An interior shot of a minimalist luxury penthouse featuring floor-to-ceiling windows overlooking the Nairobi skyline. The room is filled with soft, natural morning light, illuminating modern furniture with clean lines. The color palette is composed of warm beiges, soft creams, and rich wooden textures. The mood is serene and sophisticated, highlighting the premium lifestyle offered by TobillionHomes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAEGBBizeRwI9yCqDW6mkSNS7Lco0uR9_O-45QT9dPfv2VU8Uj4YOT3t_eQfYgX2tK5kflH2Omgdv8PN4FKXf7yQ4U1EZ6J0fTEE84Fo11snN-ZXy64ewAoOMb1NohDp3JORjcq6VvxLFJ_3pnpvLHBJsyuRNtfa-aHHcguig7-r9_gTyfHIByXuAcZK_KnZj8C-djeFDJABGDhpHGKN67WqWqys-RtuiG3bvX3-5dOAqOvvMqM0PoafOBFytJYgOUOnAr_o3Gn0M"/>
 <div class="absolute top-md left-md">
 <span class="bg-primary/80 backdrop-blur-md text-white px-sm py-1 rounded font-label-sm">NEW CONSTRUCTION</span>
 </div>
@@ -219,7 +219,7 @@
 <!-- Sidebar Post 1 -->
 <article class="md:col-span-4 bento-hover bg-white rounded-xl shadow-[0_4px_20px_rgba(0,31,63,0.05)] overflow-hidden cursor-pointer">
 <div class="h-48 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="A professional architectural photograph of a contemporary villa development in Karen, Nairobi. The image features lush landscaped gardens surrounding sleek, white-walled homes with large glass panels and dark slate roofs. The lighting is crisp and clear, highlighting the contrast between nature and modern architecture. The atmosphere is one of exclusivity and quiet luxury, perfectly aligned with corporate real estate aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV2n4OH62Qt1uhxjBDVMVB3jpIIUaWY7LDXBJx3vqMoZ9HfyhOcGYgFjhpzZkEhmYGOvcFiKz4QEWR_1XvGxhHDL7-ZlQoTehXHp9G2VtexXh47gt3jnFqWZi5nlf2Ijj-Qtlab9Sca5H-WPbIT-B56nf-m4FRQTE_Bw_FgA7fjEht9tpWnIqEugZY__vpPD-z0hHxijeZ3DadAfJ5hHMPWaPOztUsl8SyQw-pDXsHa5ecSHlEdJmBPe2XJDl1rHNHItPkkX-rWKE"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="A professional architectural photograph of a contemporary villa development in Karen, Nairobi. The image features lush landscaped gardens surrounding sleek, white-walled homes with large glass panels and dark slate roofs. The lighting is crisp and clear, highlighting the contrast between nature and modern architecture. The atmosphere is one of exclusivity and quiet luxury, perfectly aligned with corporate real estate aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV2n4OH62Qt1uhxjBDVMVB3jpIIUaWY7LDXBJx3vqMoZ9HfyhOcGYgFjhpzZkEhmYGOvcFiKz4QEWR_1XvGxhHDL7-ZlQoTehXHp9G2VtexXh47gt3jnFqWZi5nlf2Ijj-Qtlab9Sca5H-WPbIT-B56nf-m4FRQTE_Bw_FgA7fjEht9tpWnIqEugZY__vpPD-z0hHxijeZ3DadAfJ5hHMPWaPOztUsl8SyQw-pDXsHa5ecSHlEdJmBPe2XJDl1rHNHItPkkX-rWKE"/>
 </div>
 <div class="p-md">
 <span class="text-secondary font-label-sm font-bold uppercase tracking-wider">Company News</span>
@@ -230,7 +230,7 @@
 <!-- Sidebar Post 2 -->
 <article class="md:col-span-4 bento-hover bg-white rounded-xl shadow-[0_4px_20px_rgba(0,31,63,0.05)] overflow-hidden cursor-pointer">
 <div class="h-48 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="A detailed overhead shot of an urban masterplan model, showing miniature green spaces, residential zones, and transit paths. The lighting is studio-quality with soft shadows, creating a high-tech and professional planning vibe. The color scheme is neutral with emerald green accents representing parks. The image evokes a sense of future-proof urban design and strategic real estate development." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPUbn54L-MmGDSnMvRJA6QBtMlXf5PkqwJVA313b0YORPrMTltbW8PCXaaVD2EbniPAdHU0hMhK_SBOD7HQehQ0EQjHZVAnFtOQDD3URp9eAEtLEuipxfNHAYDS8Ut1GLsHDAysMgt5AXRe7hmRgbB3wTFuYyCLiiK50C-nRpjZkBnUqj_WDyEtjhVImdlUY4xeSeu5gfIBjp5NQfm5_oJ99bFVTWZ3xrVK27R0h7pOldzq5u6zVf1_nWBJ3XAt9CfvDonoVjuv1I"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="A detailed overhead shot of an urban masterplan model, showing miniature green spaces, residential zones, and transit paths. The lighting is studio-quality with soft shadows, creating a high-tech and professional planning vibe. The color scheme is neutral with emerald green accents representing parks. The image evokes a sense of future-proof urban design and strategic real estate development." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPUbn54L-MmGDSnMvRJA6QBtMlXf5PkqwJVA313b0YORPrMTltbW8PCXaaVD2EbniPAdHU0hMhK_SBOD7HQehQ0EQjHZVAnFtOQDD3URp9eAEtLEuipxfNHAYDS8Ut1GLsHDAysMgt5AXRe7hmRgbB3wTFuYyCLiiK50C-nRpjZkBnUqj_WDyEtjhVImdlUY4xeSeu5gfIBjp5NQfm5_oJ99bFVTWZ3xrVK27R0h7pOldzq5u6zVf1_nWBJ3XAt9CfvDonoVjuv1I"/>
 </div>
 <div class="p-md">
 <span class="text-secondary font-label-sm font-bold uppercase tracking-wider">Trends</span>
@@ -269,7 +269,7 @@
 <!-- Article Card 1 -->
 <div class="group cursor-pointer">
 <div class="relative aspect-video rounded-xl overflow-hidden mb-md shadow-sm">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stylized digital illustration of a currency graph trending upwards with the Kenyan Shilling symbol, overlaid on a blurred background of the Nairobi skyline. The style is modern, data-driven, and corporate. The lighting is cool-toned with bright green highlights indicating growth. The mood is analytical and optimistic for investors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_fyVDWtu0Jhc49d5UE2kspXHK8CVULoBmOoKxJy6T1Ru9yX59W8EjHfkYDxk4kr-lMsMhKGyHZYchdPJpLL60Yz1KAyyvRc2lyBKwHDVdoVrtpAli08EXAaVWdU8E4PTMVwVpYVrXZ_At70LovrEHWmwpcqCg5ZKr2mgRnYsh12QS4s_PXf6_CQsYXx-CXf-Hb6smZ5ZshpwCqRp0hpvpUA4LJx270ui9lQ3IZhmJR0kXFCH4p8BrJvwXd8E144iR1UcBSKysBZA"/>
+<img loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stylized digital illustration of a currency graph trending upwards with the Kenyan Shilling symbol, overlaid on a blurred background of the Nairobi skyline. The style is modern, data-driven, and corporate. The lighting is cool-toned with bright green highlights indicating growth. The mood is analytical and optimistic for investors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_fyVDWtu0Jhc49d5UE2kspXHK8CVULoBmOoKxJy6T1Ru9yX59W8EjHfkYDxk4kr-lMsMhKGyHZYchdPJpLL60Yz1KAyyvRc2lyBKwHDVdoVrtpAli08EXAaVWdU8E4PTMVwVpYVrXZ_At70LovrEHWmwpcqCg5ZKr2mgRnYsh12QS4s_PXf6_CQsYXx-CXf-Hb6smZ5ZshpwCqRp0hpvpUA4LJx270ui9lQ3IZhmJR0kXFCH4p8BrJvwXd8E144iR1UcBSKysBZA"/>
 </div>
 <span class="font-label-sm text-secondary font-bold uppercase tracking-widest">Finance</span>
 <h4 class="font-headline-md text-headline-md text-primary mt-xs group-hover:text-secondary transition-colors">How the Weakening Shilling is Driving Diaspora Investment</h4>
@@ -278,7 +278,7 @@
 <!-- Article Card 2 -->
 <div class="group cursor-pointer">
 <div class="relative aspect-video rounded-xl overflow-hidden mb-md shadow-sm">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An artistic high-key shot of a modern kitchen interior featuring white marble countertops and brass fixtures. The lighting is bright and ethereal, suggesting cleanliness and high-end luxury. The composition is minimalist with a focus on premium materials. The style is editorial and lifestyle-oriented, fitting for luxury home design trends." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCykrrLy_IXcLyQmb0Ks8mZ1F-E_aXTnHMNnsC1I7z7a-uSdOELAVu43oqBjOH9FX91plSv9QP5KObUllZwmEAl6tBsVB5cEKx2H_lUMYFXmYXQel2FUB2-wSGlG8A_xZ8MfTeUiKwgkNcFVE39ZlRAkQDUc-OOrKi7-rULsaBnkgsoPgzMxLtmGp-OdMZA9mXCLVljfmSXUNMakpHxaTnuvuZag9KLtxboxdQHOQrspJFtxJMWPyLooRyXVd9B0zd3mwVv0JXu9tU"/>
+<img loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An artistic high-key shot of a modern kitchen interior featuring white marble countertops and brass fixtures. The lighting is bright and ethereal, suggesting cleanliness and high-end luxury. The composition is minimalist with a focus on premium materials. The style is editorial and lifestyle-oriented, fitting for luxury home design trends." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCykrrLy_IXcLyQmb0Ks8mZ1F-E_aXTnHMNnsC1I7z7a-uSdOELAVu43oqBjOH9FX91plSv9QP5KObUllZwmEAl6tBsVB5cEKx2H_lUMYFXmYXQel2FUB2-wSGlG8A_xZ8MfTeUiKwgkNcFVE39ZlRAkQDUc-OOrKi7-rULsaBnkgsoPgzMxLtmGp-OdMZA9mXCLVljfmSXUNMakpHxaTnuvuZag9KLtxboxdQHOQrspJFtxJMWPyLooRyXVd9B0zd3mwVv0JXu9tU"/>
 </div>
 <span class="font-label-sm text-secondary font-bold uppercase tracking-widest">Design</span>
 <h4 class="font-headline-md text-headline-md text-primary mt-xs group-hover:text-secondary transition-colors">5 Design Elements That Increase Your Property Value</h4>
@@ -287,7 +287,7 @@
 <!-- Article Card 3 -->
 <div class="group cursor-pointer">
 <div class="relative aspect-video rounded-xl overflow-hidden mb-md shadow-sm">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A bird's eye view of a major highway intersection in Nairobi with light trails from cars, surrounded by commercial developments and green spaces. The image is a long exposure shot, creating a sense of dynamic movement and urban connectivity. The colors are vibrant and metropolitan, symbolizing infrastructure development and growth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCp3w8X4FJ_2T5JeAUUyjOumpQAVU-v19KTRWb5ZAhEewBaPII6nGZVKvOtGgZ4FPBZNQBefxHxHnggV0vNmkj6OLbTOH4u17HP4rHrE3Jdg__0FFFf00vxJ28S4oSF3ptaPe4XrMI3GqN9b4B2RxrjaWHD5-tq0kijGbQOYy89NPWbJefNgVG5Dyh-qxGDYl5KwOUoVUjOJKF6jc1BmmXp8j7vm1WkeAJM2a7VsoaThjH3fmPNfoyXuoB8ZI-N-f9l3099wTd0dY"/>
+<img loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A bird's eye view of a major highway intersection in Nairobi with light trails from cars, surrounded by commercial developments and green spaces. The image is a long exposure shot, creating a sense of dynamic movement and urban connectivity. The colors are vibrant and metropolitan, symbolizing infrastructure development and growth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCp3w8X4FJ_2T5JeAUUyjOumpQAVU-v19KTRWb5ZAhEewBaPII6nGZVKvOtGgZ4FPBZNQBefxHxHnggV0vNmkj6OLbTOH4u17HP4rHrE3Jdg__0FFFf00vxJ28S4oSF3ptaPe4XrMI3GqN9b4B2RxrjaWHD5-tq0kijGbQOYy89NPWbJefNgVG5Dyh-qxGDYl5KwOUoVUjOJKF6jc1BmmXp8j7vm1WkeAJM2a7VsoaThjH3fmPNfoyXuoB8ZI-N-f9l3099wTd0dY"/>
 </div>
 <span class="font-label-sm text-secondary font-bold uppercase tracking-widest">Infrastructure</span>
 <h4 class="font-headline-md text-headline-md text-primary mt-xs group-hover:text-secondary transition-colors">Impact of the Expressway on Satellite Town Prices</h4>
@@ -388,4 +388,5 @@
     </script>
 <script src="public-nav.js"></script>
 <script src="brand-loader.js?v=1"></script>
+<script src="seo-loader.js?v=1"></script>
 </body></html>

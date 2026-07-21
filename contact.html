@@ -8,13 +8,12 @@
 <meta name="description" content="Get in touch with TobillionHomes. Contact our team for inquiries about luxury properties, selling your home, or real estate investment in Kenya." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
 <title>Contact Us | TobillionHomes</title>
+<script>var _w=console.warn;console.warn=function(m){if(typeof m==="string"&&m.indexOf("cdn.tailwindcss")>-1)return;_w.apply(console,arguments)}</script>
 <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -105,24 +104,25 @@
                     "display-lg": ["Montserrat"],
                     "body-md": ["Inter"]
             },
-            "fontSize": {
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
-                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
-                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
-                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
-            }
+                          "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
           },
         },
       }
     </script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/api/config"></script>
 <script defer src="config.js"></script>
-<script defer src="db.js"></script>
-</head>
+<script defer src="db.js?v=2"></script>
+  <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body class="bg-background text-on-background font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
 <!-- Top Navigation Bar -->
 <nav class="bg-surface-container-lowest dark:bg-surface border-b border-outline-variant dark:border-on-surface-variant shadow-sm docked full-width top-0 z-50 transition-all duration-300 ease-in-out">
@@ -177,7 +177,7 @@
 </div>
 <div class="relative hidden lg:block">
 <div class="w-full h-[500px] rounded-xl overflow-hidden shadow-xl shadow-primary/5">
-<img class="w-full h-full object-cover" data-alt="A cinematic, high-resolution photograph of a luxurious minimalist office interior in Nairobi with floor-to-ceiling windows overlooking the city skyline at dusk. The room features dark wood paneling, premium leather furniture, and soft warm architectural lighting. The overall mood is one of corporate prestige, quiet confidence, and elite professional real estate services." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj45kRgpLWaVesjc2gdByuCqXMzad5Sh_ZZkQxlIrmAOURA55XZo688YYyRW5_1WYU74sxr62KyYD1BijRsS9dw-jdp9VcX2bZIVZFpC31YqzbZK9Ff6fJU6_98qU5RBx0TAfwZn_NauFsNM9ff99L2CWMx6lEAujIO15bx3g7evjzDq4GEtLzCHbyhyElJvpZXtatGDrpM7AAdUZVYzlHKp0s9Z6bvaTNxu0hXRPK6Cs1ENBgiQ8nCtwByUU3SOZK2zFBce3xzGU"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="A cinematic, high-resolution photograph of a luxurious minimalist office interior in Nairobi with floor-to-ceiling windows overlooking the city skyline at dusk. The room features dark wood paneling, premium leather furniture, and soft warm architectural lighting. The overall mood is one of corporate prestige, quiet confidence, and elite professional real estate services." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj45kRgpLWaVesjc2gdByuCqXMzad5Sh_ZZkQxlIrmAOURA55XZo688YYyRW5_1WYU74sxr62KyYD1BijRsS9dw-jdp9VcX2bZIVZFpC31YqzbZK9Ff6fJU6_98qU5RBx0TAfwZn_NauFsNM9ff99L2CWMx6lEAujIO15bx3g7evjzDq4GEtLzCHbyhyElJvpZXtatGDrpM7AAdUZVYzlHKp0s9Z6bvaTNxu0hXRPK6Cs1ENBgiQ8nCtwByUU3SOZK2zFBce3xzGU"/>
 </div>
 <!-- Floating Widget -->
 <div class="absolute -bottom-8 -left-8 glass-effect p-md rounded-xl shadow-lg border border-outline-variant max-w-xs">
@@ -273,7 +273,7 @@
 <!-- Interactive Map Placeholder -->
 <div class="mt-md w-full h-[600px] rounded-xl overflow-hidden shadow-sm border border-outline-variant relative">
 <div class="absolute inset-0 z-0">
-<img class="w-full h-full object-cover grayscale contrast-125" data-location="Nairobi, Kenya" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGtJ19f-d1pFQyCajpS3crQZwZA5jUFbyDKJx4WyYOPJ42Q_6S-M92TScwoEvQiXPIUngiANjAMTjmjyYkjei1rapNLRefD2gYg6rolSZ5lU_HyROZEpH5a40gZRYW3kyltthExu5mV8TSL2dL01sg6z07YGm0LYzqaC8yRhiMr-mUKDIsbA0QAUlDRw5FvgV69Pv5jyjyxDCT4wZXRnsmUsba9UzY091XL87FQ-RyL8QnpagC2QATq0KMUo3E1gGBOvJps3zn7_8"/>
+<img loading="lazy" class="w-full h-full object-cover grayscale contrast-125" data-location="Nairobi, Kenya" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGtJ19f-d1pFQyCajpS3crQZwZA5jUFbyDKJx4WyYOPJ42Q_6S-M92TScwoEvQiXPIUngiANjAMTjmjyYkjei1rapNLRefD2gYg6rolSZ5lU_HyROZEpH5a40gZRYW3kyltthExu5mV8TSL2dL01sg6z07YGm0LYzqaC8yRhiMr-mUKDIsbA0QAUlDRw5FvgV69Pv5jyjyxDCT4wZXRnsmUsba9UzY091XL87FQ-RyL8QnpagC2QATq0KMUo3E1gGBOvJps3zn7_8"/>
 </div>
 <div class="absolute top-md left-md glass-effect p-sm rounded-lg shadow-md z-10 border border-outline-variant">
 <p class="font-label-md text-label-md text-primary">Regional Operations Map</p>
@@ -466,4 +466,5 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 </script>
 <script src="brand-loader.js?v=1"></script>
+<script src="seo-loader.js?v=1"></script>
 </body></html>

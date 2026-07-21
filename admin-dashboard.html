@@ -9,15 +9,14 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
 <title>TobillionHomes Admin | Dashboard Overview</title>
 <!-- Tailwind CSS -->
+<script>var _w=console.warn;console.warn=function(m){if(typeof m==="string"&&m.indexOf("cdn.tailwindcss")>-1)return;_w.apply(console,arguments)}</script>
 <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Google Fonts: Montserrat & Inter -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Theme Configuration -->
 <script id="tailwind-config">
       tailwind.config = {
@@ -99,16 +98,16 @@
                 "headline-md": ["Montserrat"],
                 "display-lg": ["Montserrat"]
             },
-            "fontSize": {
-                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
-                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
-                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
-                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-            }
+                          "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
           },
         },
       }
@@ -125,17 +124,18 @@
             background-color: #f8f9fa;
         }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
         h1, h2, h3, .brand-font {
-            font-family: 'Montserrat', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
     </style>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/api/config"></script>
 <script defer src="config.js"></script>
-<script defer src="db.js"></script>
-</head>
+<script defer src="db.js?v=2"></script>
+  <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body class="bg-background text-on-surface flex min-h-screen overflow-x-hidden">
 <!-- Sidebar Overlay (mobile only) -->
 <div class="admin-sidebar-overlay" id="sidebar-overlay"></div>
@@ -221,7 +221,7 @@
             Add Listing
         </button>
 <div class="ml-sm flex items-center gap-xs">
-<img class="w-8 h-8 rounded-full border border-outline-variant object-cover flex-shrink-0" data-alt="A professional headshot of a Kenyan male real estate administrator in his 40s, wearing a tailored navy blazer and a crisp white shirt. The background is a blurred high-end office with natural light. The overall mood is authoritative and trustworthy, fitting for a luxury estate management role." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3r999NKUnisVWHGeQP-z5YpF3OeO3szeUdFtKDchwoAvINO20eO6K3X9bpS_2hiceFgSoAe0YJDjh2M1g4BjZmtMVhwQgtYSaVrCUSRidX8miTlNdOtl2TPVLW_dbbJIOLS35ym8HqR4d5ESwyLsJyQjOVfDljxHmHa5u9YBJlgWp3GjahPChW9_KW4l01kYUJ42ZrFOaNfyGDYoFluVmKaH8hqG7PGiQ-b-fSMkQ-fhi0Fvnon41WiGsDcklDgbgdIkGDaA3Re4"/>
+<img loading="lazy" class="w-8 h-8 rounded-full border border-outline-variant object-cover flex-shrink-0" data-alt="A professional headshot of a Kenyan male real estate administrator in his 40s, wearing a tailored navy blazer and a crisp white shirt. The background is a blurred high-end office with natural light. The overall mood is authoritative and trustworthy, fitting for a luxury estate management role." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3r999NKUnisVWHGeQP-z5YpF3OeO3szeUdFtKDchwoAvINO20eO6K3X9bpS_2hiceFgSoAe0YJDjh2M1g4BjZmtMVhwQgtYSaVrCUSRidX8miTlNdOtl2TPVLW_dbbJIOLS35ym8HqR4d5ESwyLsJyQjOVfDljxHmHa5u9YBJlgWp3GjahPChW9_KW4l01kYUJ42ZrFOaNfyGDYoFluVmKaH8hqG7PGiQ-b-fSMkQ-fhi0Fvnon41WiGsDcklDgbgdIkGDaA3Re4"/>
 <span class="text-label-md font-label-md text-primary hidden lg:inline">Admin User</span>
 </div>
 </div>
@@ -232,7 +232,7 @@
 <div class="mb-lg flex justify-between items-end">
 <div>
 <h2 class="text-headline-lg font-headline-lg text-primary mb-xs">Dashboard Overview</h2>
-<p class="text-body-md text-on-surface-variant">Welcome back. Here is what’s happening with your luxury estate portfolio today.</p>
+<p class="text-body-md text-on-surface-variant">Welcome back. Here is what's happening with your luxury estate portfolio today.</p>
 </div>
 <div class="flex gap-xs">
 <button class="px-md py-xs border border-outline-variant rounded-lg text-label-md font-label-md hover:bg-surface-container-low transition-colors flex items-center gap-xs">
@@ -437,7 +437,7 @@
 </div>
 <!-- Footer Component -->
 <footer class="w-full py-sm mt-auto bg-surface border-t border-outline-variant flex justify-between items-center px-xl">
-<span class="text-label-sm font-label-sm text-outline">© 2025 TobillionHomes. All Rights Reserved.</span>
+<span class="text-label-sm font-label-sm text-outline">&copy; 2025 TobillionHomes. All Rights Reserved.</span>
 <div class="flex gap-md">
 <a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="privacy.html">Privacy Policy</a>
 <a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="privacy.html">Terms of Service</a>
@@ -450,19 +450,19 @@
 <span class="material-symbols-outlined">add</span>
 </button>
 <script>
-        // ── Status dot pulse ──────────────────────────────────────────
+        // â”€â”€ Status dot pulse â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         (function pulseStatus() {
           const dot = document.querySelector('.sidebar-status');
           if (dot) setInterval(() => dot.classList.toggle('opacity-70'), 2000);
         })();
 
-        // ── navigate helper ──────────────────────────────────────────
+        // â”€â”€ navigate helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         function navTo(url) { window.location.href = url; }
 
-        // ── Active filter state ──────────────────────────────────────
+        // â”€â”€ Active filter state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         let activeFilter = null; // null | 'last30'
 
-        // ── Export to CSV ────────────────────────────────────────────
+        // â”€â”€ Export to CSV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         async function exportReportCSV() {
           const properties = await fetchProperties();
           const leads = await fetchLeads();
@@ -508,7 +508,7 @@
           showToastInline('Report downloaded successfully', 'success');
         }
 
-        // ── Toast helper (duplicated from db.js for standalone buttons) ──
+        // â”€â”€ Toast helper (duplicated from db.js for standalone buttons) â”€â”€
         function showToastInline(msg, type) {
           let c = document.getElementById('toast-container');
           if (!c) {
@@ -526,7 +526,7 @@
           setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-20px)'; setTimeout(() => t.remove(), 300); }, 3500);
         }
 
-        // ── Wire all buttons ─────────────────────────────────────────
+        // â”€â”€ Wire all buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         function wireButtons() {
           // Header
           document.querySelectorAll('header button, main button, footer button, footer a').forEach(el => {
@@ -536,7 +536,7 @@
             if (txt.includes('export report')) {
               el.addEventListener('click', async (e) => {
                 e.preventDefault();
-                showToastInline('Generating report…', 'info');
+                showToastInline('Generating report...', 'info');
                 await exportReportCSV();
               });
             }
@@ -554,7 +554,7 @@
                   activeFilter = 'last30';
                   el.classList.add('bg-primary', 'text-on-primary');
                   el.classList.remove('border', 'border-outline-variant');
-                  showToastInline('Filtering last 30 days…', 'info');
+                  showToastInline('Filtering last 30 days...', 'info');
                 }
                 await loadDashboardStats();
               });
@@ -602,7 +602,7 @@
           if (viewAllActivities) viewAllActivities.href = 'admin-leads.html';
         }
 
-        // ── Filter data by last 30 days ─────────────────────────────
+        // â”€â”€ Filter data by last 30 days â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         function filterLast30(items) {
           if (activeFilter !== 'last30') return items;
           const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
@@ -612,7 +612,7 @@
           });
         }
 
-        // ── Load dashboard stats from real data ──────────────────────
+        // â”€â”€ Load dashboard stats from real data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         async function loadDashboardStats() {
             let properties = await fetchProperties();
             let leads = await fetchLeads();
@@ -742,7 +742,7 @@
             }
         }
 
-        // ── Scroll reveal observer ───────────────────────────────────
+        // â”€â”€ Scroll reveal observer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         const animObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -752,7 +752,7 @@
             });
         }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-        // ── Init on DOM ready ────────────────────────────────────────
+        // â”€â”€ Init on DOM ready â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         function requireDB() {
           if (typeof fetchMediaItems !== 'function') {
             const grid = document.getElementById('mediaGrid');

@@ -8,11 +8,11 @@
 <meta name="description" content="TobillionHomes - Kenya's premier luxury real estate platform. Browse exclusive villas, apartments, and estates for sale and rent in Nairobi, Mombasa, and beyond." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
 <title>TobillionHomes | Premium Kenyan Real Estate</title>
+<script>var _w=console.warn;console.warn=function(m){if(typeof m==="string"&&m.indexOf("cdn.tailwindcss")>-1)return;_w.apply(console,arguments)}</script>
 <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         .material-symbols-outlined {
@@ -118,7 +118,7 @@
                       "body-md": ["Inter"],
                       "label-sm": ["Inter"]
               },
-              "fontSize": {
+                            "fontSize": {
                       "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
                       "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
                       "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
@@ -133,9 +133,10 @@
         }
       </script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/api/config"></script>
 <script defer src="config.js"></script>
-<script defer src="db.js"></script>
-</head>
+<script defer src="db.js?v=2"></script>
+  <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body class="bg-surface text-on-surface font-body-md">
 <!-- TopNavBar -->
 <header class="bg-surface-container-lowest sticky top-0 z-50 shadow-sm border-b border-outline-variant">
@@ -245,7 +246,8 @@
 <h2 class="font-headline-lg text-headline-lg text-primary">Featured Premium Listings</h2>
 <a class="text-secondary font-label-md flex items-center gap-xs hover:underline" href="properties.html">View All <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<p class="text-on-surface-variant font-body-md mb-lg" id="featured-subtitle">Handpicked premium properties available this month.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md" id="featured-grid">
 <!-- Property Card 1 -->
 <div class="listing-card-wrapper">
 <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant/30 group card-aurora">
@@ -493,16 +495,19 @@
 
         // Dynamic Supabase Featured Properties Loading
         async function loadFeaturedProperties() {
-            const heading = Array.from(document.querySelectorAll('h2')).find(h => h.textContent.includes('Featured Premium Listings'));
-            if (!heading) return;
-            const section = heading.closest('section');
-            const container = heading.nextElementSibling;
+            const container = document.getElementById('featured-grid');
             if (!container) return;
 
             const properties = await fetchProperties();
             if (!properties || properties.length === 0) return;
 
-            container.innerHTML = properties.slice(0, 3).map((p, i) => `
+            let count = 3;
+            try {
+              const featured = await fetchSiteContent('featured');
+              if (featured && featured.count) count = parseInt(featured.count, 10) || 3;
+            } catch(e) {}
+
+            container.innerHTML = properties.slice(0, count).map((p, i) => `
                 <div class="listing-card-wrapper" style="transition-delay:${i * 100}ms">
                     <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,31,63,0.05)] border border-outline-variant/30 group card-aurora listing-card">
                         <div class="relative h-64 overflow-hidden cursor-pointer" onclick="window.location.href='detail.html?id=${p.id}'">
@@ -632,10 +637,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
     if (featuredVal.subtitle) {
-      const existingSub = featHeading.parentElement?.nextElementSibling;
-      if (existingSub?.tagName === 'P') {
-        existingSub.textContent = featuredVal.subtitle;
-      }
+      var subEl = document.getElementById('featured-subtitle');
+      if (subEl) subEl.textContent = featuredVal.subtitle;
     }
   }
 
@@ -683,4 +686,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 </script>
 <script src="brand-loader.js?v=1"></script>
+<script src="seo-loader.js?v=1"></script>
 </body></html>

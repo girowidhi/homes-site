@@ -8,13 +8,12 @@
 <meta name="description" content="List your property with TobillionHomes. Sell or rent your Kenyan property with Kenya's premier real estate agency." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
 <title>Sell Your Property | TobillionHomes</title>
+<script>var _w=console.warn;console.warn=function(m){if(typeof m==="string"&&m.indexOf("cdn.tailwindcss")>-1)return;_w.apply(console,arguments)}</script>
 <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -95,16 +94,16 @@
                     "display-lg": ["Montserrat"],
                     "body-md": ["Inter"]
             },
-            "fontSize": {
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
-                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
-                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
-                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
-            }
+                          "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
           },
         },
       }
@@ -122,9 +121,10 @@
         }
     </style>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/api/config"></script>
 <script defer src="config.js"></script>
-<script defer src="db.js"></script>
-</head>
+<script defer src="db.js?v=2"></script>
+  <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body class="bg-background text-on-surface font-body-md overflow-x-hidden">
 <!-- TopNavBar -->
 <header class="bg-surface-container-lowest dark:bg-surface border-b border-outline-variant dark:border-on-surface-variant shadow-sm docked full-width top-0 z-[100] sticky transition-all duration-300 ease-in-out">
@@ -171,10 +171,10 @@
 <div class="flex items-center gap-sm">
 <div class="flex -space-x-4">
 <div class="w-10 h-10 rounded-full border-2 border-primary bg-surface-variant flex items-center justify-center overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Portrait of a professional male real estate agent in a tailored navy suit, smiling confidently. Minimalist white background, soft studio lighting, sharp focus, corporate modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkiP_6y_XN2tkQiHcorGTBSfs-1wLzFZVlYP3vvE5-h_NAe58D01uCTg88f5nrtbE8_NYKK55LU1fCtqc1McnqQnZUN6bmlmANM9_B_fargh0LfU5oGhg8xMJDFU6oifDX1ZnuyTFpwaPMuxRIZGuoB4I7_h6GYLLupcOL970BNmTbaE6K9KDJbU9QNhXeP6t0LiGINOwwWWpo7CFyswJZIqzXdrYo7o8-06DQmqHo5CNqqKCaL-eGq4qOiPI8MgaP4RUC7ePsY3Y"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="Portrait of a professional male real estate agent in a tailored navy suit, smiling confidently. Minimalist white background, soft studio lighting, sharp focus, corporate modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkiP_6y_XN2tkQiHcorGTBSfs-1wLzFZVlYP3vvE5-h_NAe58D01uCTg88f5nrtbE8_NYKK55LU1fCtqc1McnqQnZUN6bmlmANM9_B_fargh0LfU5oGhg8xMJDFU6oifDX1ZnuyTFpwaPMuxRIZGuoB4I7_h6GYLLupcOL970BNmTbaE6K9KDJbU9QNhXeP6t0LiGINOwwWWpo7CFyswJZIqzXdrYo7o8-06DQmqHo5CNqqKCaL-eGq4qOiPI8MgaP4RUC7ePsY3Y"/>
 </div>
 <div class="w-10 h-10 rounded-full border-2 border-primary bg-surface-variant flex items-center justify-center overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Portrait of a sophisticated female real estate executive in professional business attire. High-end lighting, clean minimalist composition, sharp focus, vibrant yet professional mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3_4DTz4JsGPtueYf_r8raUjyEG5A-wzlYMKTafsoaKTFPDlThDHzNuR0NdDr7AJxehjbb9ur9Y2LfZKWPmbfweJufYsWXxjFE2QJMrlM1ROECfXqoNqF-r3p_SnTjTQPHemN0AIlILAPEf8fSQifPckkQlGQkY9_rlnTXaDDhtZ4EHJGmWmL0jzgmerl-T7FgstiGb8lNdP5Jdr-FHSoasFfpQjZWhVejgFskIt9UyAt0t1ETP8j1B6qIxuymOl82au19BaTpFBM"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="Portrait of a sophisticated female real estate executive in professional business attire. High-end lighting, clean minimalist composition, sharp focus, vibrant yet professional mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3_4DTz4JsGPtueYf_r8raUjyEG5A-wzlYMKTafsoaKTFPDlThDHzNuR0NdDr7AJxehjbb9ur9Y2LfZKWPmbfweJufYsWXxjFE2QJMrlM1ROECfXqoNqF-r3p_SnTjTQPHemN0AIlILAPEf8fSQifPckkQlGQkY9_rlnTXaDDhtZ4EHJGmWmL0jzgmerl-T7FgstiGb8lNdP5Jdr-FHSoasFfpQjZWhVejgFskIt9UyAt0t1ETP8j1B6qIxuymOl82au19BaTpFBM"/>
 </div>
 </div>
 <span class="font-label-sm text-label-sm opacity-80">Trusted by 500+ Luxury Homeowners</span>
@@ -264,7 +264,7 @@
 <!-- Feature 1 -->
 <div class="group">
 <div class="h-64 rounded-xl overflow-hidden mb-md relative">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional high-end real estate photographer using a tripod and professional lighting gear to capture a minimalist modern living room. The room has neutral tones, large windows, and designer furniture. The lighting is bright and airy, representing elite property presentation services." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-uHHOIZDdC_OVN0QP2PjjjQIu3LYIlDHpIpyBhCOBkfFs9-AO65O59GdSJIJ0TPs7hrNyWTt2QARG_A0cBxgCF4eW645dm05jUIjUPA4hp27FPgpwvr5XToxASd_UlqjQJRTlI21TiRuS1UPufRYKf18a3eMKwd8yYltMKnL0HyVVHLq2g_hlU63qIUBWHffCkrmy6rtwke-QXS_QsH87YrjNRz53nfdJzaQ14kp_Uh5w9UOuGfyuDWKxivie1qV-oxw5mBDbr1U"/>
+<img loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional high-end real estate photographer using a tripod and professional lighting gear to capture a minimalist modern living room. The room has neutral tones, large windows, and designer furniture. The lighting is bright and airy, representing elite property presentation services." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-uHHOIZDdC_OVN0QP2PjjjQIu3LYIlDHpIpyBhCOBkfFs9-AO65O59GdSJIJ0TPs7hrNyWTt2QARG_A0cBxgCF4eW645dm05jUIjUPA4hp27FPgpwvr5XToxASd_UlqjQJRTlI21TiRuS1UPufRYKf18a3eMKwd8yYltMKnL0HyVVHLq2g_hlU63qIUBWHffCkrmy6rtwke-QXS_QsH87YrjNRz53nfdJzaQ14kp_Uh5w9UOuGfyuDWKxivie1qV-oxw5mBDbr1U"/>
 <div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 transition-opacity"></div>
 </div>
 <h3 class="font-headline-md text-headline-md text-primary mb-sm">Professional Media</h3>
@@ -273,7 +273,7 @@
 <!-- Feature 2 -->
 <div class="group">
 <div class="h-64 rounded-xl overflow-hidden mb-md relative">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A clean digital dashboard displaying complex real estate market analytics, including price trends, buyer demographics, and heat maps of Nairobi luxury districts. The UI is sleek and corporate with emerald green and deep navy accents, representing data-driven valuation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7-NvVYwYoIYtsVvPVrJDesDw9eR-tSh_OxHwK_eOSYMrLjMiK-jaR8zSXJh6VqzbGRXaB4F8z9aSjJ9yScuiHpAuNJXraIBTUwoVMW8jmIfNkBTyS4E8XNLIFoyeuHeAHm0U61IevnYDH61uF8ps4xfhbadJlRND-mfHFrsKGIA10kmE-ke0r48gEJM2IqoOpmzG2d56-oG3fmCmGRFnp4-yQGvat715qklnMOaISHMdG2aRU1GGX8Wt0MItbq7IqEg-7OUqHij0"/>
+<img loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A clean digital dashboard displaying complex real estate market analytics, including price trends, buyer demographics, and heat maps of Nairobi luxury districts. The UI is sleek and corporate with emerald green and deep navy accents, representing data-driven valuation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7-NvVYwYoIYtsVvPVrJDesDw9eR-tSh_OxHwK_eOSYMrLjMiK-jaR8zSXJh6VqzbGRXaB4F8z9aSjJ9yScuiHpAuNJXraIBTUwoVMW8jmIfNkBTyS4E8XNLIFoyeuHeAHm0U61IevnYDH61uF8ps4xfhbadJlRND-mfHFrsKGIA10kmE-ke0r48gEJM2IqoOpmzG2d56-oG3fmCmGRFnp4-yQGvat715qklnMOaISHMdG2aRU1GGX8Wt0MItbq7IqEg-7OUqHij0"/>
 <div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 transition-opacity"></div>
 </div>
 <h3 class="font-headline-md text-headline-md text-primary mb-sm">Smart Valuation</h3>
@@ -282,7 +282,7 @@
 <!-- Feature 3 -->
 <div class="group">
 <div class="h-64 rounded-xl overflow-hidden mb-md relative">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A sleek corporate office meeting room with glass walls overlooking a modern skyline. A group of diverse international investors are looking at a digital presentation of luxury real estate portfolios. High-end, professional setting with soft, ambient daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfHFtxpaS9Lt3t_o0DnyQM6pkSqWwX8uJvn_OGMzfjOqzsCFJdJ-ZuHjWK_Hg_3KG2glMyJHjZbsTY1PCnjea_r0NfKAsfE8_x-mXNtOKXpoB24RtvF9fceVsXULzxxHO4gI4iWbMcljXODUyrqFLQ_HxHQP_T1npF1Tw_Xtca6C7vcgcbQQErEffpswoCsD8rhmn-oiDEHCAK-QHi1DX8wg2brRyK4_8se-MXnBLA44ojuCNzWnJHI6Ht6iH3S466jBeeVWLW7xc"/>
+<img loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A sleek corporate office meeting room with glass walls overlooking a modern skyline. A group of diverse international investors are looking at a digital presentation of luxury real estate portfolios. High-end, professional setting with soft, ambient daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfHFtxpaS9Lt3t_o0DnyQM6pkSqWwX8uJvn_OGMzfjOqzsCFJdJ-ZuHjWK_Hg_3KG2glMyJHjZbsTY1PCnjea_r0NfKAsfE8_x-mXNtOKXpoB24RtvF9fceVsXULzxxHO4gI4iWbMcljXODUyrqFLQ_HxHQP_T1npF1Tw_Xtca6C7vcgcbQQErEffpswoCsD8rhmn-oiDEHCAK-QHi1DX8wg2brRyK4_8se-MXnBLA44ojuCNzWnJHI6Ht6iH3S466jBeeVWLW7xc"/>
 <div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 transition-opacity"></div>
 </div>
 <h3 class="font-headline-md text-headline-md text-primary mb-sm">Global Exposure</h3>
@@ -296,7 +296,7 @@
 <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
 <div class="relative">
 <div class="aspect-square rounded-2xl overflow-hidden border-8 border-primary-container shadow-2xl">
-<img class="w-full h-full object-cover" data-alt="A breathtaking twilight view of a contemporary glass mansion in Muthaiga, Nairobi. The interior lights are glowing warmly, reflecting in a serene outdoor pool. The surrounding vegetation is lush and tropical. The image evokes extreme prestige, luxury, and success." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjp1NT_KVR0Os6wd5qRlM0APMPo0oh25YXITYiRvo17x7fy_r8RBY_ntiZHqa4hdQYrqV_tBoySt04jY3yaq8oOwm6lrHWPBGtZncySx11Kv40XlmHzYwCsVEgjgFaFx7nbyNiBnFg-EWwxroKf_HiOsSbS9lQGhMpOvp_SA1dTMq3dWRUvFd0QkEAAN6fh1U741Cxjx-LkcBlJJgJmZ4X0L03g0AaY0DEwRH_rzfKM8f0yQwTki8vbeKUniPJP0c_Tnz3cdssCws"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="A breathtaking twilight view of a contemporary glass mansion in Muthaiga, Nairobi. The interior lights are glowing warmly, reflecting in a serene outdoor pool. The surrounding vegetation is lush and tropical. The image evokes extreme prestige, luxury, and success." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjp1NT_KVR0Os6wd5qRlM0APMPo0oh25YXITYiRvo17x7fy_r8RBY_ntiZHqa4hdQYrqV_tBoySt04jY3yaq8oOwm6lrHWPBGtZncySx11Kv40XlmHzYwCsVEgjgFaFx7nbyNiBnFg-EWwxroKf_HiOsSbS9lQGhMpOvp_SA1dTMq3dWRUvFd0QkEAAN6fh1U741Cxjx-LkcBlJJgJmZ4X0L03g0AaY0DEwRH_rzfKM8f0yQwTki8vbeKUniPJP0c_Tnz3cdssCws"/>
 </div>
 <div class="absolute -bottom-8 -right-8 bg-secondary p-md rounded-xl shadow-xl max-w-xs hidden md:block">
 <p class="font-headline-md text-headline-md text-on-secondary mb-base">Sold in 9 Days</p>
@@ -308,7 +308,7 @@
 <h2 class="font-headline-lg text-headline-lg mb-md italic font-light">"TobillionHomes didn't just sell my house; they curated a story that attracted the exact buyer I was looking for. Their marketing is in a league of its own."</h2>
 <div class="flex items-center gap-md">
 <div class="w-16 h-16 rounded-full bg-surface-variant overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Close up portrait of a distinguished middle-aged Kenyan businessman with a warm, satisfied smile. He is wearing a charcoal suit. Soft lighting, professional corporate style, blurred outdoor background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM3HTIOuyFdmJtQe8aBNCm5ivWPErc63sh-ZhY5sEd4cfqyyW5CpFN5J-7znrcCP7s2JIgbAQ5jf4n0XK_pevnWEqefyXQ8CFk33veWob860-F-1SyibdcdfwDx8cE9qsGdQ_QGOElkTyVy_CXfbhiZsd3u2ISgM3fMfdUwKO7oJ7awunQbhKW-9qE_dCJlLRxTjf3xzkVmSn7H3sn8DTZ0bBCVO-TB6_EPLJpNK6aMGaiZANmULyOEg78-X1aZLlN-chueiyJIIs"/>
+<img loading="lazy" class="w-full h-full object-cover" data-alt="Close up portrait of a distinguished middle-aged Kenyan businessman with a warm, satisfied smile. He is wearing a charcoal suit. Soft lighting, professional corporate style, blurred outdoor background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM3HTIOuyFdmJtQe8aBNCm5ivWPErc63sh-ZhY5sEd4cfqyyW5CpFN5J-7znrcCP7s2JIgbAQ5jf4n0XK_pevnWEqefyXQ8CFk33veWob860-F-1SyibdcdfwDx8cE9qsGdQ_QGOElkTyVy_CXfbhiZsd3u2ISgM3fMfdUwKO7oJ7awunQbhKW-9qE_dCJlLRxTjf3xzkVmSn7H3sn8DTZ0bBCVO-TB6_EPLJpNK6aMGaiZANmULyOEg78-X1aZLlN-chueiyJIIs"/>
 </div>
 <div>
 <p class="font-body-lg text-body-lg font-bold">David Mwangi</p>
@@ -421,4 +421,5 @@
     </script>
 <script src="public-nav.js"></script>
 <script src="brand-loader.js?v=1"></script>
+<script src="seo-loader.js?v=1"></script>
 </body></html>

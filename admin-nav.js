@@ -1,14 +1,6 @@
 // admin-nav.js - Access control, navigation routing, and shared UI components for all TobillionHomes Admin pages
 
-// Inject vegence-ui.css on admin pages (same look & feel as public pages)
-(function injectAdminStyles() {
-  if (!document.querySelector('link[href="vegence-ui.css"]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'vegence-ui.css';
-    document.head.appendChild(link);
-  }
-})();
+// vegence-ui.css is now linked in the <head> of all pages
 
 // ── MODAL SYSTEM ────────────────────────────────────────────────
 (function injectModalStyles() {

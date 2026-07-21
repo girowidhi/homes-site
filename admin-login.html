@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
@@ -72,7 +72,7 @@ label{display:block}.input-wrapper{position:relative}
 .checkbox-wrap input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
 .checkbox-visual{width:20px;height:20px;border:2px solid #c4c6cf;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all .3s cubic-bezier(.4,0,.2,1);flex-shrink:0}
 .checkbox-wrap input:checked+.checkbox-visual{background:#000613;border-color:#000613}
-.checkbox-wrap input:checked+.checkbox-visual::after{content:'âœ“';color:#fff;font-size:14px;font-weight:700}
+.checkbox-wrap input:checked+.checkbox-visual::after{content:'✓';color:#fff;font-size:14px;font-weight:700}
 .checkbox-label{font-size:14px;color:#43474e}.checkbox-wrap:hover .checkbox-label{color:#000613}
 /* Password toggle */
 .pwd-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;padding:4px;color:#74777f;transition:color .2s;line-height:1}
@@ -98,17 +98,19 @@ label{display:block}.input-wrapper{position:relative}
 .side-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:.8}
 .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.03;z-index:-1;background-image:radial-gradient(#000 1px,transparent 1px);background-size:24px 24px}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/api/config"></script>
+<script defer src="config.js"></script>
 <script>/* db.js auth functions inlined for login page only */
 let supabaseClient;
 
 function initSupabaseClient() {
-  if (window.supabase && SUPABASE_CONFIG && SUPABASE_CONFIG.url) {
-    supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey, { auth: { persistSession: true, autoRefreshToken: true } });
+  if (window.supabase && window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url) {
+    supabaseClient = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey, { auth: { persistSession: true, autoRefreshToken: true } });
   }
 }
-initSupabaseClient();
+
+document.addEventListener('DOMContentLoaded', initSupabaseClient);
 
 async function getCurrentUser() {
   if (!supabaseClient) return null;
@@ -143,7 +145,7 @@ function showToast(message, type = 'success') {
   setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-10px)'; setTimeout(() => t.remove(), 300); }, 3000);
 }
 </script>
-</head>
+  <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body>
 <main class="flex">
 <section class="side-section">
@@ -180,7 +182,7 @@ function showToast(message, type = 'success') {
 </div>
 <div class="input-wrapper">
 <input class="input-field input-field-pwd" id="password" placeholder="Enter your password" required type="password"/>
-<button type="button" class="pwd-toggle" id="pwd-toggle" aria-label="Toggle password visibility" tabindex="-1">👁</button>
+<button type="button" class="pwd-toggle" id="pwd-toggle" aria-label="Toggle password visibility" tabindex="-1">??</button>
 </div>
 </div>
 <div style="margin-bottom:24px">
@@ -259,7 +261,7 @@ function showToast(message, type = 'success') {
             const pwd = document.getElementById('password');
             const isPassword = pwd.type === 'password';
             pwd.type = isPassword ? 'text' : 'password';
-            this.textContent = isPassword ? '👁‍🗨' : '👁';
+            this.textContent = isPassword ? '?????' : '??';
         });
 
         // Auto-focus next input for 2FA code
@@ -306,7 +308,7 @@ function showToast(message, type = 'success') {
                 } else {
                     showToast("Access Denied: Admin role required.", "error");
                     await logoutUser();
-                    btn.innerHTML = '<span>Sign In to Dashboard</span><span>â†’</span>';
+                    btn.innerHTML = '<span>Sign In to Dashboard</span><span>→</span>';
                     btn.disabled = false;
                 }
             }

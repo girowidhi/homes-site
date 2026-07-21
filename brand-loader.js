@@ -49,6 +49,20 @@
         if (footerBrand) replaceWithLogo(footerBrand);
       }
 
+      // Tagline — inject into footer description if present
+      var tagline = (brand && brand.tagline) || '';
+      if (tagline) {
+        // Add tagline to footer brand description if not already set
+        var footerBrand = document.querySelector('footer p');
+        if (footerBrand && footerBrand.textContent.includes(_name || 'TobillionHomes') && !footerBrand.querySelector('.brand-tagline')) {
+          var tagEl = document.createElement('span');
+          tagEl.className = 'brand-tagline';
+          tagEl.style.cssText = 'display:block;font-size:0.8rem;color:#43474e;margin-top:4px;';
+          tagEl.textContent = tagline;
+          footerBrand.appendChild(tagEl);
+        }
+      }
+
       // Preload logo image after replacing (smooth future navigation)
       if (_logo) {
         var preloader = new Image();

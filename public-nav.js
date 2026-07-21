@@ -66,14 +66,7 @@
       link.href = 'vegence-ui.css';
       document.head.appendChild(link);
     }
-    // Premium Fonts (Outfit + DM Sans)
-    if (!document.querySelector('link[data-vegence-fonts]')) {
-      const fLink = document.createElement('link');
-      fLink.rel = 'stylesheet';
-      fLink.setAttribute('data-vegence-fonts', '1');
-      fLink.href = 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap';
-      document.head.prepend(fLink);
-    }
+    // Fonts are set via tailwind config + vegence-ui.css — no external font loading needed
   }
 
   function setupNotchNavbar() {
@@ -93,7 +86,7 @@
     notchNav.innerHTML = `
       <button class="mobile-hamburger material-symbols-outlined" id="mobile-menu-btn" aria-label="Open menu">menu</button>
       <div style="display:flex;align-items:center;gap:0.75rem;min-width:0;flex:1;overflow:hidden;">
-        <span style="font-family:'Outfit',sans-serif;font-size:1rem;font-weight:800;color:#000613;white-space:nowrap;cursor:pointer;letter-spacing:-0.03em;flex-shrink:0;" onclick="window.location.href='index.html'">TobillionHomes</span>
+        <span style="font-size:1rem;font-weight:700;color:#000613;white-space:nowrap;cursor:pointer;flex-shrink:0;" onclick="window.location.href='index.html'">TobillionHomes</span>
         <div class="notch-nav-links hidden md:flex" style="gap:1rem;overflow:hidden;flex:1;">
           <a class="notch-nav-link" style="color:${currentFile==='properties.html'?'#006c4e':'#43474e'};font-weight:600;" href="properties.html">Listings</a>
           <a class="notch-nav-link" style="color:${currentFile==='developments.html'?'#006c4e':'#43474e'};font-weight:600;" href="developments.html">Projects</a>
@@ -664,6 +657,35 @@
     }, 3200);
   }
 
+  // ── Dynamic Nav: load from site_content ────────────────────────────────────
+  async function loadDynamicNav() {
+    try {
+      if (typeof fetchSiteContent !== 'function') return;
+      var navItems = await fetchSiteContent('nav');
+      if (!navItems || !Array.isArray(navItems) || navItems.length === 0) return;
+
+      var currentFile = window.location.pathname.split('/').pop() || 'index.html';
+
+      // Update notch navbar links
+      var navLinks = document.querySelector('.notch-nav-links');
+      if (navLinks) {
+        navLinks.innerHTML = navItems.map(function(item){
+          var isActive = currentFile === item.link;
+          return '<a class="notch-nav-link" style="color:' + (isActive ? '#006c4e' : '#43474e') + ';font-weight:600;" href="' + item.link + '">' + item.label + '</a>';
+        }).join('');
+      }
+
+      // Update mobile drawer main nav items (keep the special bottom items)
+      var drawerNav = document.querySelector('.mobile-drawer-panel > nav');
+      if (drawerNav) {
+        drawerNav.innerHTML = navItems.map(function(item){
+          var isActive = currentFile === item.link;
+          return '<a class="mobile-drawer-item' + (isActive ? ' active' : '') + '" href="' + item.link + '"><span class="material-symbols-outlined">navigation</span> ' + item.label + '</a>';
+        }).join('');
+      }
+    } catch(e) {}
+  }
+
   // ── Main Initializer ─────────────────────────────────────────────────────────
   function init() {
     injectStyles();
@@ -674,6 +696,7 @@
     injectSilhouetteFooter();
     initMorphText();
     setupLoaderTriggers();
+    loadDynamicNav();
 
     wireLogoLinks();
     wireNavLinks();

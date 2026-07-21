@@ -7,13 +7,12 @@
 <meta name="description" content="Add a new property listing to TobillionHomes. Create detailed property entries with photos, features, and pricing." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22%231a365d%22 d=%22M8 1L1 7v1h1v6h4v-4h4v4h4V8h1V7L8 1zM3 7.5l5-4.5 5 4.5V13h-2V9H5v4H3V7.5z%22/></svg>" />
 <title>Add Property | TobillionHomes Admin</title>
+<script>var _w=console.warn;console.warn=function(m){if(typeof m==="string"&&m.indexOf("cdn.tailwindcss")>-1)return;_w.apply(console,arguments)}</script>
 <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
   .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -55,15 +54,16 @@
         borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
         spacing: { sm: "16px", md: "24px", "container-max": "1280px", xl: "64px", base: "4px", xs: "8px", lg: "40px", gutter: "24px" },
         fontFamily: { "label-md": ["Inter"], "body-md": ["Inter"], "headline-lg-mobile": ["Montserrat"], "label-sm": ["Inter"], "headline-lg": ["Montserrat"], "body-lg": ["Inter"], "headline-md": ["Montserrat"], "display-lg": ["Montserrat"] },
-        fontSize: { "label-md": ["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}], "body-md": ["16px",{"lineHeight":"24px","fontWeight":"400"}], "headline-lg-mobile": ["28px",{"lineHeight":"36px","fontWeight":"600"}], "label-sm": ["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"500"}], "headline-lg": ["32px",{"lineHeight":"40px","fontWeight":"600"}], "body-lg": ["18px",{"lineHeight":"28px","fontWeight":"400"}], "headline-md": ["24px",{"lineHeight":"32px","fontWeight":"600"}], "display-lg": ["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}] }
+        fontSize: { "label-md": ["Inter"], "body-md": ["Inter"], "headline-lg-mobile": ["Montserrat"], "label-sm": ["Inter"], "headline-lg": ["Montserrat"], "body-lg": ["Inter"], "headline-md": ["Montserrat"], "display-lg": ["Montserrat"] }
         }
     }
   }
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/api/config"></script>
 <script defer src="config.js"></script>
-<script defer src="db.js"></script>
-</head>
+<script defer src="db.js?v=2"></script>
+  <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body class="bg-background text-on-surface font-body-md overflow-x-hidden">
 <div class="admin-sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -136,7 +136,7 @@
       <span class="material-symbols-outlined text-on-surface-variant">settings</span>
     </button>
     <div class="ml-sm flex items-center gap-xs">
-      <img class="w-8 h-8 rounded-full border border-outline-variant object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3r999NKUnisVWHGeQP-z5YpF3OeO3szeUdFtKDchwoAvINO20eO6K3X9bpS_2hiceFgSoAe0YJDjh2M1g4BjZmtMVhwQgtYSaVrCUSRidX8miTlNdOtl2TPVLW_dbbJIOLS35ym8HqR4d5ESwyLsJyQjOVfDljxHmHa5u9YBJlgWp3GjahPChW9_KW4l01kYUJ42ZrFOaNfyGDYoFluVmKaH8hqG7PGiQ-b-fSMkQ-fhi0Fvnon41WiGsDcklDgbgdIkGDaA3Re4"/>
+      <img loading="lazy" class="w-8 h-8 rounded-full border border-outline-variant object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3r999NKUnisVWHGeQP-z5YpF3OeO3szeUdFtKDchwoAvINO20eO6K3X9bpS_2hiceFgSoAe0YJDjh2M1g4BjZmtMVhwQgtYSaVrCUSRidX8miTlNdOtl2TPVLW_dbbJIOLS35ym8HqR4d5ESwyLsJyQjOVfDljxHmHa5u9YBJlgWp3GjahPChW9_KW4l01kYUJ42ZrFOaNfyGDYoFluVmKaH8hqG7PGiQ-b-fSMkQ-fhi0Fvnon41WiGsDcklDgbgdIkGDaA3Re4"/>
       <span class="text-label-md font-label-md text-primary hidden lg:inline">Admin User</span>
     </div>
   </div>
@@ -514,7 +514,7 @@ function showToastInline(msg, type) {
   setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-20px)'; setTimeout(() => t.remove(), 300); }, 4000);
 }
 
-// ── File upload state ────────────────────────────────────────────────
+// â”€â”€ File upload state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const uploadedImages = []; // { file, dataUrl, isHero }
 let isUploading = false;
 
@@ -535,7 +535,7 @@ function updateMediaUI() {
   const hasHero = uploadedImages.some(img => img.isHero);
   imageGrid.innerHTML = uploadedImages.map((img, i) => `
     <div class="relative group aspect-square rounded-lg overflow-hidden border-2 ${img.isHero ? 'border-secondary' : 'border-outline-variant'} ${img.loading ? 'img-placeholder-pulse' : ''}">
-      <img class="w-full h-full object-cover ${img.loading ? 'opacity-0' : 'opacity-100'}" src="${img.dataUrl}" alt="Upload ${i+1}" onload="this.classList.remove('opacity-0')"/>
+      <img loading="lazy" class="w-full h-full object-cover ${img.loading ? 'opacity-0' : 'opacity-100'}" src="${img.dataUrl}" alt="Upload ${i+1}" onload="this.classList.remove('opacity-0')"/>
       ${img.isHero ? '<div class="absolute top-2 left-2 bg-secondary text-on-secondary px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">Hero</div>' : ''}
       <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
         ${!hasHero || img.isHero ? '' : `<button onclick="setHero(${i})" class="bg-surface-container-lowest px-2 py-1 rounded text-label-sm font-label-sm hover:bg-surface transition-colors">Set Hero</button>`}
@@ -614,7 +614,7 @@ uploadZone.addEventListener('drop', (e) => {
   if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
 });
 
-// ── Form data gathering ──────────────────────────────────────────────
+// â”€â”€ Form data gathering â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function getSelectedAmenities() {
   return Array.from(document.querySelectorAll('#amenities-container input[type="checkbox"]:checked')).map(cb => cb.value);
 }
@@ -643,7 +643,7 @@ function getPropertyData(status) {
   };
 }
 
-// ── Publish ──────────────────────────────────────────────────────────
+// â”€â”€ Publish â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.getElementById('publish-btn').addEventListener('click', async (e) => {
   e.preventDefault();
   const form = document.getElementById('addPropertyForm');
@@ -679,7 +679,7 @@ document.getElementById('publish-btn').addEventListener('click', async (e) => {
   }
 });
 
-// ── Save Draft ───────────────────────────────────────────────────────
+// â”€â”€ Save Draft â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.getElementById('draft-btn').addEventListener('click', async (e) => {
   e.preventDefault();
   const btn = e.currentTarget;
@@ -704,11 +704,11 @@ document.getElementById('draft-btn').addEventListener('click', async (e) => {
   setTimeout(() => { btn.textContent = 'Save Draft'; }, 2000);
 });
 
-// ── Header actions ───────────────────────────────────────────────────
+// â”€â”€ Header actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.getElementById('notif-btn')?.addEventListener('click', () => showToastInline('No new notifications', 'info'));
 document.getElementById('settings-btn')?.addEventListener('click', () => navTo('admin-content.html'));
 
-// ── Label focus effect ───────────────────────────────────────────────
+// â”€â”€ Label focus effect â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('input, textarea, select').forEach(input => {
   input.addEventListener('focus', () => input.closest('.space-y-xs')?.querySelector('label')?.classList.add('text-primary'));
   input.addEventListener('blur', () => input.closest('.space-y-xs')?.querySelector('label')?.classList.remove('text-primary'));

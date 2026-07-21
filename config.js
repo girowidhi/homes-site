@@ -1,6 +1,7 @@
 // Supabase Configuration
 // For local dev: set SUPABASE_URL and SUPABASE_ANON_KEY in browser localStorage via DevTools.
 // For Vercel production: set SUPABASE_URL and SUPABASE_ANON_KEY in Vercel Environment Variables.
+// The /api/config script (loaded before this) sets window.__ENV from Vercel env vars.
 
 (function(){
   var env = window.__ENV || {};
@@ -11,22 +12,20 @@
       anonKey: key || window.localStorage.getItem('SUPABASE_ANON_KEY') || ''
     };
     window.WHATSAPP_NUMBER = '254700000000';
+    if (url) {
+      var origin = url.replace(/\/rest\/v1.*$/, '').replace(/\/$/, '');
+      var link = document.createElement('link');
+      link.rel = 'preconnect';
+      link.href = origin;
+      link.crossOrigin = 'anonymous';
+      document.head.appendChild(link);
+      var link2 = document.createElement('link');
+      link2.rel = 'dns-prefetch';
+      link2.href = origin;
+      document.head.appendChild(link2);
+    }
   }
 
-  // Set initial config from localStorage / window.__ENV
+  // Set config from window.__ENV (populated by /api/config script) or localStorage
   setConfig(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
-
-  // For Vercel deployment: fetch env vars from the API endpoint
-  fetch('/api/config')
-    .then(function(r) { return r.text(); })
-    .then(function(js) {
-      try {
-        eval(js);
-        var e = window.__ENV || {};
-        if (e.SUPABASE_URL && e.SUPABASE_ANON_KEY) {
-          setConfig(e.SUPABASE_URL, e.SUPABASE_ANON_KEY);
-        }
-      } catch(e) {}
-    })
-    .catch(function() { /* no-op, running locally */ });
 })();
