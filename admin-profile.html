@@ -32,34 +32,14 @@ label { font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spa
 .toast-fixed.error { background:var(--md-sys-color-error, #ba1a1a); color:#fff; }
 .toast-fixed.info { background:var(--md-sys-color-surface-container-high, #eceef4); color:var(--md-sys-color-on-surface, #1b1b1f); }
 @keyframes fadeInUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.admin-main { margin-left: 0 !important; }
 </style>
   <link rel="stylesheet" href="vegence-ui.css"/></head>
 <body class="admin-body">
-<!-- Sidebar -->
-<aside class="admin-sidebar" id="admin-sidebar">
-  <div class="sidebar-header">
-    <span class="material-symbols-outlined text-primary">real_estate_agent</span>
-    <span class="sidebar-title">Admin Panel</span>
-  </div>
-  <button class="sidebar-toggle" id="sidebar-toggle"><span class="material-symbols-outlined">chevron_left</span></button>
-  <nav class="sidebar-nav">
-    <a href="admin-dashboard.html"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
-    <a href="admin-manage-properties.html"><span class="material-symbols-outlined">real_estate_agent</span><span>Properties</span></a>
-    <a href="admin-leads.html"><span class="material-symbols-outlined">group</span><span>Leads</span></a>
-    <a href="admin-media.html"><span class="material-symbols-outlined">perm_media</span><span>Media Library</span></a>
-    <a href="admin-content.html"><span class="material-symbols-outlined">edit_note</span><span>Site Content</span></a>
-    <a href="admin-analytics.html"><span class="material-symbols-outlined">analytics</span><span>Analytics</span></a>
-    <a href="admin-profile.html" class="active"><span class="material-symbols-outlined">account_circle</span><span>Profile</span></a>
-    <a href="#" id="logoutLink"><span class="material-symbols-outlined">logout</span><span>Logout</span></a>
-  </nav>
-</aside>
-<div class="admin-sidebar-overlay" id="sidebar-overlay"></div>
-
 <!-- Main Content -->
 <div class="admin-main">
   <header class="w-full h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant flex items-center px-md">
     <div class="flex items-center gap-sm flex-grow min-w-0">
-      <button class="mobile-hamburger-admin p-1 rounded-lg hover:bg-surface-container-low transition-colors flex-shrink-0" id="mobile-menu-btn"><span class="material-symbols-outlined text-on-surface-variant">menu</span></button>
       <h1 class="text-headline-md font-bold text-primary whitespace-nowrap">Admin Profile</h1>
     </div>
     <div class="flex items-center gap-sm flex-shrink-0">
@@ -69,6 +49,9 @@ label { font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spa
       </button>
       <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors group" id="settingsBtn">
         <span class="material-symbols-outlined text-on-surface-variant">settings</span>
+      </button>
+      <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors group" id="logoutBtn" title="Logout">
+        <span class="material-symbols-outlined text-on-surface-variant">logout</span>
       </button>
       <div class="ml-sm flex items-center gap-xs">
         <img loading="lazy" class="w-8 h-8 rounded-full border border-outline-variant object-cover flex-shrink-0" id="profileAvatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3r999NKUnisVWHGeQP-z5YpF3OeO3szeUdFtKDchwoAvINO20eO6K3X9bpS_2hiceFgSoAe0YJDjh2M1g4BjZmtMVhwQgtYSaVrCUSRidX8miTlNdOtl2TPVLW_dbbJIOLS35ym8HqR4d5ESwyLsJyQjOVfDljxHmHa5u9YBJlgWp3GjahPChW9_KW4l01kYUJ42ZrFOaNfyGDYoFluVmKaH8hqG7PGiQ-b-fSMkQ-fhi0Fvnon41WiGsDcklDgbgdIkGDaA3Re4"/>
@@ -221,6 +204,12 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   // Cancel
   document.getElementById('cancelBtn').addEventListener('click', function() { loadProfile(); showToast('Changes discarded', 'info'); });
+
+  // Logout
+  document.getElementById('logoutBtn').addEventListener('click', async function() {
+    await logoutUser();
+    window.location.href = 'admin-login.html';
+  });
 
   // Toast
   function showToast(msg, type) {

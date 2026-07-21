@@ -1,7 +1,9 @@
--- TobillionHomes Database Schema & Security Configuration
--- Run this in your Supabase SQL Editor to set up all tables and Row Level Security (RLS).
+-- ═══════════════════════════════════════════════════════════════════════
+-- TobillionHomes — Complete Database Schema & Setup
+-- Run this ONCE in your Supabase SQL Editor to set up everything.
+-- ═══════════════════════════════════════════════════════════════════════
 
--- 1. Create Profiles Table (extends auth.users)
+-- ── 1. PROFILES TABLE ──────────────────────────────────────────────
 create table if not exists public.profiles (
   id uuid references auth.users on delete cascade primary key,
   full_name text,
@@ -11,10 +13,8 @@ create table if not exists public.profiles (
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
--- Enable RLS on Profiles
 alter table public.profiles enable row level security;
 
--- Profiles Policies
 drop policy if exists "Public profiles are viewable by everyone" on public.profiles;
 create policy "Public profiles are viewable by everyone" on public.profiles
   for select using (true);
@@ -23,7 +23,6 @@ drop policy if exists "Users can update their own profile" on public.profiles;
 create policy "Users can update their own profile" on public.profiles
   for update using (auth.uid() = id);
 
--- Trigger to automatically create a profile entry on signup
 create or replace function public.handle_new_user()
 returns trigger as $$
 begin
@@ -39,7 +38,7 @@ create trigger on_auth_user_created
   for each row execute procedure public.handle_new_user();
 
 
--- 2. Create Properties Table
+-- ── 2. PROPERTIES TABLE ────────────────────────────────────────────
 create table if not exists public.properties (
   id uuid default gen_random_uuid() primary key,
   title text not null,
@@ -60,13 +59,12 @@ create table if not exists public.properties (
   longitude text,
   meta_title text,
   meta_description text,
+  videos text[],
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
--- Enable RLS on Properties
 alter table public.properties enable row level security;
 
--- Properties Policies
 drop policy if exists "Allow public read access to properties" on public.properties;
 create policy "Allow public read access to properties" on public.properties
   for select using (true);
@@ -76,14 +74,36 @@ create policy "Allow admins full access to properties" on public.properties
   for all
   to authenticated
   using (
-    exists (
-      select 1 from public.profiles
-      where profiles.id = auth.uid() and profiles.role = 'admin'
-    )
+    exists (select 1 from public.profiles where profiles.id = auth.uid() and profiles.role = 'admin')
+  );
+
+drop policy if exists "properties_select_anon" on public.properties;
+create policy "properties_select_anon" on public.properties
+  for select using (true);
+
+drop policy if exists "properties_insert_admin" on public.properties;
+create policy "properties_insert_admin" on public.properties
+  for insert with check (
+    auth.role() = 'authenticated'
+    and exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+drop policy if exists "properties_update_admin" on public.properties;
+create policy "properties_update_admin" on public.properties
+  for update using (
+    auth.role() = 'authenticated'
+    and exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+drop policy if exists "properties_delete_admin" on public.properties;
+create policy "properties_delete_admin" on public.properties
+  for delete using (
+    auth.role() = 'authenticated'
+    and exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
   );
 
 
--- 3. Create Inquiries/Leads Table
+-- ── 3. INQUIRIES / LEADS TABLE ─────────────────────────────────────
 create table if not exists public.inquiries (
   id uuid default gen_random_uuid() primary key,
   property_id uuid references public.properties(id) on delete set null,
@@ -95,10 +115,8 @@ create table if not exists public.inquiries (
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
--- Enable RLS on Inquiries
 alter table public.inquiries enable row level security;
 
--- Inquiries Policies
 drop policy if exists "Allow anyone to submit inquiries" on public.inquiries;
 create policy "Allow anyone to submit inquiries" on public.inquiries
   for insert with check (true);
@@ -108,14 +126,11 @@ create policy "Allow admins full access to inquiries" on public.inquiries
   for all
   to authenticated
   using (
-    exists (
-      select 1 from public.profiles
-      where profiles.id = auth.uid() and profiles.role = 'admin'
-    )
+    exists (select 1 from public.profiles where profiles.id = auth.uid() and profiles.role = 'admin')
   );
 
 
--- 4. Create Saved Listings Table
+-- ── 4. SAVED LISTINGS TABLE ────────────────────────────────────────
 create table if not exists public.saved_listings (
   id uuid default gen_random_uuid() primary key,
   user_id uuid references auth.users(id) on delete cascade not null,
@@ -124,10 +139,8 @@ create table if not exists public.saved_listings (
   unique(user_id, property_id)
 );
 
--- Enable RLS on Saved Listings
 alter table public.saved_listings enable row level security;
 
--- Saved Listings Policies
 drop policy if exists "Users can view their own saved listings" on public.saved_listings;
 create policy "Users can view their own saved listings" on public.saved_listings
   for select using (auth.uid() = user_id);
@@ -141,17 +154,15 @@ create policy "Users can delete their own saved listings" on public.saved_listin
   for delete using (auth.uid() = user_id);
 
 
--- 5. Create Site Content Table (Key-Value Content)
+-- ── 5. SITE CONTENT TABLE ──────────────────────────────────────────
 create table if not exists public.site_content (
   key text primary key,
   value jsonb not null,
   updated_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
--- Enable RLS on Site Content
 alter table public.site_content enable row level security;
 
--- Site Content Policies
 drop policy if exists "Allow public read access to site content" on public.site_content;
 create policy "Allow public read access to site content" on public.site_content
   for select using (true);
@@ -161,15 +172,53 @@ create policy "Allow admins full access to site content" on public.site_content
   for all
   to authenticated
   using (
-    exists (
-      select 1 from public.profiles
-      where profiles.id = auth.uid() and profiles.role = 'admin'
-    )
+    exists (select 1 from public.profiles where profiles.id = auth.uid() and profiles.role = 'admin')
   );
 
+-- Default brand values (prevents 406 errors on first load)
+insert into public.site_content (key, value) values
+  ('brand', '{"name":"TobillionHomes","logo":"","favicon":"","logo_size":40,"logo_bg_transparent":false}')
+on conflict (key) do nothing;
 
--- Seed data helper functions
--- Run this block if you want to initialize some sample data
+
+-- ── 6. PERFORMANCE INDEXES ─────────────────────────────────────────
+create index if not exists idx_properties_created_at on public.properties (created_at desc);
+create index if not exists idx_properties_location_county on public.properties (location_county);
+create index if not exists idx_properties_location_estate on public.properties (location_estate);
+create index if not exists idx_properties_type on public.properties (type);
+create index if not exists idx_properties_status on public.properties (status);
+create index if not exists idx_properties_price on public.properties (price);
+
+
+-- ── 7. STORAGE BUCKET ──────────────────────────────────────────────
+insert into storage.buckets (id, name, public)
+values ('property-media', 'property-media', true)
+on conflict (id) do nothing;
+
+drop policy if exists "Public can view property-media" on storage.objects;
+create policy "Public can view property-media" on storage.objects
+  for select using (bucket_id = 'property-media');
+
+drop policy if exists "Authenticated can upload to property-media" on storage.objects;
+create policy "Authenticated can upload to property-media" on storage.objects
+  for insert
+  to authenticated
+  with check (bucket_id = 'property-media');
+
+drop policy if exists "Authenticated can update property-media" on storage.objects;
+create policy "Authenticated can update property-media" on storage.objects
+  for update
+  to authenticated
+  using (bucket_id = 'property-media');
+
+drop policy if exists "Authenticated can delete from property-media" on storage.objects;
+create policy "Authenticated can delete from property-media" on storage.objects
+  for delete
+  to authenticated
+  using (bucket_id = 'property-media');
+
+
+-- ── 8. SEED: SAMPLE PROPERTIES ─────────────────────────────────────
 create or replace function seed_sample_properties() returns void as $$
 begin
   insert into public.properties (title, location_county, location_estate, type, price, bedrooms, bathrooms, area_sqft, description, image_url, status, features)
@@ -182,33 +231,26 @@ $$ language plpgsql;
 
 
 -- ═══════════════════════════════════════════════════════════════════════
--- ADMIN SEED FUNCTION
--- Creates a Super Admin user in auth.users + public.profiles.
--- Run this once after schema setup to bootstrap admin access.
--- 
--- Credentials after seeding:
---   Email:    admin@tobillionhomes.com
---   Password: Admin@2024Secure!
+-- 9. SEED: ADMIN USER
+-- Run this separately after schema setup by executing:
+--   select seed_admin_user();
+--
+-- Credentials: admin@tobillionhomes.com / Admin@2024Secure!
 -- ═══════════════════════════════════════════════════════════════════════
+
 create or replace function seed_admin_user() returns void as $$
 declare
   _uid uuid;
   _encrypted_pw text;
 begin
-  -- Check if admin already exists
   if exists (select 1 from auth.users where email = 'admin@tobillionhomes.com') then
     raise notice 'Admin user already exists, skipping seed.';
     return;
   end if;
 
-  -- Generate a UUID for the admin user
   _uid := gen_random_uuid();
-  
-  -- Encrypt the password (bcrypt hash of 'Admin@2024Secure!')
-  -- Supabase uses PostgreSQL's pgcrypto for password hashing
   _encrypted_pw := crypt('Admin@2024Secure!', gen_salt('bf', 10));
 
-  -- Insert into auth.users (requires service_role or superuser privileges)
   insert into auth.users (
     instance_id, id, aud, role, email,
     encrypted_password, email_confirmed_at,
@@ -229,62 +271,22 @@ begin
     '', '', '', ''
   );
 
-  -- Insert corresponding profile with admin role
-  insert into public.profiles (id, full_name, phone, location, role, created_at)
-  values (
-    _uid,
-    'Super Admin',
-    '+254700000000',
-    'Nairobi, Kenya',
-    'admin',
-    now()
-  );
+  -- Upgrade the auto-created profile (from the trigger) to admin
+  update public.profiles
+  set role = 'admin',
+      full_name = 'Super Admin',
+      phone = '+254700000000',
+      location = 'Nairobi, Kenya'
+  where id = _uid;
 
-  raise notice 'Admin user created successfully. Email: admin@tobillionhomes.com';
+  raise notice 'Admin user created: admin@tobillionhomes.com / Admin@2024Secure!';
 end;
 $$ language plpgsql security definer;
 
--- ═══════════════════════════════════════════════════════════════════════
--- RUN THIS TO APPLY THE ADMIN SEED:
---   select seed_admin_user();
--- 
--- If you prefer to bypass SQL and use the app's signup flow instead,
--- sign up with email: admin@tobillionhomes.com, password: Admin@2024Secure!
--- then run:
---   update public.profiles set role = 'admin' where email = 'admin@tobillionhomes.com';
--- ═══════════════════════════════════════════════════════════════════════
-
 
 -- ═══════════════════════════════════════════════════════════════════════
--- STORAGE BUCKET + RLS POLICIES
--- Creates the property-media bucket (if missing) and allows uploads.
+-- POST-SETUP INSTRUCTIONS
+-- 1. Run this entire script in the Supabase SQL Editor
+-- 2. Execute: select seed_admin_user();  (one-time)
+-- 3. Execute: select seed_sample_properties();  (optional)
 -- ═══════════════════════════════════════════════════════════════════════
-insert into storage.buckets (id, name, public)
-values ('property-media', 'property-media', true)
-on conflict (id) do nothing;
-
--- Allow public to view/download files
-drop policy if exists "Public can view property-media" on storage.objects;
-create policy "Public can view property-media" on storage.objects
-  for select using (bucket_id = 'property-media');
-
--- Allow authenticated users to upload
-drop policy if exists "Authenticated can upload to property-media" on storage.objects;
-create policy "Authenticated can upload to property-media" on storage.objects
-  for insert
-  to authenticated
-  with check (bucket_id = 'property-media');
-
--- Allow authenticated users to update
-drop policy if exists "Authenticated can update property-media" on storage.objects;
-create policy "Authenticated can update property-media" on storage.objects
-  for update
-  to authenticated
-  using (bucket_id = 'property-media');
-
--- Allow authenticated users to delete
-drop policy if exists "Authenticated can delete from property-media" on storage.objects;
-create policy "Authenticated can delete from property-media" on storage.objects
-  for delete
-  to authenticated
-  using (bucket_id = 'property-media');
