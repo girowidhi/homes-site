@@ -60,7 +60,7 @@ async function fetchProperties({ limit = 500, page = 1, force = false, retryCoun
 
   try {
     var controller = new AbortController();
-    var timeout = setTimeout(function(){ controller.abort(); }, 30000);
+    var timeout = setTimeout(function(){ controller.abort(); }, 15000);
     var start = (page - 1) * limit;
     var { data, error } = await supabaseClient
       .from('properties')
@@ -77,17 +77,6 @@ async function fetchProperties({ limit = 500, page = 1, force = false, retryCoun
         console.error("RLS error:", error.message);
         return [];
       }
-      if (error.message && error.message.indexOf('AbortError') !== -1) {
-        if (retryCount < 2) {
-          console.warn("Properties fetch timed out, retrying (DB may be waking from sleep)...");
-          clearTimeout(timeout);
-          await new Promise(function(r){ setTimeout(r, 3000); });
-          return fetchProperties({ limit: limit, page: page, force: force, retryCount: retryCount + 1 });
-        }
-        lastDbError = 'Database is currently unavailable. Please try again in a moment.';
-        console.error("Properties fetch timed out after retries");
-        return [];
-      }
       console.error("Error fetching properties: ", error);
       return [];
     }
@@ -99,14 +88,37 @@ async function fetchProperties({ limit = 500, page = 1, force = false, retryCoun
     }
     return data || [];
   } catch (e) {
-    if (e.name === 'AbortError') {
-      if (retryCount < 1) {
-        console.warn("Properties fetch aborted, retrying once (DB may be waking from sleep)...");
-        await new Promise(function(r){ setTimeout(r, 2000); });
+    if (e.name === 'AbortError' || (e.message && e.message.indexOf('AbortError') !== -1)) {
+      if (retryCount < 2) {
+        console.warn("Properties fetch timed out, retrying (DB may be waking)...");
+        await new Promise(function(r){ setTimeout(r, 3000); });
         return fetchProperties({ limit: limit, page: page, force: force, retryCount: retryCount + 1 });
       }
-      lastDbError = 'Database query timed out. The properties table may have restricted access or the database may be paused.';
-      console.warn("Properties fetch aborted even after retry");
+      // Fallback to direct REST API call if Supabase client keeps failing
+      try {
+        console.warn("Supabase client timed out, falling back to direct REST call...");
+        var cfgUrl = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url) || '';
+        var cfgKey = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.anonKey) || '';
+        if (cfgUrl && cfgKey) {
+          var fbController = new AbortController();
+          var fbTimeout = setTimeout(function(){ fbController.abort(); }, 10000);
+          var fbRes = await fetch(cfgUrl.replace(/\/$/, '') + '/rest/v1/properties?select=*&order=created_at.desc&limit=' + limit + '&offset=' + ((page - 1) * limit), {
+            headers: { 'apikey': cfgKey, 'Authorization': 'Bearer ' + cfgKey },
+            signal: fbController.signal
+          });
+          clearTimeout(fbTimeout);
+          if (fbRes.ok) {
+            var fbData = await fbRes.json();
+            lastDbError = null;
+            if (page === 1) { propertiesCache = fbData || []; propertiesCacheTime = Date.now(); }
+            return fbData || [];
+          }
+        }
+      } catch(fbErr) {
+        console.warn("Direct REST fallback also failed:", fbErr.message);
+      }
+      lastDbError = 'Database is currently unavailable. Please try again in a moment.';
+      console.error("Properties fetch failed after retries");
       return [];
     }
     if (propertiesCache) { console.warn("Properties fetch error, using cache:", e.message); return propertiesCache; }
