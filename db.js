@@ -1,578 +1,232 @@
-// db.js - Supabase integration layer for TobillionHomes
+// db.js — Neon database layer for TobillionHomes
 
-// Global Supabase client instance (lazy init)
-let supabaseClient = null;
+let sessionToken = localStorage.getItem('neon_session_token') || null;
 let supabaseAvailable = false;
 let lastDbError = null;
+let propertiesCache = null;
+let propertiesCacheTime = 0;
+const CACHE_TTL = 60000;
 
-function ensureClient() {
-  if (supabaseClient) return;
-  try {
-    var cfgUrl = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url) || '';
-    var cfgKey = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.anonKey) || '';
-    if (cfgUrl && cfgKey && typeof window.supabase?.createClient === 'function') {
-      supabaseClient = window.supabase.createClient(cfgUrl, cfgKey, { auth: { persistSession: true, autoRefreshToken: true } });
-      // Restore auth session from localStorage so admin queries use the user's JWT
-      supabaseClient.auth.getSession().catch(function(){});
-      supabaseAvailable = true;
-    } else {
-      lastDbError = cfgUrl ? 'Supabase JS library not loaded' : 'Supabase URL or key missing';
-    }
-  } catch (e) {
-    lastDbError = e.message || 'Supabase client init failed';
-    console.warn("Supabase client init failed:", e.message);
-  }
+// Set session token after login
+function setSessionToken(token) {
+  sessionToken = token;
+  if (token) localStorage.setItem('neon_session_token', token);
+  else localStorage.removeItem('neon_session_token');
 }
 
-async function checkSupabaseHealth() {
-  ensureClient();
-  if (!supabaseClient) return false;
+async function api(action, params = {}) {
   try {
-    var controller = new AbortController();
-    var timeout = setTimeout(function(){ controller.abort(); }, 30000);
-    var { error } = await supabaseClient.from('properties').select('id', { head: true }).limit(1).abortSignal(controller.signal);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
+    const res = await fetch('/api/query', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, params }),
+      signal: controller.signal
+    });
     clearTimeout(timeout);
-    if (error) {
-      console.warn("Supabase health check failed:", error.message);
-      return false;
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: { message: 'HTTP ' + res.status } }));
+      return { data: null, error: err.error || { message: 'Request failed' } };
     }
-    return true;
+    const json = await res.json();
+    if (json.error) return { data: null, error: json.error };
+    return { data: json.data, error: null };
   } catch (e) {
-    console.warn("Supabase unreachable:", e.message);
-    return false;
+    if (e.name === 'AbortError') return { data: null, error: { message: 'Request timed out' } };
+    return { data: null, error: { message: e.message || 'Network error' } };
   }
 }
 
-// ----------------------------------------------------
-// DATABASE ACCESS METHODS
-// ----------------------------------------------------
+function hydrateProperty(p) {
+  if (!p) return p;
+  if (typeof p.features === 'string') try { p.features = JSON.parse(p.features); } catch(e) {}
+  if (typeof p.images === 'string') try { p.images = JSON.parse(p.images); } catch(e) {}
+  return p;
+}
 
-var propertiesCache = null;
-var propertiesCacheTime = 0;
-var CACHE_TTL = 60000; // 60 seconds
+// ── Health ────────────────────────────────────────────────
+async function checkSupabaseHealth() {
+  const { data, error } = await api('fetchProperties', { limit: 1 });
+  return !error;
+}
 
+// ── Properties ────────────────────────────────────────────
 async function fetchProperties({ limit = 500, page = 1, force = false, retryCount = 0 } = {}) {
-  ensureClient();
-  if (!supabaseClient) return [];
-  var now = Date.now();
+  const now = Date.now();
   if (propertiesCache && !force && (now - propertiesCacheTime) < CACHE_TTL) return propertiesCache;
   if (propertiesCache && !force && page === 1) return propertiesCache;
 
-  try {
-    var controller = new AbortController();
-    var timeout = setTimeout(function(){ controller.abort(); }, 15000);
-    var start = (page - 1) * limit;
-    var { data, error } = await supabaseClient
-      .from('properties')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .range(start, start + limit - 1)
-      .abortSignal(controller.signal);
-
-    clearTimeout(timeout);
-    if (error) {
-      lastDbError = error.message || 'Unknown error';
-      if (error.message && error.message.indexOf('permission denied') !== -1) {
-        lastDbError = 'The properties table has restricted access. Run the RLS policy SQL in Supabase.';
-        console.error("RLS error:", error.message);
-        return [];
-      }
-      console.error("Error fetching properties: ", error);
-      return [];
+  const { data, error } = await api('fetchProperties', { limit, page });
+  if (error) {
+    lastDbError = error.message;
+    if (retryCount < 1) {
+      await new Promise(r => setTimeout(r, 2000));
+      return fetchProperties({ limit, page, force, retryCount: retryCount + 1 });
     }
-    lastDbError = null;
-
-    if (page === 1) {
-      propertiesCache = data || [];
-      propertiesCacheTime = now;
-    }
-    return data || [];
-  } catch (e) {
-    if (e.name === 'AbortError' || (e.message && e.message.indexOf('AbortError') !== -1)) {
-      if (retryCount < 2) {
-        console.warn("Properties fetch timed out, retrying (DB may be waking)...");
-        await new Promise(function(r){ setTimeout(r, 3000); });
-        return fetchProperties({ limit: limit, page: page, force: force, retryCount: retryCount + 1 });
-      }
-      // Fallback to direct REST API call if Supabase client keeps failing
-      try {
-        console.warn("Supabase client timed out, falling back to direct REST call...");
-        var cfgUrl = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url) || '';
-        var cfgKey = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.anonKey) || '';
-        if (cfgUrl && cfgKey) {
-          var fbController = new AbortController();
-          var fbTimeout = setTimeout(function(){ fbController.abort(); }, 10000);
-          var fbRes = await fetch(cfgUrl.replace(/\/$/, '') + '/rest/v1/properties?select=*&order=created_at.desc&limit=' + limit + '&offset=' + ((page - 1) * limit), {
-            headers: { 'apikey': cfgKey, 'Authorization': 'Bearer ' + cfgKey },
-            signal: fbController.signal
-          });
-          clearTimeout(fbTimeout);
-          if (fbRes.ok) {
-            var fbData = await fbRes.json();
-            lastDbError = null;
-            if (page === 1) { propertiesCache = fbData || []; propertiesCacheTime = Date.now(); }
-            return fbData || [];
-          }
-        }
-      } catch(fbErr) {
-        console.warn("Direct REST fallback also failed:", fbErr.message);
-      }
-      lastDbError = 'Database is currently unavailable. Please try again in a moment.';
-      console.error("Properties fetch failed after retries");
-      return [];
-    }
-    if (propertiesCache) { console.warn("Properties fetch error, using cache:", e.message); return propertiesCache; }
-    console.error("Error fetching properties: ", e.message);
     return [];
   }
+  lastDbError = null;
+  const hydrated = (data || []).map(hydrateProperty);
+  if (page === 1) { propertiesCache = hydrated; propertiesCacheTime = now; }
+  return hydrated;
 }
 
 async function fetchPropertyById(id) {
-  ensureClient();
-  if (!supabaseClient) return null;
-  const { data, error } = await supabaseClient
-    .from('properties')
-    .select('*')
-    .eq('id', id)
-    .single();
-  if (error) {
-    console.error("Error fetching property by id: ", error);
-    return null;
-  }
-  return data;
-}
-
-function sanitizeInput(str) {
-  if (typeof str !== 'string') return str;
-  var div = document.createElement('div');
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
+  const { data, error } = await api('fetchPropertyById', { id });
+  if (error || !data || data.length === 0) return null;
+  return hydrateProperty(data[0]);
 }
 
 async function searchProperties({ county, estate, type, minPrice, maxPrice, status } = {}) {
-  ensureClient();
-  if (!supabaseClient) return [];
-  var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 30000);
-  try {
-    var query = supabaseClient.from('properties').select('*');
-    if (county) query = query.ilike('location_county', `%${sanitizeInput(county)}%`);
-    if (estate) query = query.ilike('location_estate', `%${sanitizeInput(estate)}%`);
-    if (type && type !== 'Property Type') query = query.eq('type', sanitizeInput(type));
-    if (status) query = query.eq('status', sanitizeInput(status));
-    if (minPrice) query = query.gte('price', Number(minPrice));
-    if (maxPrice) query = query.lte('price', Number(maxPrice));
-    var { data, error } = await query.order('created_at', { ascending: false }).abortSignal(controller.signal);
-    clearTimeout(timeout);
-    if (error) {
-      console.error("Search error: ", error);
-      return [];
-    }
-    return data;
-  } catch (e) {
-    clearTimeout(timeout);
-    if (e.name === 'AbortError') { console.warn("Search timed out"); return []; }
-    console.error("Search error: ", e.message);
-    return [];
-  }
+  const { data, error } = await api('searchProperties', { county, estate, type, minPrice, maxPrice, status });
+  if (error) return [];
+  return (data || []).map(hydrateProperty);
 }
 
-async function createInquiry({ propertyId, name, email, phone, message }) {
-  ensureClient();
-  if (!supabaseClient) return { data: null, error: { message: "Database not connected." } };
-  const { data, error } = await supabaseClient
-    .from('inquiries')
-    .insert([{ property_id: propertyId || null, name, email, phone, message }]);
-  return { data, error };
-}
+async function getPropertyById(id) { return fetchPropertyById(id); }
+async function fetchAllProperties() { return fetchProperties(); }
+async function fetchPropertiesWithFilters(filters) { return searchProperties(filters); }
 
-async function saveListing(propertyId) {
-  ensureClient();
-  if (!supabaseClient) { showToast("Database not connected", "error"); return false; }
-  const user = await getCurrentUser();
-  if (!user) {
-    showToast("Please log in to save properties", "error");
-    return false;
-  }
-  const { data, error } = await supabaseClient
-    .from('saved_listings')
-    .insert([{ user_id: user.id, property_id: propertyId }]);
-  if (error) {
-    console.error("Error saving listing: ", error);
-    return false;
-  }
-  showToast("Property added to favorites!", "success");
-  return true;
-}
-
-async function unsaveListing(propertyId) {
-  ensureClient();
-  if (!supabaseClient) return false;
-  const user = await getCurrentUser();
-  if (!user) return false;
-  const { error } = await supabaseClient
-    .from('saved_listings')
-    .delete()
-    .eq('user_id', user.id)
-    .eq('property_id', propertyId);
-  if (error) {
-    console.error("Error unsaving listing: ", error);
-    return false;
-  }
-  showToast("Property removed from favorites.", "success");
-  return true;
-}
-
-async function fetchSavedListings() {
-  ensureClient();
-  if (!supabaseClient) return [];
-  const user = await getCurrentUser();
-  if (!user) return [];
-  const { data, error } = await supabaseClient
-    .from('saved_listings')
-    .select('*, properties(*)')
-    .eq('user_id', user.id);
-  if (error) {
-    console.error("Error fetching saved listings: ", error);
-    return [];
-  }
-  return data.map(item => item.properties).filter(Boolean);
-}
-
-async function isListingSaved(propertyId) {
-  ensureClient();
-  if (!supabaseClient) return false;
-  const user = await getCurrentUser();
-  if (!user) return false;
-  const { data, error } = await supabaseClient
-    .from('saved_listings')
-    .select('id')
-    .eq('user_id', user.id)
-    .eq('property_id', propertyId);
-  if (error || !data || data.length === 0) return false;
-  return true;
-}
-
-// ----------------------------------------------------
-// AUTHENTICATION & PROFILES
-// ----------------------------------------------------
-async function getCurrentUser() {
-  ensureClient();
-  if (!supabaseClient) return null;
-  const { data: { session } } = await supabaseClient.auth.getSession();
-  return session ? session.user : null;
-}
-
-async function getUserProfile() {
-  ensureClient();
-  if (!supabaseClient) return null;
-  try {
-    const user = await getCurrentUser();
-    if (!user) return null;
-    const { data, error } = await supabaseClient
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .single();
-    if (error) {
-      console.error("Error fetching profile: ", error);
-      return null;
-    }
-    return data;
-  } catch (e) {
-    console.error("getUserProfile error:", e);
-    return null;
-  }
-}
-
-async function loginUser(email, password) {
-  ensureClient();
-  if (!supabaseClient) {
-    return { data: null, error: { message: "Supabase not connected. Please configure your Supabase URL and Anon Key in config.js." } };
-  }
-  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-  return { data, error };
-}
-
-async function registerUser(email, password, fullName, role = 'user') {
-  ensureClient();
-  if (!supabaseClient) return { data: null, error: { message: "Supabase connection required for user registration." } };
-  const { data, error } = await supabaseClient.auth.signUp({
-    email, password,
-    options: { data: { full_name: fullName, role: role } }
-  });
-  return { data, error };
-}
-
-async function logoutUser() {
-  if (supabaseClient) {
-    await supabaseClient.auth.signOut();
-  }
-  showToast("Logged out successfully", "success");
-}
-
-// ----------------------------------------------------
-// ADMIN ONLY METHODS
-// ----------------------------------------------------
-async function checkAdminOrRedirect() {
-  try {
-    const user = await getCurrentUser();
-    if (!user) {
-      window.location.href = 'admin-login.html';
-      return false;
-    }
-    const profile = await getUserProfile();
-    if (!profile || profile.role !== 'admin') {
-      showToast("Access Denied: Admin authorization required.", "error");
-      setTimeout(() => { window.location.href = 'index.html'; }, 2000);
-      return false;
-    }
-    return true;
-  } catch (e) {
-    console.error("Auth check failed:", e);
-    return true;
-  }
-}
-
-async function requireAdmin() {
-  var profile = await getUserProfile();
-  if (!profile || profile.role !== 'admin') {
-    return false;
-  }
-  return true;
-}
-
-async function fetchLeads() {
-  ensureClient();
-  if (!supabaseClient) return [];
-  var isAdmin = await requireAdmin();
-  if (!isAdmin) { console.warn("Unauthorized: fetchLeads requires admin"); return []; }
-  var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 30000);
-  var { data, error } = await supabaseClient
-    .from('inquiries')
-    .select('*, properties(title)')
-    .order('created_at', { ascending: false })
-    .abortSignal(controller.signal);
-  clearTimeout(timeout);
-  if (error) {
-    console.error("Error fetching leads: ", error);
-    return [];
-  }
-  return data;
-}
-
-async function updateLeadStatus(id, status) {
-  ensureClient();
-  if (!supabaseClient) return true;
-  var isAdmin = await requireAdmin();
-  if (!isAdmin) { console.warn("Unauthorized: updateLeadStatus requires admin"); return false; }
-  var { error } = await supabaseClient
-    .from('inquiries')
-    .update({ status })
-    .eq('id', id);
-  if (error) {
-    console.error("Error updating lead status: ", error);
-    return false;
-  }
-  return true;
-}
-
-async function deleteLead(id) {
-  ensureClient();
-  if (!supabaseClient) return true;
-  var isAdmin = await requireAdmin();
-  if (!isAdmin) { console.warn("Unauthorized: deleteLead requires admin"); return false; }
-  var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 30000);
-  var { error } = await supabaseClient.from('inquiries').delete().eq('id', id).abortSignal(controller.signal);
-  clearTimeout(timeout);
-  if (error) { console.error("Error deleting lead: ", error); return false; }
-  return true;
-}
-
+// ── Admin: Properties CRUD ────────────────────────────────
 async function addProperty(propertyData) {
-  ensureClient();
-  if (!supabaseClient) return { data: null, error: { message: "Supabase connection required." } };
-  var isAdmin = await requireAdmin();
-  if (!isAdmin) return { data: null, error: { message: "Admin authorization required." } };
-  var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 60000);
-  var { data, error } = await supabaseClient.from('properties').insert([propertyData]).select().abortSignal(controller.signal);
-  clearTimeout(timeout);
-  return { data, error };
+  const profile = await getUserProfile();
+  if (!profile || profile.role !== 'admin') return { data: null, error: { message: 'Admin authorization required.' } };
+  const { data, error } = await api('addProperty', { ...propertyData });
+  return { data: data && data[0] ? data[0] : null, error };
 }
 
 async function deleteProperty(id) {
-  ensureClient();
-  if (!supabaseClient) return true;
-  var isAdmin = await requireAdmin();
-  if (!isAdmin) { console.warn("Unauthorized: deleteProperty requires admin"); return false; }
-  var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 30000);
-  var { error } = await supabaseClient.from('properties').delete().eq('id', id).abortSignal(controller.signal);
-  clearTimeout(timeout);
-  if (error) { console.error("Error deleting property: ", error); return false; }
+  if (!sessionToken) return false;
+  const { error } = await api('deleteProperty', { id, token: sessionToken });
+  if (error) { console.error('Error deleting property:', error); return false; }
   return true;
 }
 
-const MEDIA_BUCKET = 'property-media';
-
-async function getMediaBucket() {
-  ensureClient();
-  if (!supabaseClient) return null;
-  supabaseClient.storage.createBucket(MEDIA_BUCKET, { public: true }).catch(() => { });
-  return supabaseClient.storage.from(MEDIA_BUCKET);
-}
-
-async function fetchMediaItems() {
-  ensureClient();
-  if (!supabaseClient) return [];
-  try {
-    const bucket = supabaseClient.storage.from(MEDIA_BUCKET);
-    const { data, error } = await bucket.list('', { sortBy: { column: 'created_at', order: 'desc' } });
-    if (error) { console.error("Error listing media:", error); return []; }
-    const items = (data || []).filter(f => f.metadata?.size > 0);
-    const { data: publicUrl } = supabaseClient.storage.from(MEDIA_BUCKET).getPublicUrl('');
-    const baseUrl = publicUrl?.publicUrl?.replace(/\/$/, '') || '';
-    return items.map(f => ({
-      id: f.name,
-      name: f.name,
-      url: `${baseUrl}/${f.name}`,
-      size: f.metadata?.size || 0,
-      type: f.metadata?.mimetype || 'application/octet-stream',
-      created_at: f.created_at,
-      updated_at: f.updated_at
-    }));
-  } catch (e) { console.error("Error fetching media:", e); return []; }
-}
-
-async function uploadMediaItem(file, onProgress) {
-  ensureClient();
-  if (!supabaseClient) return { error: { message: "Supabase not connected" } };
-  try {
-    const bucket = supabaseClient.storage.from(MEDIA_BUCKET);
-    const path = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
-    const { data, error } = await bucket.upload(path, file, {
-      cacheControl: '3600', upsert: false, contentType: file.type
-    });
-    if (error) {
-      if (error.message && (error.message.includes('Bucket not found') || error.message.includes('bucket'))) {
-        await supabaseClient.storage.createBucket(MEDIA_BUCKET, { public: true }).catch(() => { });
-        const { data: d2, error: e2 } = await bucket.upload(path, file, {
-          cacheControl: '3600', upsert: false, contentType: file.type
-        });
-        if (e2) return { error: new Error("Storage bucket 'property-media' not found or no permission.") };
-        const { data: { publicUrl } } = supabaseClient.storage.from(MEDIA_BUCKET).getPublicUrl(path);
-        return { data: { path, url: publicUrl, name: file.name, size: file.size, type: file.type } };
-      }
-      if (error.message && error.message.includes('row-level security')) {
-        return { error: new Error("Upload blocked by Row-Level Security. Run the storage RLS policies.") };
-      }
-      return { error };
-    }
-    const { data: { publicUrl } } = supabaseClient.storage.from(MEDIA_BUCKET).getPublicUrl(path);
-    return { data: { path, url: publicUrl, name: file.name, size: file.size, type: file.type } };
-  } catch (e) { return { error: e }; }
-}
-
-async function deleteMediaItem(path) {
-  ensureClient();
-  if (!supabaseClient) return true;
-  const { error } = await supabaseClient.storage.from(MEDIA_BUCKET).remove([path]);
-  if (error) { console.error("Error deleting media:", error); return false; }
-  return true;
-}
-
-async function deleteMediaItems(paths) {
-  ensureClient();
-  if (!supabaseClient || !paths.length) return true;
-  const { error } = await supabaseClient.storage.from(MEDIA_BUCKET).remove(paths);
-  if (error) { console.error("Error deleting media:", error); return false; }
-  return true;
-}
-
-async function getMediaPublicUrl(path) {
-  ensureClient();
-  if (!supabaseClient) return path;
-  const { data } = supabaseClient.storage.from(MEDIA_BUCKET).getPublicUrl(path);
-  return data?.publicUrl || path;
-}
-
-async function fetchSiteContent(key) {
-  ensureClient();
-  if (!supabaseClient) return null;
-  try {
-    var { data, error } = await supabaseClient
-      .from('site_content')
-      .select('value')
-      .eq('key', key)
-      .limit(1);
-    if (error) {
-      console.warn("fetchSiteContent(" + key + "):", error.message || error);
-      return null;
-    }
-    return data && data.length > 0 ? data[0].value : null;
-  } catch (e) {
-    console.warn("fetchSiteContent(" + key + "):", e.message || e);
-    return null;
+// ── Auth (replaces Supabase Auth) ─────────────────────────
+async function loginUser(email, password) {
+  const { data, error } = await api('loginUser', { email, password });
+  if (data?.session?.access_token) {
+    setSessionToken(data.session.access_token);
   }
+  return { data, error };
+}
+
+async function getSession() {
+  if (!sessionToken) return { data: { session: null } };
+  const { data, error } = await api('getSession', { token: sessionToken });
+  return { data, error };
+}
+
+async function getCurrentUser() {
+  const { data } = await getSession();
+  return data?.session?.user || null;
+}
+
+async function getUserProfile() {
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const { data, error } = await api('getUserProfile', { token: sessionToken });
+  if (error || !data) return null;
+  return data;
+}
+
+async function requireAdmin() {
+  const profile = await getUserProfile();
+  return profile && profile.role === 'admin';
+}
+
+async function authSignOut() {
+  if (sessionToken) await api('authSignOut', { token: sessionToken });
+  setSessionToken(null);
+}
+
+async function authSignIn(email, password) { return loginUser(email, password); }
+
+// ── Leads ─────────────────────────────────────────────────
+async function fetchLeads() {
+  const isAdmin = await requireAdmin();
+  if (!isAdmin) return [];
+  const { data, error } = await api('fetchLeads', { token: sessionToken });
+  if (error) return [];
+  return data || [];
+}
+
+async function updateLeadStatus(id, status) {
+  const isAdmin = await requireAdmin();
+  if (!isAdmin) return false;
+  const { error } = await api('updateLeadStatus', { id, status, token: sessionToken });
+  return !error;
+}
+
+async function deleteLead(id) {
+  const isAdmin = await requireAdmin();
+  if (!isAdmin) return false;
+  const { error } = await api('deleteLead', { id, token: sessionToken });
+  return !error;
+}
+
+// ── Site Content ──────────────────────────────────────────
+async function fetchSiteContent(key) {
+  const { data, error } = await api('fetchSiteContent', { key });
+  if (error) return null;
+  return data;
 }
 
 async function saveSiteContent(key, value) {
-  ensureClient();
-  if (!supabaseClient) {
-    console.error("Cannot save site content: Supabase not connected");
-    return false;
-  }
-  var isAdmin = await requireAdmin();
-  if (!isAdmin) { console.warn("Unauthorized: saveSiteContent requires admin"); return false; }
-  var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 30000);
-  var { error } = await supabaseClient
-    .from('site_content')
-    .upsert({ key, value, updated_at: new Date() })
-    .abortSignal(controller.signal);
-  clearTimeout(timeout);
-  if (error) {
-    console.error("Error saving site content:", error);
-    return false;
-  }
+  const isAdmin = await requireAdmin();
+  if (!isAdmin) return false;
+  const { error } = await api('saveSiteContent', { key, value, token: sessionToken });
+  return !error;
+}
+
+// ── Media ─────────────────────────────────────────────────
+async function fetchMediaItems() {
+  const { data, error } = await api('fetchMediaItems');
+  if (error) return [];
+  return data || [];
+}
+
+async function addMediaItem(name, url, size, type) {
+  const { error } = await api('addMediaItem', { name, url, size, type });
+  return !error;
+}
+
+async function deleteMediaItem(id) {
+  const isAdmin = await requireAdmin();
+  if (!isAdmin) return false;
+  const { error } = await api('deleteMediaItem', { id, token: sessionToken });
+  return !error;
+}
+
+// Stubs for functions that were Supabase-specific
+async function uploadMediaItem(file, onProgress) {
+  const reader = new FileReader();
+  return new Promise((resolve) => {
+    reader.onload = async (e) => {
+      const dataUrl = e.target.result;
+      const url = dataUrl;
+      const name = file.name;
+      const size = file.size;
+      const type = file.type;
+      await addMediaItem(name, url, size, type);
+      resolve({ data: { url, name, size, type }, error: null });
+    };
+    reader.onerror = () => resolve({ error: { message: 'Failed to read file' } });
+    reader.readAsDataURL(file);
+  });
+}
+
+async function deleteMediaItems(paths) {
+  for (const p of paths) await deleteMediaItem(p);
   return true;
 }
 
-// ----------------------------------------------------
-// UI UTILITIES: Toast Notifications
-// ----------------------------------------------------
-function showToast(message, type = 'success') {
-  let container = document.getElementById('toast-container');
-  if (!container) {
-    container = document.createElement('div');
-    container.id = 'toast-container';
-    container.style.cssText = 'position:fixed; bottom:24px; right:24px; z-index:999999; display:flex; flex-direction:column; gap:8px;';
-    document.body.appendChild(container);
-  }
-  const toast = document.createElement('div');
-  const bgColor = type === 'success' ? '#006c4e' : type === 'error' ? '#ba1a1a' : '#000613';
-  toast.style.cssText = `
-    background: ${bgColor};
-    color: #ffffff;
-    padding: 16px 24px;
-    border-radius: 8px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    box-shadow: 0 4px 12px rgba(0,6,19,0.15);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  `;
-  toast.innerText = message;
-  container.appendChild(toast);
-  setTimeout(() => { toast.style.opacity = '1'; toast.style.transform = 'translateY(0)'; }, 50);
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateY(-20px)';
-    setTimeout(() => { toast.remove(); }, 300);
-  }, 3500);
+async function getMediaPublicUrl(path) { return path; }
+
+// Backward compatibility aliases
+async function authSignUp(email, password) {
+  return { data: null, error: { message: 'Sign up not available. Contact admin.' } };
 }
+
+sessionToken = localStorage.getItem('neon_session_token') || null;
