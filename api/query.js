@@ -28,15 +28,17 @@ export default async function handler(req, res) {
 
       case 'searchProperties': {
         const { county, estate, type, minPrice, maxPrice, status } = params || {};
-        let query = sql`SELECT * FROM properties WHERE 1=1`;
-        if (county) query = sql`${query} AND location_county ILIKE ${'%' + county + '%'}`;
-        if (estate) query = sql`${query} AND location_estate ILIKE ${'%' + estate + '%'}`;
-        if (type && type !== 'Property Type') query = sql`${query} AND type = ${type}`;
-        if (status) query = sql`${query} AND status = ${status}`;
-        if (minPrice) query = sql`${query} AND price >= ${Number(minPrice)}`;
-        if (maxPrice) query = sql`${query} AND price <= ${Number(maxPrice)}`;
-        query = sql`${query} ORDER BY created_at DESC`;
-        result = await query;
+        const conditions = [];
+        const values = [];
+        let idx = 1;
+        if (county) { conditions.push(`location_county ILIKE $${idx++}`); values.push(`%${county}%`); }
+        if (estate) { conditions.push(`location_estate ILIKE $${idx++}`); values.push(`%${estate}%`); }
+        if (type && type !== 'Property Type') { conditions.push(`type = $${idx++}`); values.push(type); }
+        if (status) { conditions.push(`status = $${idx++}`); values.push(status); }
+        if (minPrice) { conditions.push(`price >= $${idx++}`); values.push(Number(minPrice)); }
+        if (maxPrice) { conditions.push(`price <= $${idx++}`); values.push(Number(maxPrice)); }
+        const where = conditions.length > 0 ? ' AND ' + conditions.join(' AND ') : '';
+        result = await sql.unsafe(`SELECT * FROM properties WHERE 1=1${where} ORDER BY created_at DESC`, values);
         break;
       }
 
