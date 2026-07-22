@@ -129,8 +129,7 @@
             border-radius: 10px;
         }
     </style>
-<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="/api/config"></script>
+
 <script defer src="config.js"></script>
 <script defer src="db.js?v=2"></script>
   <link rel="stylesheet" href="vegence-ui.css"/></head>
@@ -328,7 +327,8 @@
 <div class="flex items-center gap-md">
 <a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="privacy.html">Privacy Policy</a>
 <a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="privacy.html">Terms of Service</a>
-<a class="text-label-sm font-label-sm text-outline hover:text-secondary transition-colors" href="https://supabase.com/docs" target="_blank" rel="noopener">API Documentation</a>
+
+
 </div>
 </footer>
     <!-- Grid View Container -->
@@ -505,12 +505,7 @@
             const tbody = document.getElementById('propertiesTableBody');
             tbody.innerHTML = '<tr><td colspan="6" class="text-center py-xl text-on-surface-variant"><span class="material-symbols-outlined animate-spin inline-block">sync</span> Loading properties...</td></tr>';
 
-            // Wait for auth session to restore before querying
-            if (typeof supabaseClient?.auth?.getSession === 'function') {
-                try { await supabaseClient.auth.getSession(); } catch(e) {}
-            }
-
-            allProperties = await fetchProperties();
+            allProperties = await fetchProperties({ force: true });
             if (!allProperties || allProperties.length === 0) {
                 if (lastDbError) {
                     tbody.innerHTML = '<tr><td colspan="6" class="text-center py-xl text-error"><span class="material-symbols-outlined text-3xl inline-block mb-sm">cloud_off</span><p class="font-label-md font-semibold">Database error</p><p class="text-label-sm mt-xs text-on-surface-variant">' + lastDbError.replace(/</g,'&lt;') + '</p><p class="text-label-sm mt-xs text-on-surface-variant">Try refreshing or check the Supabase RLS policies for the properties table.</p><button onclick="loadProperties()" class="mt-sm inline-flex items-center gap-1 px-md py-xs rounded-lg bg-primary text-on-primary text-label-sm font-semibold hover:opacity-90 transition-opacity"><span class="material-symbols-outlined text-[16px]">refresh</span> Retry</button></td></tr>';
@@ -655,3 +650,4 @@
     </script>
 <script src="admin-nav.js"></script>
 </body></html>
+

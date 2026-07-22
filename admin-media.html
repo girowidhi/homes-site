@@ -169,8 +169,7 @@
             }
         }
     </script>
-<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="/api/config"></script>
+
 <script defer src="config.js"></script>
 <script defer src="db.js?v=2"></script>
   <link rel="stylesheet" href="vegence-ui.css"/></head>
@@ -537,7 +536,7 @@ async function uploadFiles(files) {
 
 function requireDB() {
   if (typeof fetchMediaItems !== 'function') {
-    const missing = typeof window.supabase === 'undefined' ? 'Supabase JS library failed to load (CDN issue).' : typeof supabaseClient === 'undefined' || supabaseClient === null ? 'Supabase client not initialized.' : 'db.js did not load correctly.';
+    const missing = 'db.js did not load correctly.';
     document.getElementById('mediaGrid').innerHTML = `<div class="col-span-full text-center py-xl text-error"><span class="material-symbols-outlined text-3xl inline-block mb-sm">cloud_off</span><p class="text-label-md font-semibold">${missing}</p><p class="text-label-sm text-on-surface-variant mt-xs">Check your internet connection or try refreshing. If using a local server, ensure you have internet access for CDN scripts.</p></div>`;
     return false;
   }
@@ -645,3 +644,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <script src="admin-nav.js"></script>
 </body></html>
+

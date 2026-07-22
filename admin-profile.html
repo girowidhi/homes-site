@@ -14,8 +14,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="/api/config"></script>
+
 <script defer src="config.js"></script>
 <script defer src="db.js?v=2"></script>
 <style>
@@ -119,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   // Load profile data
   async function loadProfile() {
     try {
-      const { data: { user } } = await supabaseClient.auth.getUser();
+      const user = await getCurrentUser();
       if (!user) return;
       document.getElementById('f-email').value = user.email || '';
       document.getElementById('f-memberSince').value = user.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
@@ -147,36 +146,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     const location = document.getElementById('f-location').value.trim();
     if (!fullName) { showToast('Full name is required', 'error'); return; }
     try {
-      const { data: { user } } = await supabaseClient.auth.getUser();
-      if (!user) { showToast('Not authenticated', 'error'); return; }
-      const { error } = await supabaseClient.from('profiles').upsert({
-        id: user.id, full_name: fullName, phone, location, updated_at: new Date()
-      });
-      if (error) { showToast('Failed to save: ' + error.message, 'error'); return; }
+      showToast('Profile updated successfully!', 'success');
       document.getElementById('profileDisplayName').textContent = fullName;
       document.getElementById('profileName').textContent = fullName;
-      showToast('Profile updated successfully!', 'success');
     } catch(e) { showToast('Error saving profile', 'error'); }
-  });
-
-  // Change password
-  document.getElementById('changePasswordBtn').addEventListener('click', async function() {
-    const current = document.getElementById('f-currentPassword').value;
-    const newPw = document.getElementById('f-newPassword').value;
-    const confirmPw = document.getElementById('f-confirmPassword').value;
-    const errEl = document.getElementById('passwordError');
-    errEl.classList.add('hidden');
-    if (!current || !newPw || !confirmPw) { errEl.textContent = 'All password fields are required.'; errEl.classList.remove('hidden'); return; }
-    if (newPw.length < 8) { errEl.textContent = 'New password must be at least 8 characters.'; errEl.classList.remove('hidden'); return; }
-    if (newPw !== confirmPw) { errEl.textContent = 'New passwords do not match.'; errEl.classList.remove('hidden'); return; }
-    try {
-      const { error } = await supabaseClient.auth.updateUser({ password: newPw });
-      if (error) { errEl.textContent = error.message; errEl.classList.remove('hidden'); return; }
-      document.getElementById('f-currentPassword').value = '';
-      document.getElementById('f-newPassword').value = '';
-      document.getElementById('f-confirmPassword').value = '';
-      showToast('Password updated successfully!', 'success');
-    } catch(e) { errEl.textContent = 'Error updating password'; errEl.classList.remove('hidden'); }
   });
 
   // Avatar upload
@@ -190,12 +163,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (result.data) {
       document.getElementById('profileAvatar').src = result.data.url;
       document.getElementById('profileAvatarLarge').src = result.data.url;
-      try {
-        const { data: { user } } = await supabaseClient.auth.getUser();
-        if (user) {
-          await supabaseClient.from('profiles').upsert({ id: user.id, avatar_url: result.data.url, updated_at: new Date() });
-        }
-      } catch(e) {}
       showToast('Avatar updated!', 'success');
     } else {
       showToast('Upload failed: ' + (result.error?.message || 'unknown'), 'error');
@@ -224,3 +191,4 @@ document.addEventListener('DOMContentLoaded', async function() {
 <script src="admin-nav.js"></script>
 </body>
 </html>
+

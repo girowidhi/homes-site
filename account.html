@@ -127,8 +127,7 @@
             min-height: calc(100vh - 80px);
         }
     </style>
-<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="/api/config"></script>
+
 <script defer src="config.js"></script>
 <script defer src="db.js?v=2"></script>
   <link rel="stylesheet" href="vegence-ui.css"/></head>
@@ -492,13 +491,7 @@
             const countHeaders = document.querySelectorAll('.grid.grid-cols-1.sm\\:grid-cols-3 h3');
             if (countHeaders[0]) countHeaders[0].textContent = String(savedListings.length).padStart(2, '0');
             
-            // Fetch real inquiries count
-            if (supabaseClient) {
-                const { data: inquiries } = await supabaseClient.from('inquiries').select('id').eq('email', user.email);
-                if (countHeaders[1] && inquiries) {
-                    countHeaders[1].textContent = String(inquiries.length).padStart(2, '0');
-                }
-            }
+            // Inquiries count requires backend auth
 
             // Render Saved Listings list
             const savedHeading = Array.from(document.querySelectorAll('h3')).find(h => h.textContent.includes('Recently Saved Properties'));
@@ -565,3 +558,4 @@
 <script src="brand-loader.js?v=1"></script>
 <script src="seo-loader.js?v=1"></script>
 </body></html>
+

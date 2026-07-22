@@ -1,7 +1,6 @@
 // db.js — Neon database layer for TobillionHomes
 
 let sessionToken = localStorage.getItem('neon_session_token') || null;
-let supabaseAvailable = false;
 let lastDbError = null;
 let propertiesCache = null;
 let propertiesCacheTime = 0;

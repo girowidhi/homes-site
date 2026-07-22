@@ -98,42 +98,10 @@ label{display:block}.input-wrapper{position:relative}
 .side-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:.8}
 .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.03;z-index:-1;background-image:radial-gradient(#000 1px,transparent 1px);background-size:24px 24px}
 </style>
-<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="/api/config"></script>
+
 <script defer src="config.js"></script>
-<script>/* db.js auth functions inlined for login page only */
-let supabaseClient;
-
-function initSupabaseClient() {
-  if (window.supabase && window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.url) {
-    supabaseClient = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey, { auth: { persistSession: true, autoRefreshToken: true } });
-  }
-}
-
-document.addEventListener('DOMContentLoaded', initSupabaseClient);
-
-async function getCurrentUser() {
-  if (!supabaseClient) return null;
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  return user || null;
-}
-
-async function loginUser(email, password) {
-  if (!supabaseClient) return { data: null, error: { message: "Supabase not connected." } };
-  return await supabaseClient.auth.signInWithPassword({ email, password });
-}
-
-async function getUserProfile() {
-  const user = await getCurrentUser();
-  if (!user) return null;
-  const { data, error } = await supabaseClient.from('profiles').select('*').eq('id', user.id).single();
-  return error ? null : data;
-}
-
-async function logoutUser() {
-  if (supabaseClient) await supabaseClient.auth.signOut();
-}
-
+<script defer src="db.js?v=2"></script>
+<script>
 function showToast(message, type = 'success') {
   let c = document.getElementById('toast-container');
   if (!c) { c = document.createElement('div'); c.id = 'toast-container'; c.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:999999;display:flex;flex-direction:column;gap:8px;'; document.body.appendChild(c); }
