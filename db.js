@@ -385,7 +385,7 @@ async function addProperty(propertyData) {
   var isAdmin = await requireAdmin();
   if (!isAdmin) return { data: null, error: { message: "Admin authorization required." } };
   var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 15000);
+  var timeout = setTimeout(() => controller.abort(), 60000);
   var { data, error } = await supabaseClient.from('properties').insert([propertyData]).select().abortSignal(controller.signal);
   clearTimeout(timeout);
   return { data, error };

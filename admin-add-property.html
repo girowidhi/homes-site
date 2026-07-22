@@ -655,9 +655,30 @@ document.getElementById('publish-btn').addEventListener('click', async (e) => {
   btn.innerHTML = '<div class="w-5 h-5 rounded-full border-2 border-on-primary border-t-transparent animate-spin"></div> Publishing...';
 
   const data = getPropertyData();
+
+  // Upload images to Supabase Storage and get URLs
+  btn.innerHTML = '<div class="w-5 h-5 rounded-full border-2 border-on-primary border-t-transparent animate-spin"></div> Uploading images...';
+  const imageUrls = [];
+  for (const img of uploadedImages) {
+    if (img.file) {
+      const result = await uploadMediaItem(img.file);
+      if (result.error) {
+        showToastInline('Image upload failed: ' + (result.error.message || result.error), 'error');
+        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">publish</span> Publish Property';
+        btn.disabled = false;
+        return;
+      }
+      imageUrls.push(result.data.url);
+    }
+  }
+
+  data.image_url = imageUrls.length ? imageUrls[0] : (uploadedImages.length ? uploadedImages[0].dataUrl : '');
+  data.images = imageUrls.length ? imageUrls : uploadedImages.map(img => img.dataUrl);
+
   // Only send known columns to avoid schema mismatch errors
   const allowed = ['title','type','price','bedrooms','bathrooms','area_sqft','description','location_county','location_estate','latitude','longitude','features','status','image_url','images','featured','meta_title','meta_description'];
   const cleanData = Object.fromEntries(allowed.filter(k => k in data).map(k => [k, data[k]]));
+  btn.innerHTML = '<div class="w-5 h-5 rounded-full border-2 border-on-primary border-t-transparent animate-spin"></div> Publishing...';
   const result = await addProperty(cleanData);
 
   if (result.error) {
@@ -684,9 +705,28 @@ document.getElementById('draft-btn').addEventListener('click', async (e) => {
   e.preventDefault();
   const btn = e.currentTarget;
   btn.disabled = true;
-  btn.textContent = 'Saving...';
+  btn.textContent = 'Uploading images...';
 
   const data = getPropertyData('Draft');
+
+  const imageUrls = [];
+  for (const img of uploadedImages) {
+    if (img.file) {
+      const result = await uploadMediaItem(img.file);
+      if (result.error) {
+        showToastInline('Image upload failed: ' + (result.error.message || result.error), 'error');
+        btn.textContent = 'Save Draft';
+        btn.disabled = false;
+        return;
+      }
+      imageUrls.push(result.data.url);
+    }
+  }
+
+  data.image_url = imageUrls.length ? imageUrls[0] : (uploadedImages.length ? uploadedImages[0].dataUrl : '');
+  data.images = imageUrls.length ? imageUrls : uploadedImages.map(img => img.dataUrl);
+
+  btn.textContent = 'Saving...';
   // Only use columns that exist in the current DB schema
   const allowed = ['title','type','price','bedrooms','bathrooms','area_sqft','description','location_county','location_estate','features','status','image_url','images'];
   const cleanData = Object.fromEntries(allowed.filter(k => k in data).map(k => [k, data[k]]));
