@@ -29,7 +29,7 @@ async function checkSupabaseHealth() {
   if (!supabaseClient) return false;
   try {
     var controller = new AbortController();
-    var timeout = setTimeout(function(){ controller.abort(); }, 15000);
+    var timeout = setTimeout(function(){ controller.abort(); }, 30000);
     var { error } = await supabaseClient.from('properties').select('id', { head: true }).limit(1).abortSignal(controller.signal);
     clearTimeout(timeout);
     if (error) {
@@ -60,7 +60,7 @@ async function fetchProperties({ limit = 500, page = 1, force = false, retryCoun
 
   try {
     var controller = new AbortController();
-    var timeout = setTimeout(function(){ controller.abort(); }, 12000);
+    var timeout = setTimeout(function(){ controller.abort(); }, 30000);
     var start = (page - 1) * limit;
     var { data, error } = await supabaseClient
       .from('properties')
@@ -78,14 +78,14 @@ async function fetchProperties({ limit = 500, page = 1, force = false, retryCoun
         return [];
       }
       if (error.message && error.message.indexOf('AbortError') !== -1) {
-        if (retryCount < 1) {
-          console.warn("Properties fetch timed out, retrying once (DB may be waking from sleep)...");
+        if (retryCount < 2) {
+          console.warn("Properties fetch timed out, retrying (DB may be waking from sleep)...");
           clearTimeout(timeout);
-          await new Promise(function(r){ setTimeout(r, 2000); });
+          await new Promise(function(r){ setTimeout(r, 3000); });
           return fetchProperties({ limit: limit, page: page, force: force, retryCount: retryCount + 1 });
         }
-        lastDbError = 'Database query timed out. The properties table may have restricted access or the database may be paused.';
-        console.error("Properties fetch timed out even after retry");
+        lastDbError = 'Database is currently unavailable. Please try again in a moment.';
+        console.error("Properties fetch timed out after retries");
         return [];
       }
       console.error("Error fetching properties: ", error);
@@ -141,7 +141,7 @@ async function searchProperties({ county, estate, type, minPrice, maxPrice, stat
   ensureClient();
   if (!supabaseClient) return [];
   var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 10000);
+  var timeout = setTimeout(() => controller.abort(), 30000);
   try {
     var query = supabaseClient.from('properties').select('*');
     if (county) query = query.ilike('location_county', `%${sanitizeInput(county)}%`);
@@ -336,7 +336,7 @@ async function fetchLeads() {
   var isAdmin = await requireAdmin();
   if (!isAdmin) { console.warn("Unauthorized: fetchLeads requires admin"); return []; }
   var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 10000);
+  var timeout = setTimeout(() => controller.abort(), 30000);
   var { data, error } = await supabaseClient
     .from('inquiries')
     .select('*, properties(title)')
@@ -372,7 +372,7 @@ async function deleteLead(id) {
   var isAdmin = await requireAdmin();
   if (!isAdmin) { console.warn("Unauthorized: deleteLead requires admin"); return false; }
   var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 5000);
+  var timeout = setTimeout(() => controller.abort(), 30000);
   var { error } = await supabaseClient.from('inquiries').delete().eq('id', id).abortSignal(controller.signal);
   clearTimeout(timeout);
   if (error) { console.error("Error deleting lead: ", error); return false; }
@@ -397,7 +397,7 @@ async function deleteProperty(id) {
   var isAdmin = await requireAdmin();
   if (!isAdmin) { console.warn("Unauthorized: deleteProperty requires admin"); return false; }
   var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 10000);
+  var timeout = setTimeout(() => controller.abort(), 30000);
   var { error } = await supabaseClient.from('properties').delete().eq('id', id).abortSignal(controller.signal);
   clearTimeout(timeout);
   if (error) { console.error("Error deleting property: ", error); return false; }
@@ -516,7 +516,7 @@ async function saveSiteContent(key, value) {
   var isAdmin = await requireAdmin();
   if (!isAdmin) { console.warn("Unauthorized: saveSiteContent requires admin"); return false; }
   var controller = new AbortController();
-  var timeout = setTimeout(() => controller.abort(), 10000);
+  var timeout = setTimeout(() => controller.abort(), 30000);
   var { error } = await supabaseClient
     .from('site_content')
     .upsert({ key, value, updated_at: new Date() })
