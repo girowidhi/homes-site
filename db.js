@@ -73,8 +73,8 @@ async function fetchProperties({ limit = 500, page = 1, force = false, retryCoun
 
 async function fetchPropertyById(id) {
   const { data, error } = await api('fetchPropertyById', { id });
-  if (error || !data || data.length === 0) return null;
-  return hydrateProperty(data[0]);
+  if (error || !data) return null;
+  return hydrateProperty(data);
 }
 
 async function searchProperties({ county, estate, type, minPrice, maxPrice, status } = {}) {
