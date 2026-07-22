@@ -162,28 +162,16 @@
 </div>
 </header>
 <main class="max-w-container-max mx-auto px-gutter py-md">
-<!-- Image Gallery Bento Layout -->
 <section class="mb-xl">
-<div class="bento-grid-layout grid grid-cols-1 gap-xs md:gap-sm overflow-hidden rounded-xl">
-<div class="bento-gallery-item relative group cursor-pointer overflow-hidden h-[300px] md:h-full">
-<div class="bg-cover bg-center w-full h-full transition-transform duration-700 group-hover:scale-105" data-alt="An ultra-modern minimalist luxury villa in the Karen suburb of Nairobi, Kenya. The architecture features clean horizontal lines, expansive floor-to-ceiling glass walls, and a flat roof. Warm evening golden hour light reflects off the pristine white stone surfaces and a sparkling infinity pool in the foreground. The surrounding lush tropical gardens are manicured to perfection, creating a quiet and confident prestige aesthetic with a high-end editorial feel." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1tnejCeKLTmgb7tZ0Q_D78yjil0wSq2wnOns9LnH6FWyRjlG8_o2TwXPAS1miIoSWMQNVCTxRAc3pUMAyMA__Kxa9AT84EthpkzRzhm06lE0zzJnTX9WQfUvp8tFSz-lui9cjSXRQpoHKQL_aCxe4CRslf8G_8pj5ftoy4RAuMg_ol2uCJizczFMzOlGlcQ-jo66h9GKY1dob4DcjEL1Zv0jK1zcu5q3mkC57T0wBEPfSsiUI_EeKYxWrpRmRoh4li3uKNhpLqPs')"></div>
-<div class="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent"></div>
-<div class="absolute bottom-sm left-sm bg-secondary text-on-secondary px-xs py-1 rounded-full text-label-sm font-label-sm">Featured Listing</div>
-</div>
-<div class="bento-gallery-item relative group cursor-pointer overflow-hidden h-[200px] md:h-full">
-<div class="bg-cover bg-center w-full h-full transition-transform duration-700 group-hover:scale-105" data-alt="A grand interior living room of a Kenyan luxury estate, designed with an editorial minimalist edge. The space features double-height ceilings, a sculptural staircase, and polished marble floors. Large windows reveal a glimpse of emerald green foliage outside. The furniture is high-end contemporary, using a palette of warm beiges, deep navy accents, and rich wood textures. The atmosphere is serene, light-filled, and evokes a sense of corporate modern luxury." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCRtpk6_qoF6tzL2PjPVjR7B665f9F5mXN462AOMaeLIzn5Ll-FT-oPKAwe9R77qg78rglweyawqA0kLXy-8ILAS1xQBDoSAR7iRWF7396Fn8VzFt7ZNHqdmnCBy9P8vImeblObnFP3zTt6GyvCqQkB4M718CUF0ZOt7EtSOZMpkdhUYI2ohQnLCm68b5swrKQsg8dYPKd_Vp0QMsGq1ZwW_ljllyOMJfIhFtzkaKEoOJtSad6bJh66oJdZWeuaYwwC0PI9bIIKODA')"></div>
-</div>
-<div class="bento-gallery-item relative group cursor-pointer overflow-hidden h-[200px] md:h-full">
-<div class="bg-cover bg-center w-full h-full transition-transform duration-700 group-hover:scale-105" data-alt="Close up architectural detail of a premium property in Nairobi. The shot highlights high-quality materials including textured natural stone, dark metal window frames, and ambient outdoor lighting. The lighting is soft and diffused, casting gentle shadows that emphasize the physical layering and depth of the facade. The overall mood is sophisticated and established, reflecting the high financial value and architectural stability of a premier investment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZRwr88xax9vH7tJ2UygiWQNOsLhk_QgPyEXBCSQO4URytjf8CSUJnc7eoRrlT09gtbNu_rGCGhpbyA1DFCAuwr0Wwgeu6K04UjbZ5FO0-VLLxWesiN3W5IHHPsXnZApYAbbVQj5axHKDDQ4r6X9UcQzv65Mwt9G3btUohqlqjR7iaO8WnFWbv7KdrSfq40KcaTgAK_jaVPhaCFBqF11vqWL-vGkjz4VNspzGxxvFoWwHJtJxofpHcDaMzRJ9K9qkfa1LDhfp4z3A')"></div>
-<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-<span class="text-on-primary font-label-md flex items-center gap-xs">
-<span class="material-symbols-outlined">grid_view</span>
-                            View All 24 Photos
-                        </span>
-</div>
-</div>
-</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-xs md:gap-sm" id="property-gallery"></div>
 </section>
+<div id="gallery-lightbox" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center" onclick="closeLightbox(event)">
+<div class="absolute top-4 right-4 text-white cursor-pointer z-10" onclick="closeLightbox()"><span class="material-symbols-outlined text-3xl">close</span></div>
+<div class="absolute left-4 text-white cursor-pointer z-10" id="lb-prev"><span class="material-symbols-outlined text-4xl">chevron_left</span></div>
+<div class="absolute right-4 text-white cursor-pointer z-10" id="lb-next"><span class="material-symbols-outlined text-4xl">chevron_right</span></div>
+<img id="lb-img" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg" src="" alt="">
+<div class="absolute bottom-4 text-white text-label-sm" id="lb-counter"></div>
+</div>
 <!-- Content Grid with Sticky Sidebar -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
 <!-- Left Column: Details -->
@@ -434,22 +422,55 @@
 </nav>
 <script>
         // Micro-interactions for gallery hover
-        function bindGalleryHover() {
-            document.querySelectorAll('.bento-gallery-item').forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    const img = item.querySelector('div');
-                    if (img) img.style.transform = 'scale(1.05)';
-                });
-                item.addEventListener('mouseleave', () => {
-                    const img = item.querySelector('div');
-                    if (img) img.style.transform = 'scale(1)';
-                });
-            });
+        let currentProperty = null;
+        let lightboxImages = [];
+        let lightboxIndex = 0;
+
+        function openLightbox(index) {
+            lightboxIndex = index;
+            const allImages = Array.isArray(currentProperty?.images) && currentProperty.images.length ? currentProperty.images : (currentProperty?.image_url ? [currentProperty.image_url] : []);
+            lightboxImages = allImages;
+            const lb = document.getElementById('gallery-lightbox');
+            const img = document.getElementById('lb-img');
+            const counter = document.getElementById('lb-counter');
+            if (allImages[index]) {
+                img.src = allImages[index];
+                counter.textContent = `${index + 1} / ${allImages.length}`;
+                lb.classList.remove('hidden');
+                lb.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
         }
 
-        let currentProperty = null;
+        function closeLightbox(e) {
+            if (e && e.target !== e.currentTarget) return;
+            const lb = document.getElementById('gallery-lightbox');
+            lb.classList.add('hidden');
+            lb.style.display = 'none';
+            document.body.style.overflow = '';
+        }
 
-        // Dynamic Loading from Supabase
+        function navigateLightbox(dir) {
+            const newIndex = lightboxIndex + dir;
+            if (newIndex < 0 || newIndex >= lightboxImages.length) return;
+            lightboxIndex = newIndex;
+            const img = document.getElementById('lb-img');
+            const counter = document.getElementById('lb-counter');
+            img.src = lightboxImages[newIndex];
+            counter.textContent = `${newIndex + 1} / ${lightboxImages.length}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('lb-prev')?.addEventListener('click', (e) => { e.stopPropagation(); navigateLightbox(-1); });
+            document.getElementById('lb-next')?.addEventListener('click', (e) => { e.stopPropagation(); navigateLightbox(1); });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            });
+        });
+
+        // Dynamic Loading from Neon
         async function loadPropertyDetails() {
             try {
                 const params = new URLSearchParams(window.location.search);
@@ -507,13 +528,24 @@
                     descContainer.innerHTML = desc.split('\n').filter(Boolean).map(para => `<p>${para}</p>`).join('') || `<p>${desc}</p>`;
                 }
 
-                // 9. Images Bento Gallery
-                const galleryImages = document.querySelectorAll('.bento-gallery-item > .bg-cover');
-                if (galleryImages[0] && p.image_url) galleryImages[0].style.backgroundImage = `url('${p.image_url}')`;
-                const imgArr = Array.isArray(p.images) && p.images.length ? p.images : (p.image_url ? [p.image_url] : []);
-                if (imgArr.length > 0) {
-                    if (galleryImages[1]) galleryImages[1].style.backgroundImage = `url('${imgArr[0]}')`;
-                    if (galleryImages[2]) galleryImages[2].style.backgroundImage = `url('${imgArr[1] || imgArr[0]}')`;
+                // 9. Images Gallery
+                const allImages = Array.isArray(p.images) && p.images.length ? p.images : (p.image_url ? [p.image_url] : []);
+                const galleryEl = document.getElementById('property-gallery');
+                if (galleryEl) {
+                    if (allImages.length === 0) {
+                        galleryEl.innerHTML = '<div class="col-span-full h-64 bg-surface-container rounded-xl flex items-center justify-center text-outline"><span class="material-symbols-outlined text-4xl mb-2 block">image</span><p>No images available</p></div>';
+                    } else {
+                        galleryEl.innerHTML = allImages.map((url, i) => `
+                            <div class="relative group cursor-pointer overflow-hidden rounded-xl ${i === 0 ? 'md:col-span-2 md:row-span-2 h-[300px] md:h-[400px]' : 'h-[200px] md:h-[190px]'} ${i >= 5 ? 'hidden md:hidden' : ''}" onclick="openLightbox(${i})">
+                                <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('${url}')"></div>
+                                ${i >= 4 ? `<div class="absolute inset-0 bg-black/50 flex items-center justify-center"><span class="text-white font-label-md">+${allImages.length - 5} more</span></div>` : ''}
+                            </div>
+                        `).join('');
+                        if (allImages.length > 5) {
+                            const last = galleryEl.children[4];
+                            if (last) last.classList.remove('hidden');
+                        }
+                    }
                 }
 
                 // 10. Amenities/Features
@@ -541,7 +573,6 @@
                     });
                 }
 
-                bindGalleryHover();
                 loadSimilarProperties(p);
 
             } catch (err) {
