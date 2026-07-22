@@ -162,6 +162,7 @@
 <div class="flex flex-col gap-base">
 <label class="font-label-sm text-on-surface-variant uppercase tracking-wider">County</label>
 <select class="bg-surface-container-lowest border border-outline-variant rounded-lg p-xs font-body-md focus:ring-2 focus:ring-primary outline-none">
+<option value="">All Counties</option>
 <option>Nairobi</option>
 <option>Kiambu</option>
 <option>Mombasa</option>
@@ -175,6 +176,7 @@
 <div class="flex flex-col gap-base">
 <label class="font-label-sm text-on-surface-variant uppercase tracking-wider">Type</label>
 <select class="bg-surface-container-lowest border border-outline-variant rounded-lg p-xs font-body-md focus:ring-2 focus:ring-primary outline-none">
+<option value="">All Types</option>
 <option>Apartment</option>
 <option>Maisonette</option>
 <option>Land</option>
@@ -361,21 +363,19 @@
 
         // Dynamic Property Loading & Filtering
         async function loadProperties() {
-            // Read query params
             const params = new URLSearchParams(window.location.search);
             const countyVal = params.get('county') || '';
             const estateVal = params.get('estate') || '';
             const typeVal = params.get('type') || '';
             const minPrice = params.get('minPrice') || '';
             const maxPrice = params.get('maxPrice') || '';
-            
-            // Set input values to match search params
+
             const countySelect = document.querySelector('select:nth-of-type(1)');
             if (countySelect && countyVal) countySelect.value = countyVal;
-            
+
             const estateInput = document.querySelector('input[placeholder*="Karen"]');
             if (estateInput && estateVal) estateInput.value = estateVal;
-            
+
             const typeSelect = document.querySelectorAll('select')[1];
             if (typeSelect && typeVal) typeSelect.value = typeVal;
 
@@ -385,26 +385,24 @@
             const maxPriceInput = document.querySelector('input[placeholder="Max"]');
             if (maxPriceInput && maxPrice) maxPriceInput.value = maxPrice;
 
-            container.innerHTML = `<div class="col-span-full py-xl text-center text-outline">Loading premium listings...</div>`;
-            
-            const properties = await searchProperties({
-                county: countyVal,
-                estate: estateVal,
-                type: typeVal,
-                minPrice: minPrice,
-                maxPrice: maxPrice
-            });
+            container.innerHTML = '<div class="col-span-full py-xl text-center text-outline"><span class="material-symbols-outlined text-3xl inline-block mb-sm">search</span><p class="text-label-md">Loading listings...</p></div>';
+
+            let properties;
+            if (countyVal || estateVal || typeVal || minPrice || maxPrice) {
+                properties = await searchProperties({ county: countyVal, estate: estateVal, type: typeVal, minPrice: minPrice, maxPrice: maxPrice });
+            } else {
+                properties = await fetchProperties();
+            }
 
             if (!properties || properties.length === 0) {
                 if (typeof lastDbError !== 'undefined' && lastDbError) {
-                    container.innerHTML = `<div class="col-span-full py-xl text-center"><span class="material-symbols-outlined text-3xl inline-block mb-sm text-error">cloud_off</span><p class="text-label-md font-semibold text-error">Could not load properties</p><p class="text-label-sm text-on-surface-variant mt-xs">` + lastDbError.replace(/</g,'&lt;') + `</p><p class="text-label-sm text-on-surface-variant mt-xs">The database table may have restricted access. Contact the site administrator.</p></div>`;
+                    container.innerHTML = '<div class="col-span-full py-xl text-center"><span class="material-symbols-outlined text-3xl inline-block mb-sm text-error">cloud_off</span><p class="text-label-md font-semibold text-error">Could not load properties</p><p class="text-label-sm text-on-surface-variant mt-xs">' + lastDbError.replace(/</g,'&lt;') + '</p><p class="text-label-sm text-on-surface-variant mt-xs">The database table may have restricted access. Contact the site administrator.</p></div>';
                 } else {
-                    container.innerHTML = `<div class="col-span-full py-xl text-center text-outline">No properties found matching your criteria.</div>`;
+                    container.innerHTML = '<div class="col-span-full py-xl text-center text-outline"><span class="material-symbols-outlined text-3xl inline-block mb-sm">real_estate_agent</span><p class="text-label-md">No properties found matching your criteria.</p></div>';
                 }
                 return;
             }
 
-            // Fetch saved listings to show filled heart icons
             const savedListings = await fetchSavedListings();
             const savedIds = new Set(savedListings.map(p => p.id));
 
@@ -503,19 +501,23 @@
                 applyBtn.addEventListener('click', () => {
                     const countySelect = document.querySelector('select:nth-of-type(1)');
                     const estateInput = document.querySelector('input[placeholder*="Karen"]');
-                    const typeSelect = document.querySelectorAll('select')[2] || document.querySelectorAll('select')[1]; // Safety check
+                    const typeSelect = document.querySelectorAll('select')[1];
                     const minPriceInput = document.querySelector('input[placeholder="Min"]');
                     const maxPriceInput = document.querySelector('input[placeholder="Max"]');
 
                     const queryParams = new URLSearchParams();
                     if (countySelect && countySelect.value) queryParams.append('county', countySelect.value);
                     if (estateInput && estateInput.value) queryParams.append('estate', estateInput.value);
-                    if (typeSelect && typeSelect.value) queryParams.append('type', typeSelect.value);
+                    if (typeSelect && typeSelect.value && typeSelect.value !== 'All Types') queryParams.append('type', typeSelect.value);
                     if (minPriceInput && minPriceInput.value) queryParams.append('minPrice', minPriceInput.value);
                     if (maxPriceInput && maxPriceInput.value) queryParams.append('maxPrice', maxPriceInput.value);
 
-                    // Reload page with filters
-                    window.location.search = queryParams.toString();
+                    const qs = queryParams.toString();
+                    if (qs) {
+                        window.location.search = '?' + qs;
+                    } else {
+                        loadProperties();
+                    }
                 });
             }
         });

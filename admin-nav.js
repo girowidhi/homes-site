@@ -58,7 +58,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
   } catch (e) {
     console.error("Admin nav init error:", e);
-    showToast("Database connection issue. Some features may be limited.", "error");
   }
 });
 

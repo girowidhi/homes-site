@@ -135,12 +135,31 @@ async function requireAdmin() {
   return profile && profile.role === 'admin';
 }
 
+async function checkAdminOrRedirect() {
+  try {
+    const profile = await getUserProfile();
+    if (!profile || profile.role !== 'admin') {
+      setSessionToken(null);
+      window.location.href = 'admin-login.html';
+      return false;
+    }
+    return true;
+  } catch (e) {
+    window.location.href = 'admin-login.html';
+    return false;
+  }
+}
+
 async function authSignOut() {
   if (sessionToken) await api('authSignOut', { token: sessionToken });
   setSessionToken(null);
 }
 
 async function authSignIn(email, password) { return loginUser(email, password); }
+
+async function logoutUser() {
+  await authSignOut();
+}
 
 // ── Leads ─────────────────────────────────────────────────
 async function fetchLeads() {
