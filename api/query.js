@@ -28,16 +28,18 @@ export default async function handler(req, res) {
 
       case 'searchProperties': {
         const { county, estate, type, minPrice, maxPrice, status } = params || {};
-        result = await sql`
-          SELECT * FROM properties WHERE 1=1
-          ${county ? sql`AND location_county ILIKE ${'%' + county + '%'}` : sql``}
-          ${estate ? sql`AND location_estate ILIKE ${'%' + estate + '%'}` : sql``}
-          ${type && type !== 'Property Type' ? sql`AND type = ${type}` : sql``}
-          ${status ? sql`AND status = ${status}` : sql``}
-          ${minPrice ? sql`AND price >= ${Number(minPrice)}` : sql``}
-          ${maxPrice ? sql`AND price <= ${Number(maxPrice)}` : sql``}
-          ORDER BY created_at DESC
-        `;
+        result = await sql`SELECT * FROM properties ORDER BY created_at DESC`;
+        if (result && result.length > 0) {
+          result = result.filter(r => {
+            if (county && !r.location_county?.toLowerCase().includes(county.toLowerCase())) return false;
+            if (estate && !r.location_estate?.toLowerCase().includes(estate.toLowerCase())) return false;
+            if (type && type !== 'Property Type' && r.type !== type) return false;
+            if (status && r.status !== status) return false;
+            if (minPrice && (Number(r.price) < Number(minPrice))) return false;
+            if (maxPrice && (Number(r.price) > Number(maxPrice))) return false;
+            return true;
+          });
+        }
         break;
       }
 
